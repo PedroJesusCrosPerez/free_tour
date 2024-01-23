@@ -36,6 +36,7 @@ security:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/client, roles: ROLE_CLIENT }
         - { path: ^/guide, roles: ROLE_GUIDE }
+        - { path: ^/admin, roles: ROLE_USER } # TEMPORAL
 
 when@test:
     security:
