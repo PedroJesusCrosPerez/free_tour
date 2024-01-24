@@ -21,9 +21,7 @@ class HomeController extends AbstractController
     {
         $mivariableglobal = $this->params->get('project_root');
 
-        return $this->render('home/index.html.twig', [
-            // 'controller_name' => 'HomeController',
-            'controller_name' => $mivariableglobal,
-        ]);
+        // return $this->render('home/index.html.twig', [
+        return $this->render('views/layout.html.twig');
     }
 }
