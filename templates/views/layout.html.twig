@@ -2,7 +2,7 @@
 <html lang="es">
 
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="application-name" content="Proyecto HTML5, CSS3, javascript, PHP, bootstrap, jquery y symfony">
     <meta name="author" content="Pedro Jesús Cros Pérez">
@@ -18,37 +18,48 @@
     {% block stylesheets %}
         {# LIBRARIES #}
             {# BOOTSTRAP #}
-            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+            {# <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"> #}
+            {# <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> #}
             {# JQUERY #}
             <link href="{{ asset('jquery/jquery-ui-1.13.2/jquery-ui.css') }}" rel="stylesheet">
         {# MY OWN CSS3 #}
         <link href="{{ asset('css/baseStyle.css') }}" rel="stylesheet">
+        {# ICONS #}
+        <link href="{{ asset('icons/css/material-design-iconic-font.min.css') }}" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     {% endblock %}
 
     {% block javascripts %}
         {# LIBRARIES #}
             {# BOOTSTRAP #}
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+            {# <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script> #}
+            {# <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script> #}
             {# JQUERY #}
             {# <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> #}
             <script src="{{ asset('jquery/jquery-3.7.1.js') }}"></script>
             <script src="{{ asset('jquery/jquery-ui-1.13.2/jquery-ui.js') }}"></script>
         {# MY OWN JQUERY #}
         <script src="{{ asset('js/baseJs.js') }}"></script>
-{% block importmap %}{{ importmap('app') }}{% endblock %}
+        {% block importmap %}{{ importmap('app') }}{% endblock %}
+
+
+{# <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> #}
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     {% endblock %}
 </head>
 
 <body>
-{% block body %}
-    {% block nav %}
-        {% include 'views/nav.html.twig' %}
+    {% block body %}
+        {% block nav %}
+            {% include 'views/nav.html.twig' %}
+        {% endblock %}
+<br><br><br>
+        {% block main %}
+            {% include 'views/main.html.twig' %}
+        {% endblock %}
     {% endblock %}
-
-    {% block main %}
-        {% include 'views/main.html.twig' %}
-    {% endblock %}
-{% endblock %}
 </body>
 
 </html>

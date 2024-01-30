@@ -26,10 +26,14 @@ class Item
     private $photo = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $gps = null;
+    private ?string $coordinates = null;
 
     #[ORM\ManyToMany(targetEntity: Route::class, mappedBy: 'item')]
     private Collection $routes;
+
+    #[ORM\ManyToOne(inversedBy: 'items')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Locality $locality = null;
 
     public function __construct()
     {
@@ -77,14 +81,14 @@ class Item
         return $this;
     }
 
-    public function getGps(): ?string
+    public function getCoordinates(): ?string
     {
-        return $this->gps;
+        return $this->coordinates;
     }
 
-    public function setGps(string $gps): static
+    public function setCoordinates(string $coordinates): static
     {
-        $this->gps = $gps;
+        $this->coordinates = $coordinates;
 
         return $this;
     }
@@ -112,6 +116,18 @@ class Item
         if ($this->routes->removeElement($route)) {
             $route->removeItem($this);
         }
+
+        return $this;
+    }
+
+    public function getLocality(): ?Locality
+    {
+        return $this->locality;
+    }
+
+    public function setLocality(?Locality $locality): static
+    {
+        $this->locality = $locality;
 
         return $this;
     }

@@ -6,6 +6,8 @@
 parameters:
     mivariableglobal: 'hola, soy una variable global'
     project_root: '%kernel.project_dir%'
+    uploads-dir: '%kernel.project_dir%/public/uploads'
+    imgs-dir: '%kernel.project_dir%/public/uploads/images'
 
 services:
     # default configuration for services in *this* file

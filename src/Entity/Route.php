@@ -22,22 +22,34 @@ class Route
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
-    #[ORM\Column(type: Types::BLOB)]
+    #[ORM\Column(type: Types::TEXT)]
     private $photo = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $gps = null;
-
-    #[ORM\OneToOne(inversedBy: 'route', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Locality $locality = null;
+    private ?string $coordinates = null;
 
     #[ORM\ManyToMany(targetEntity: Item::class, inversedBy: 'routes')]
     private Collection $item;
 
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $datetime_start = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $datetime_end = null;
+
+    #[ORM\Column]
+    private ?int $capacity = null;
+
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $programation = null;
+
+    #[ORM\OneToMany(mappedBy: 'route', targetEntity: Tour::class, orphanRemoval: true)]
+    private Collection $tours;
+
     public function __construct()
     {
         $this->item = new ArrayCollection();
+        $this->tours = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -69,7 +81,7 @@ class Route
         return $this;
     }
 
-    public function getPhoto()
+    public function getPhoto(): ?string
     {
         return $this->photo;
     }
@@ -81,26 +93,14 @@ class Route
         return $this;
     }
 
-    public function getGps(): ?string
+    public function getCoordinates(): ?string
     {
-        return $this->gps;
+        return $this->coordinates;
     }
 
-    public function setGps(string $gps): static
+    public function setCoordinates(string $coordinates): static
     {
-        $this->gps = $gps;
-
-        return $this;
-    }
-
-    public function getLocality(): ?Locality
-    {
-        return $this->locality;
-    }
-
-    public function setLocality(Locality $locality): static
-    {
-        $this->locality = $locality;
+        $this->coordinates = $coordinates;
 
         return $this;
     }
@@ -125,6 +125,84 @@ class Route
     public function removeItem(Item $item): static
     {
         $this->item->removeElement($item);
+
+        return $this;
+    }
+
+    public function getDatetimeStart(): ?\DateTimeInterface
+    {
+        return $this->datetime_start;
+    }
+
+    public function setDatetimeStart(\DateTimeInterface $datetime_start): static
+    {
+        $this->datetime_start = $datetime_start;
+
+        return $this;
+    }
+
+    public function getDatetimeEnd(): ?\DateTimeInterface
+    {
+        return $this->datetime_end;
+    }
+
+    public function setDatetimeEnd(\DateTimeInterface $datetime_end): static
+    {
+        $this->datetime_end = $datetime_end;
+
+        return $this;
+    }
+
+    public function getCapacity(): ?int
+    {
+        return $this->capacity;
+    }
+
+    public function setCapacity(int $capacity): static
+    {
+        $this->capacity = $capacity;
+
+        return $this;
+    }
+
+    public function getProgramation(): ?string
+    {
+        return $this->programation;
+    }
+
+    public function setProgramation(string $programation): static
+    {
+        $this->programation = $programation;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Tour>
+     */
+    public function getTours(): Collection
+    {
+        return $this->tours;
+    }
+
+    public function addTour(Tour $tour): static
+    {
+        if (!$this->tours->contains($tour)) {
+            $this->tours->add($tour);
+            $tour->setRoute($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTour(Tour $tour): static
+    {
+        if ($this->tours->removeElement($tour)) {
+            // set the owning side to null (unless already changed)
+            if ($tour->getRoute() === $this) {
+                $tour->setRoute(null);
+            }
+        }
 
         return $this;
     }

@@ -1,0 +1,143 @@
+{% extends 'views/layout.html.twig' %}
+
+{% block title %}Home{% endblock %}
+
+{% block homeStylesheets %}
+{# MY OWN CSS3 #}
+<link href="{{ asset('css/homeStyle.css') }}" rel="stylesheet">
+<link href="{{ asset('jquery/slick-master/slick/slick.ss') }}" rel="stylesheet">
+<link href="{{ asset('jquery/slick-master/slick/slick-theme.ss') }}" rel="stylesheet">
+{% endblock %}
+
+{% block homeJavascripts %}
+{# MY OWN JQUERY #}
+<script src="{{ asset('js/homeJs.js') }}"></script>
+<script src="{{ asset('jquery/slick-master/slick/slick.min.js') }}"></script>
+{% block importmap %}{{ importmap('app') }}{% endblock %}
+{% endblock %}
+
+
+{% block main %}
+<style>
+    .example-wrapper {
+        margin: 1em auto;
+        max-width: 800px;
+        width: 95%;
+        font: 18px/1.5 sans-serif;
+    }
+
+    .example-wrapper code {
+        background: #F5F5F5;
+        padding: 2px 6px;
+    }
+
+    .ui-autocomplete-category {
+        font-weight: bold;
+        padding: .2em .4em;
+        margin: .8em 0 .2em;
+        line-height: 1.5;
+    }
+
+    .ui-autocomplete {
+        max-height: 200px;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+</style>
+
+<script>
+    $(function () {
+        $.widget("custom.catcomplete", $.ui.autocomplete, {
+            _create: function () {
+                this._super();
+                this.widget().menu("option", "items", "> :not(.ui-autocomplete-category)");
+            },
+            _renderMenu: function (ul, items) {
+                var that = this,
+                    currentCategory = "";
+                $.each(items, function (index, item) {
+                    var li;
+                    if (item.category != currentCategory) {
+                        ul.append("<li class='ui-autocomplete-category'>" + item
+                            .category + "</li>");
+                        currentCategory = item.category;
+                    }
+                    li = that._renderItemData(ul, item);
+                    if (item.category) {
+                        li.attr("aria-label", item.category + " : " + item.label);
+                    }
+                });
+            }
+        });
+        var data = [{
+                label: "Almeria",
+                category: "Andalucia"
+            },
+            {
+                label: "Cadiz",
+                category: "Andalucia"
+            },
+            {
+                label: "Cordoba",
+                category: "Andalucia"
+            },
+            {
+                label: "Granada",
+                category: "Andalucia"
+            },
+            {
+                label: "Huelva",
+                category: "Andalucia"
+            },
+            {
+                label: "Jaen",
+                category: "Andalucia"
+            },
+            {
+                label: "Malaga",
+                category: "Andalucia"
+            },
+            {
+                label: "Seville",
+                category: "Andalucia"
+            },
+            {
+                label: "Cádiz",
+                category: "Andalucia"
+            },
+        ];
+
+        console.log(data);
+
+        $("#search").catcomplete({
+            delay: 0,
+            source: data
+        });
+    });
+</script>
+
+<script>
+    $(function () {
+        $('.slick-carousel').slick({
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 2000,
+        });
+    });
+</script>
+
+
+<main>
+    <div class="lazy slider">
+        <div><img src="https://www.freetour.com/images/home/slider1-1440.webp" alt="Imagen 1"></div>
+        <div><img src="https://www.freetour.com/images/home/slider2-1440.webp" alt="Imagen 2"></div>
+        <div><img src="https://www.freetour.com/images/home/slider3-1440.webp" alt="Imagen 3"></div>
+    </div>
+
+    <label for="search">Search: </label>
+    <input id="search">
+    <div class="ui-autocomplete-category"></div>
+</main>
+
+{% endblock %}
