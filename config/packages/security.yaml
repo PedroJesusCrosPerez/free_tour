@@ -25,7 +25,7 @@ security:
             form_login:
                 login_path: action-login
                 check_path: action-login
-                default_target_path: /
+                default_target_path: / # app_default_route # este parámetro es para redirigir al usuario según su rol
             logout:
                 path: action-logout
                 target: /

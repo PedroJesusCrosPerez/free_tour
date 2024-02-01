@@ -1,8 +1,5 @@
 {% extends 'views/layout.html.twig' %}
 
-
-
-
 {% block main %}
 
     {% block mystylesheet %}
@@ -13,7 +10,7 @@
                 position: relative;
             }
 
-            #busqueda, .busqueda {
+            #busqueda, .busqueda, .custom-combobox {
                 position: absolute;
                 top: 50%;
                 left: 50%;
@@ -24,7 +21,7 @@
                 padding-left: 2rem;
 
                 /* width: 80%;
-        max-width: 300px; */
+                max-width: 300px; */
                 width: 30%;
             }
 
@@ -33,13 +30,79 @@
                 max-height: 550px;
                 width: auto;
             }
+            
+            /* Estilos personalizados para el input de búsqueda en una web de viajes */
+            .custom-input {
+                padding: 15px;
+                border: 2px solid #3498db;
+                border-radius: 10px;
+                width: 100%;
+                box-sizing: border-box;
+                font-size: 16px;
+                color: #333;
+                transition: border-color 0.3s ease-in-out;
+
+                /* Estilo de placeholder */
+                ::placeholder {
+                    color: #95a5a6;
+                }
+
+                /* Estilo cuando el input está enfocado */
+                &:focus {
+                    outline: none;
+                    border-color: #2ecc71;
+                }
+            }
         </style>
+        
+        <style>
+            .custom-combobox-toggle {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                margin-left: -1px;
+                padding: 0;
+            }
+
+            .custom-combobox-input {
+                margin: 0;
+                padding: 5px 10px;
+            }
+
+            ul, li {
+                list-style: none;
+            }
+
+            .ui-autocomplete {
+                max-height: 200px;
+                overflow-y: auto;
+                overflow-x: hidden;
+            }
+        </style>
+
+        {# TODO eliminar en caso de ser necesario => #}
+        {# Intento de superponer el botón de desplegar select para que al hacer click en el select se despliegue automáticamente #}
+        {# <style>
+            .ui-button {
+                height: 2.2em;
+                opacity: 0;
+                width: 60%;
+                position: absolute;
+                left: 0;
+            }
+        </style> #}
     {% endblock %}
 
     {% block myscripts %}
         {# <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> #}
+        {# Temporal - START #}
+            <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+            <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+            <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+            <script src="{{ asset('jquery/combobox/combobox.js') }}"></script>
+        {# Temporal - END #}
     {% endblock %}
 
     <main>
@@ -76,7 +139,6 @@
                     <img src="https://www.freetour.com/images/home/slider3-1440.webp" class="d-block w-100"
                         alt="Provincia 3">
                 </div>
-                <!-- Agrega más elementos carousel-item según sea necesario -->
             </div>
             <a class="carousel-control-prev" href="#carouselDestinos" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -91,34 +153,17 @@
         <!-- Input para búsqueda -->
         <div class="form-group">
             <!-- <label for="busqueda">Buscar Destino:</label> -->
-            <input type="text" class="form-control" id="busqueda" placeholder="Introduce el destino">
+            {# <input type="text" class="form-control" id="busqueda" placeholder="Introduce el destino"> #}
+            <select id="combobox">
+                <option value>Selecciona una ciudad...</option>
+                {% for locality in localities %}
+                    <option value="{{ locality.id }}">{{ locality.name }}</option>
+                {% endfor %}
+            </select>
             {# <div class="input-group-append"> #}
                 <button class="btn btn-primary" type="button">Buscar</button>
             {# </div> #}
         </div>
     </main>
-    <style>
-        /* Estilos personalizados para el input de búsqueda en una web de viajes */
-        .custom-input {
-            padding: 15px;
-            border: 2px solid #3498db;
-            border-radius: 10px;
-            width: 100%;
-            box-sizing: border-box;
-            font-size: 16px;
-            color: #333;
-            transition: border-color 0.3s ease-in-out;
 
-            /* Estilo de placeholder */
-            ::placeholder {
-                color: #95a5a6;
-            }
-
-            /* Estilo cuando el input está enfocado */
-            &:focus {
-                outline: none;
-                border-color: #2ecc71;
-            }
-        }
-    </style>
 {% endblock %}

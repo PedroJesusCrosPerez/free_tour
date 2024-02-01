@@ -1,19 +1,26 @@
 <?php
-
 namespace App\Controller\Admin;
 
+use App\Entity;
+use App\Entity\Item;
+use App\Entity\Locality;
+use App\Entity\Province;
+use App\Entity\Ratings;
+use App\Entity\Report;
+use App\Entity\Reservation;
+use App\Entity\Tour;
 use App\Entity\User;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
-use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
-use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
-use Symfony\Component\HttpFoundation\Response;
+// use App\Entity\Route;
 use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
-use Symfony\Component\Security\Core\User\UserInterface;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
+use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
+use Symfony\Component\HttpFoundation\Response;
 use EasyCorp\Bundle\EasyAdminBundle\Config\UserMenu;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class DashboardController extends AbstractDashboardController
 {
@@ -24,6 +31,7 @@ class DashboardController extends AbstractDashboardController
         $this->configureDashboard();
         $this->configureMenuItems();
         $this->configureActions();
+        // $this->configureUserMenu();
         return $this->render('admin/index.html.twig');
 
         // Option 1. You can make your dashboard redirect to some common page of your backend
@@ -51,13 +59,34 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
-        yield MenuItem::linkToCrud('User CRUD', 'fas fa-user', User::class);
-
+        // User
         yield MenuItem::section('Usuarios');
-        yield MenuItem::linkToCrud('Ruta','fas fa-solid fa-code-merge', Route::class);
-        yield MenuItem::section('Calendario Rutas');
+        yield MenuItem::linkToCrud('Usuarios', 'fas fa-users', User::class);
+
+        // Route
+        // yield MenuItem::section('Rutas');
+        // yield MenuItem::linkToCrud('Ruta','fas fa-solid fa-code-merge', Entity\Route::class);
+
+        // Locality
+        yield MenuItem::section('Localizaciones');
+        yield MenuItem::linkToCrud('Visitas', 'fas fa-signal', Item::class);
+        // yield MenuItem::linkToRoute('Rutas', 'fas fa-signal', 'prueba'); // TODO ruta custom
+        yield MenuItem::linkToCrud('Localidades', 'fas fa-synagogue', Locality::class);
+        yield MenuItem::linkToCrud('Provincias', 'fas fa-warehouse', Province::class);
+
+        // Entities
+        yield MenuItem::section('Tours');
+        yield MenuItem::linkToCrud('Tour', 'fas fa-signal', Tour::class);
+        yield MenuItem::linkToCrud('Reservas', 'fas fa-signal', Reservation::class);
+        yield MenuItem::linkToCrud('Informes', 'fas fa-signal', Report::class);
+        yield MenuItem::linkToCrud('Valoraciones', 'fas fa-signal', Ratings::class);
+        
+        // Web Routes
+        yield MenuItem::section('Rutas de la web');
+        // yield MenuItem::linkToRoute('Inicio', 'fas fa-home', 'home'); // Forma mala, ya que en la url te redirige a través de /admin
+        yield MenuItem::linkToUrl('Inicio', 'fas fa-home', $this->generateUrl('home'));
+        yield MenuItem::linkToUrl('Inicio de sesión', 'fas fa-right-to-bracket', $this->generateUrl('action-login'));
+        yield MenuItem::linkToUrl('Registro', 'fas fa-sign-hanging', $this->generateUrl('action-register'));
     }
 
     public function configureActions(): Actions
@@ -66,9 +95,22 @@ class DashboardController extends AbstractDashboardController
         ->add(Crud::PAGE_INDEX, Action::DETAIL);
     }
 
-    // public function configureUserMenu(UserInterface $user): UserMenu
-    // {
-    //     return parent::configureUserMenu($user)
-    //         ->setAvatarUrl('imgs-dir/'.$user->getPhoto());
-    // }
+    // No se que le pasa
+    public function configureUserMenu(UserInterface $user): UserMenu
+    {
+        if (!$user instanceof User) {
+            throw new \Exception('Usuario erroneo');
+        }
+
+        return parent::configureUserMenu($user)
+            ->setAvatarUrl('uploads/images/'.$user->getPhoto())
+            // ->setAvatarUrl('imgs-dir/'.$user->getPhoto())
+            ->displayUserName(false)
+            ->setName($user->getFormalName())
+            // // Este código se utilizaría para al hacer click a un User puedas ir a otra pentalla que te salgan sus datos maquetados con my propio css&js
+            // ->addMenuItems([
+            //     MenuItem::linkToUrl('My Profile', 'fas fa-user', $this->generateUrl('show-user'))
+            // ])
+        ;
+    }
 }

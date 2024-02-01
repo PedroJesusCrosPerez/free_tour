@@ -1,0 +1,131 @@
+{# templates/login/index.html.twig #}
+{% extends 'views/main.html.twig' %}
+
+{% block title %}Iniciar sesión{% endblock %}
+
+{% block main %}
+
+    {% block mystylesheets2 %}
+        <link rel="stylesheet" href="{{ asset('css/loginStyle.css') }}">
+    {% endblock %}
+
+    {% block myscripts2 %}
+        <script src="{{ asset('js/loginJs.js') }}"></script>
+    {% endblock %}
+
+    <h1>Inicio de sesión</h1>
+
+    {% if error %}
+    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+
+    <!-- Botón que activa el modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalLogin">
+        Iniciar Sesión
+    </button>
+
+    <!-- Modal de Inicio de Sesión -->
+    <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="modalLoginLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLoginLabel">Inicio de Sesión</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form">
+
+                        <ul class="tab-group">
+                            <li class="tab active"><a href="#signup">Sign Up</a></li>
+                            <li class="tab"><a href="#login">Log In</a></li>
+                        </ul>
+                
+                        <div class="tab-content">
+                            <div id="signup">
+                                <h1>Sign Up for Free</h1>
+                
+                                <form action="/" method="post">
+                
+                                    <div class="top-row">
+                                        <div class="field-wrap">
+                                            <label>
+                                                First Name<span class="req">*</span>
+                                            </label>
+                                            <input type="text" required autocomplete="off" />
+                                        </div>
+                
+                                        <div class="field-wrap">
+                                            <label>
+                                                Last Name<span class="req">*</span>
+                                            </label>
+                                            <input type="text" required autocomplete="off" />
+                                        </div>
+                                    </div>
+                
+                                    <div class="field-wrap">
+                                        <label>
+                                            Email Address<span class="req">*</span>
+                                        </label>
+                                        <input type="email" required autocomplete="off" />
+                                    </div>
+                
+                                    <div class="field-wrap">
+                                        <label>
+                                            Set A Password<span class="req">*</span>
+                                        </label>
+                                        <input type="password" required autocomplete="off" />
+                                    </div>
+                
+                                    <button type="submit" class="button button-block" />Get Started</button>
+                
+                                </form>
+                
+                            </div>
+                
+                            <div id="login">
+                                <h1>Welcome Back!</h1>
+                
+                                <form action="/" method="post">
+                
+                                    <div class="field-wrap">
+                                        <label>
+                                            Email Address<span class="req">*</span>
+                                        </label>
+                                        <input type="email" required autocomplete="off" />
+                                    </div>
+                
+                                    <div class="field-wrap">
+                                        <label>
+                                            Password<span class="req">*</span>
+                                        </label>
+                                        <input type="password" required autocomplete="off" />
+                                    </div>
+                
+                                    <p class="forgot"><a href="#">Forgot Password?</a></p>
+                
+                                    <button class="button button-block" />Log In</button>
+                
+                                </form>
+                
+                            </div>
+                
+                        </div><!-- tab-content -->
+                
+                    </div> <!-- /form -->
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enlace al archivo JavaScript de Bootstrap y a la biblioteca jQuery -->
+    {# <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> #}
+
+{% endblock %}

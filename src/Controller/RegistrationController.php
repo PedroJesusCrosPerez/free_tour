@@ -42,14 +42,34 @@ class RegistrationController extends AbstractController
                 )
             );
 
+            # VERSIÓN1 - START
+            // $file = $form['photo']->getData();
+            // $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+
+            // $file->move(
+            //     $this->getParameter('imgs-dir'),
+            //     $fileName
+            // );
+
+            // $user->setPhoto($fileName);
+            # VERSIÓN1 - END
+
+            # VERSIÓN2 - START
             $file = $form['photo']->getData();
-            $fileName = md5(uniqid()) . '.' . $file->guessExtension();
-
-            $file->move(
-                $this->getParameter('imgs-dir'),
-                $fileName
-            );
-
+            if ($file) {
+                $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+        
+                $file->move(
+                    $this->getParameter('imgs-dir'),
+                    $fileName
+                );
+        
+                $user->setPhoto($fileName);
+            } else {
+                $user->setPhoto('public/images/default.png');
+            }
+            # VERSIÓN2 - END
+            $user->setRoles(['ROLE_CLIENT']); // TODO por defecto, los usuarios se crean con rol de cliente
             $entityManager->persist($user);
             $entityManager->flush();
 

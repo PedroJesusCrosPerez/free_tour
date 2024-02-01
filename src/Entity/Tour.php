@@ -32,6 +32,9 @@ class Tour
     #[ORM\OneToMany(mappedBy: 'tour', targetEntity: Reservation::class, orphanRemoval: true)]
     private Collection $reservations;
 
+    #[ORM\OneToOne(mappedBy: 'tour', cascade: ['persist', 'remove'])]
+    private ?Report $report = null;
+
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
@@ -116,6 +119,23 @@ class Tour
                 $reservation->setTour(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getReport(): ?Report
+    {
+        return $this->report;
+    }
+
+    public function setReport(Report $report): static
+    {
+        // set the owning side of the relation if necessary
+        if ($report->getTour() !== $this) {
+            $report->setTour($this);
+        }
+
+        $this->report = $report;
 
         return $this;
     }

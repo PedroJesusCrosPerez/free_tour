@@ -12,7 +12,7 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--<base href="views/src" target="_blank">-->
-    <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
     <title>{% block title %}Free tour I.E.S. Fuentezuelas{% endblock %}</title>
 
     {% block stylesheets %}
@@ -27,8 +27,8 @@
         {# ICONS #}
         <link href="{{ asset('icons/css/material-design-iconic-font.min.css') }}" rel="stylesheet">
 
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        {# PRUEBAS #}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     {% endblock %}
 
     {% block javascripts %}
@@ -44,9 +44,9 @@
         <script src="{{ asset('js/baseJs.js') }}"></script>
         {% block importmap %}{{ importmap('app') }}{% endblock %}
 
-
-{# <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> #}
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        {# PRUEBAS #}
+        {# <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> #}
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     {% endblock %}
 </head>
 

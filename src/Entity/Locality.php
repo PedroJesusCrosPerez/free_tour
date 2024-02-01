@@ -22,9 +22,6 @@ class Locality
     #[ORM\JoinColumn(nullable: false)]
     private ?Province $province = null;
 
-    #[ORM\OneToOne(mappedBy: 'locality', cascade: ['persist', 'remove'])]
-    private ?Route $route = null;
-
     #[ORM\OneToMany(mappedBy: 'locality', targetEntity: Item::class)]
     private Collection $items;
 
@@ -62,23 +59,6 @@ class Locality
         return $this;
     }
 
-    public function getRoute(): ?Route
-    {
-        return $this->route;
-    }
-
-    public function setRoute(Route $route): static
-    {
-        // set the owning side of the relation if necessary
-        if ($route->getLocality() !== $this) {
-            $route->setLocality($this);
-        }
-
-        $this->route = $route;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Item>
      */
@@ -107,5 +87,12 @@ class Locality
         }
 
         return $this;
+    }
+
+
+    public function __toString()
+    {
+        // return $this->name . $this->;
+        return $this->name . ", " . $this->getProvince();
     }
 }

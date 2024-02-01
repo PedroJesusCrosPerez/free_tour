@@ -1,0 +1,114 @@
+{# templates/login/index.html.twig #}
+{% extends 'views/main.html.twig' %}
+
+{% block title %}Iniciar sesión{% endblock %}
+
+{% block main %}
+
+    {% block mystylesheets2 %}
+        <link rel="stylesheet" href="{{ asset('css/loginStyle.css') }}">
+    {% endblock %}
+
+    {% block myscripts2 %}
+        <script src="{{ asset('js/loginJs.js') }}"></script>
+        <script src="{{ asset('js/navModal.js') }}"></script>
+    {% endblock %}
+
+    <h1>Inicio de sesión</h1>
+
+    {% if error %}
+    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    {# <form action="{{ path('action-login') }}" method="post">
+        <label for="username">Email:</label>
+        <input type="text" id="username" name="_username" value="{{ last_username }}" autofocus>
+
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" name="_password">        
+
+        <button type="submit" name="_target_path" value="/account">¡¡Iniciar sesión!!</button>
+    </form> #}
+        {# If you want to control the URL the user is redirected to on success
+            <input type="hidden" name="_target_path" value="/account"> #}
+
+    <div class="form">
+
+        <ul class="tab-group">
+            <li class="tab active"><a href="#signup">Sign Up</a></li>
+            <li class="tab"><a href="#login">Log In</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="signup">
+                <h1>Sign Up for Free</h1>
+
+                <form action="/" method="post">
+
+                    <div class="top-row">
+                        <div class="field-wrap">
+                            <label>
+                                First Name<span class="req">*</span>
+                            </label>
+                            <input type="text" required autocomplete="off" />
+                        </div>
+
+                        <div class="field-wrap">
+                            <label>
+                                Last Name<span class="req">*</span>
+                            </label>
+                            <input type="text" required autocomplete="off" />
+                        </div>
+                    </div>
+
+                    <div class="field-wrap">
+                        <label>
+                            Email Address<span class="req">*</span>
+                        </label>
+                        <input type="email" required autocomplete="off" />
+                    </div>
+
+                    <div class="field-wrap">
+                        <label>
+                            Set A Password<span class="req">*</span>
+                        </label>
+                        <input type="password" required autocomplete="off" />
+                    </div>
+
+                    <button type="submit" class="button button-block" />Get Started</button>
+
+                </form>
+
+            </div>
+
+            <div id="login">
+                <h1>Welcome Back!</h1>
+
+                <form action="/" method="post">
+
+                    <div class="field-wrap">
+                        <label>
+                            Email Address<span class="req">*</span>
+                        </label>
+                        <input type="email" required autocomplete="off" />
+                    </div>
+
+                    <div class="field-wrap">
+                        <label>
+                            Password<span class="req">*</span>
+                        </label>
+                        <input type="password" required autocomplete="off" />
+                    </div>
+
+                    <p class="forgot"><a href="#">Forgot Password?</a></p>
+
+                    <button class="button button-block" />Log In</button>
+
+                </form>
+
+            </div>
+
+        </div><!-- tab-content -->
+
+    </div> <!-- /form -->
+{% endblock %}

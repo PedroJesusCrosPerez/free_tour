@@ -19,11 +19,11 @@ class Item
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
-    #[ORM\Column(type: Types::BLOB)]
-    private $photo = null;
+    #[ORM\Column(length: 255)]
+    private ?string $photo = null;
 
     #[ORM\Column(length: 255)]
     private ?string $coordinates = null;
@@ -69,12 +69,12 @@ class Item
         return $this;
     }
 
-    public function getPhoto()
+    public function getPhoto(): ?string
     {
         return $this->photo;
     }
 
-    public function setPhoto($photo): static
+    public function setPhoto(?string $photo): self
     {
         $this->photo = $photo;
 
