@@ -1,3 +1,53 @@
-body {
-    background-color: coral;
+/* FLECHA MOSTAR MÁS EN BÚSQUEDA POR AUTOCOMPLETE */
+.icon-chevron-down { 
+    cursor: pointer; padding: 0.4em; 
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+.icon-chevron-down:hover { background-color: #6998AB; }
+.icon-chevron-down:active { background-color: #cadae0; }
+
+.custom-combobox {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+/* Estilos personalizados para el input de búsqueda en una web de viajes */
+.custom-input {
+    padding: 15px;
+    border: 2px solid #3498db;
+    border-radius: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 16px;
+    color: #333;
+    transition: border-color 0.3s ease-in-out;
+
+    /* Estilo de placeholder */
+    ::placeholder {
+        color: #95a5a6;
+    }
+
+    /* Estilo cuando el input está enfocado */
+    &:focus {
+        outline: none;
+        border-color: #2ecc71;
+    }
+}
+
+
+
+.custom-combobox-toggle {
+    padding: 0.8em 0.5em;
+}
+
+.custom-combobox-input {
+    margin: 0;
+    padding: 5px 10px;
+}
+
+.ui-autocomplete {
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }

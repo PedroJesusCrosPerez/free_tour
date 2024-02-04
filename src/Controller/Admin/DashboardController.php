@@ -68,11 +68,13 @@ class DashboardController extends AbstractDashboardController
         // yield MenuItem::linkToCrud('Ruta','fas fa-solid fa-code-merge', Entity\Route::class);
 
         // Locality
-        yield MenuItem::section('Localizaciones');
+        yield MenuItem::section('Ubicaciones');
         yield MenuItem::linkToCrud('Visitas', 'fas fa-signal', Item::class);
-        // yield MenuItem::linkToRoute('Rutas', 'fas fa-signal', 'prueba'); // TODO ruta custom
-        yield MenuItem::linkToCrud('Localidades', 'fas fa-synagogue', Locality::class);
-        yield MenuItem::linkToCrud('Provincias', 'fas fa-warehouse', Province::class);
+        yield MenuItem::linkToUrl('Rutas - linkToUrl(add Route)', 'fas fa-code-merge', $this->generateUrl('home'));
+        yield MenuItem::linkToCrud('Rutas - linkToCrud(CRUD Route)', 'fas fa-signal', Entity\Route::class);
+        yield MenuItem::linkToRoute('Rutas', 'fas fa-signal', 'home');
+        yield MenuItem::linkToCrud('Localidades', 'fas fa-solid fa-map-pin', Locality::class);
+        yield MenuItem::linkToCrud('Provincias', 'fas fa-regular fa-map', Province::class);
 
         // Entities
         yield MenuItem::section('Tours');

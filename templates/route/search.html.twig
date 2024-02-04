@@ -1,0 +1,27 @@
+{# templates/route/create.html.twig #}
+{% extends 'views/main.html.twig' %}
+
+{% block title %}Busqueda de tours{% endblock %}
+
+{% block main %}
+
+    <h1> Params</h1>
+    <p>{{ locality }}</p><br>
+    <p>{{ daterange }}</p><br>
+    <p>{{ amount }}</p><br>
+    {# {% if saveSearch == "true" %}
+        <p>True</p>
+    {% else %}
+        <p>False</p>
+    {% endif %} #}
+    <br>
+    {# <p>{{ saveSearch }}</p><br> #}
+
+<hr>
+<br>
+    <h1>All Params</h1><br>
+    {% for param in allParams %}
+        <p>{{ param }}</p><br>
+    {% endfor %}
+
+{% endblock %}

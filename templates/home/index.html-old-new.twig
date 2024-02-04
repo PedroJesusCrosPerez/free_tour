@@ -1,0 +1,169 @@
+{% extends 'views/layout.html.twig' %}
+
+{% block main %}
+
+    {% block mystylesheet %}
+        {# <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> #}
+        <style>
+            /* Estilo para posicionar el input sobre el carrusel */
+            .busqueda-container {
+                position: relative;
+            }
+
+            #busqueda, .busqueda, .custom-combobox {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 1;
+
+                /* text-align: center; */
+                padding-left: 2rem;
+
+                /* width: 80%;
+                max-width: 300px; */
+                width: 30%;
+            }
+
+            /* Alinear imágenes */
+            .carousel-item {
+                max-height: 550px;
+                width: auto;
+            }
+            
+            /* Estilos personalizados para el input de búsqueda en una web de viajes */
+            .custom-input {
+                padding: 15px;
+                border: 2px solid #3498db;
+                border-radius: 10px;
+                width: 100%;
+                box-sizing: border-box;
+                font-size: 16px;
+                color: #333;
+                transition: border-color 0.3s ease-in-out;
+
+                /* Estilo de placeholder */
+                ::placeholder {
+                    color: #95a5a6;
+                }
+
+                /* Estilo cuando el input está enfocado */
+                &:focus {
+                    outline: none;
+                    border-color: #2ecc71;
+                }
+            }
+        </style>
+        
+        <style>
+            .custom-combobox-toggle {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                margin-left: -1px;
+                padding: 0;
+            }
+
+            .custom-combobox-input {
+                margin: 0;
+                padding: 5px 10px;
+            }
+
+            ul, li {
+                list-style: none;
+            }
+
+            .ui-autocomplete {
+                max-height: 200px;
+                overflow-y: auto;
+                overflow-x: hidden;
+            }
+        </style>
+
+        {# TODO eliminar en caso de ser necesario => #}
+        {# Intento de superponer el botón de desplegar select para que al hacer click en el select se despliegue automáticamente #}
+        {# <style>
+            .ui-button {
+                height: 2.2em;
+                opacity: 0;
+                width: 60%;
+                position: absolute;
+                left: 0;
+            }
+        </style> #}
+    {% endblock %}
+
+    {% block myscripts %}
+        {# <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> #}
+        {# Temporal - START #}
+            <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+            <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+            <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+            <script src="{{ asset('jquery/combobox/combobox.js') }}"></script>
+        {# Temporal - END #}
+    {% endblock %}
+
+    <main>
+        {# <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>MAIN</h1>
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+
+                </div>
+            </div>
+        </div> #}
+
+        <!-- Carrusel de imágenes -->
+        <div id="carouselDestinos" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselDestinos" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselDestinos" data-slide-to="1"></li>
+                <li data-target="#carouselDestinos" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="https://www.freetour.com/images/home/slider1-1440.webp" class="d-block w-100"
+                        alt="Provincia 1">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://www.freetour.com/images/home/slider2-1440.webp" class="d-block w-100"
+                        alt="Provincia 2">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://www.freetour.com/images/home/slider3-1440.webp" class="d-block w-100"
+                        alt="Provincia 3">
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselDestinos" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Anterior</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselDestinos" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Siguiente</span>
+            </a>
+        </div>
+
+        <!-- Input para búsqueda -->
+        <div class="form-group">
+            <!-- <label for="busqueda">Buscar Destino:</label> -->
+            {# <input type="text" class="form-control" id="busqueda" placeholder="Introduce el destino"> #}
+            <select id="combobox">
+                <option value>Selecciona una ciudad...</option>
+                {% for locality in localities %}
+                    <option value="{{ locality.id }}">{{ locality.name }}</option>
+                {% endfor %}
+            </select>
+            {# <div class="input-group-append"> #}
+                <button class="btn btn-primary" type="button">Buscar</button>
+            {# </div> #}
+        </div>
+    </main>
+
+{% endblock %}

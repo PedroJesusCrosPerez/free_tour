@@ -1,169 +1,470 @@
-{% extends 'views/layout.html.twig' %}
+{% extends 'views/main.html.twig' %}
+
+{% block pagescripts %}
+    <script src="{{ asset('jquery/combobox/combobox.js') }}"></script>
+    <script src="{{ asset('js/homeScript.js') }}"></script>
+{% endblock %}
+{% block pagestylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/homeStyle.css') }}">
+{% endblock %}
+
+{% block title %}Inicio{% endblock %}
 
 {% block main %}
+    {# <form method="post" action="{{ path('action-login') }}">
+        <label for="username">Email:</label>
+        <input type="text" id="username" name="_username" required>
 
-    {% block mystylesheet %}
-        {# <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> #}
-        <style>
-            /* Estilo para posicionar el input sobre el carrusel */
-            .busqueda-container {
-                position: relative;
-            }
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="_password" required>
 
-            #busqueda, .busqueda, .custom-combobox {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                z-index: 1;
+        <button type="submit">Login</button>
+    </form> #}
 
-                /* text-align: center; */
-                padding-left: 2rem;
+	<!-- MAIN - START -->
+	<main class="hero">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-lg-7">
+					<div class="intro-wrap">
+						<h1 class="mb-5"><span class="d-block">Disfruta Tu Tour</span> Viaje En <span class="typed-words"></span></h1>
 
-                /* width: 80%;
-                max-width: 300px; */
-                width: 30%;
-            }
+						<div class="row">
+							<div class="col-12">
+								<form class="form" method="get" action="{{ path('route-search') }}">
+									<div class="row mb-2">
+										<div class="col-sm-12 col-md-6 mb-3 mb-lg-0 col-lg-4">
+											{# <select name="" id="" class="form-control custom-select">
+												<option value="">Destination</option>
+												<option value="">Peru</option>
+												<option value="">Japan</option>
+												<option value="">Thailand</option>
+												<option value="">Brazil</option>
+												<option value="">United States</option>
+												<option value="">Israel</option>
+												<option value="">China</option>
+												<option value="">Russia</option>
+											</select> #}
+                                            <select name="locality" id="combobox" class="form-control custom-select">
+                                                <option value>Selecciona una ciudad...</option>
+                                                {% for locality in localities %}
+                                                    <option value="{{ locality.id }}">{{ locality.name }}</option>
+                                                {% endfor %}
+                                            </select>
+										</div>
+										<div class="col-sm-12 col-md-6 mb-3 mb-lg-0 col-lg-5">
+											<input name="daterange" type="text" class="form-control">
+										</div>
+										<div class="col-sm-12 col-md-6 mb-3 mb-lg-0 col-lg-3">
+											<input name="amount" type="number" class="form-control" placeholder="nº personas">
+										</div>
 
-            /* Alinear imágenes */
-            .carousel-item {
-                max-height: 550px;
-                width: auto;
-            }
-            
-            /* Estilos personalizados para el input de búsqueda en una web de viajes */
-            .custom-input {
-                padding: 15px;
-                border: 2px solid #3498db;
-                border-radius: 10px;
-                width: 100%;
-                box-sizing: border-box;
-                font-size: 16px;
-                color: #333;
-                transition: border-color 0.3s ease-in-out;
+									</div>    
+									<div class="row align-items-center">
+										<div class="col-sm-12 col-md-6 mb-3 mb-lg-0 col-lg-4">
+											<input type="submit" class="btn btn-primary btn-block" value="Buscar">
+										</div>
+										{# Guardar búsqueda #}
+										{# <div class="col-lg-8">
+											<label class="control control--checkbox mt-3">
+												<span class="caption">Guardar esta búsqueda</span>
+												<input type="checkbox" checked="checked" />
+												<div class="control__indicator"></div>
+											</label>
+										</div> #}
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-5">
+					<div class="slides">
+						<img src="{{ asset('images/template/hero-slider-1.jpg') }}" alt="Image" class="img-fluid active">
+						<img src="{{ asset('images/template/hero-slider-2.jpg') }}" alt="Image" class="img-fluid">
+						<img src="{{ asset('images/template/hero-slider-3.jpg') }}" alt="Image" class="img-fluid">
+						<img src="{{ asset('images/template/hero-slider-4.jpg') }}" alt="Image" class="img-fluid">
+						<img src="{{ asset('images/template/hero-slider-5.jpg') }}" alt="Image" class="img-fluid">
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+	<!-- MAIN - END -->
 
-                /* Estilo de placeholder */
-                ::placeholder {
-                    color: #95a5a6;
-                }
+	<!-- SECTIONS - START >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+		<!-- SECTION #1 -->
+	<!-- <div class="untree_co-section">
+		<div class="container">
+			<div class="row mb-5 justify-content-center">
+				<div class="col-lg-6 text-center">
+					<h2 class="section-title text-center mb-3">Our Services</h2>
+					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+				</div>
+			</div>
+			<div class="row align-items-stretch">
+				<div class="col-lg-4 order-lg-1">
+					<div class="h-100"><div class="frame h-100"><div class="feature-img-bg h-100" style="background-image: url('images/hero-slider-1.jpg');"></div></div></div>
+				</div>
 
-                /* Estilo cuando el input está enfocado */
-                &:focus {
-                    outline: none;
-                    border-color: #2ecc71;
-                }
-            }
-        </style>
-        
-        <style>
-            .custom-combobox-toggle {
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                margin-left: -1px;
-                padding: 0;
-            }
+				<div class="col-6 col-sm-6 col-lg-4 feature-1-wrap d-md-flex flex-md-column order-lg-1" >
 
-            .custom-combobox-input {
-                margin: 0;
-                padding: 5px 10px;
-            }
+					<div class="feature-1 d-md-flex">
+						<div class="align-self-center">
+							<span class="flaticon-house display-4 text-primary"></span>
+							<h3>Beautiful Condo</h3>
+							<p class="mb-0">Even the all-powerful Pointing has no control about the blind texts.</p>
+						</div>
+					</div>
 
-            ul, li {
-                list-style: none;
-            }
+					<div class="feature-1 ">
+						<div class="align-self-center">
+							<span class="flaticon-restaurant display-4 text-primary"></span>
+							<h3>Restaurants & Cafe</h3>
+							<p class="mb-0">Even the all-powerful Pointing has no control about the blind texts.</p>
+						</div>
+					</div>
 
-            .ui-autocomplete {
-                max-height: 200px;
-                overflow-y: auto;
-                overflow-x: hidden;
-            }
-        </style>
+				</div>
 
-        {# TODO eliminar en caso de ser necesario => #}
-        {# Intento de superponer el botón de desplegar select para que al hacer click en el select se despliegue automáticamente #}
-        {# <style>
-            .ui-button {
-                height: 2.2em;
-                opacity: 0;
-                width: 60%;
-                position: absolute;
-                left: 0;
-            }
-        </style> #}
-    {% endblock %}
+				<div class="col-6 col-sm-6 col-lg-4 feature-1-wrap d-md-flex flex-md-column order-lg-3" >
 
-    {% block myscripts %}
-        {# <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> #}
-        {# Temporal - START #}
-            <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-            <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-            <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-            <script src="{{ asset('jquery/combobox/combobox.js') }}"></script>
-        {# Temporal - END #}
-    {% endblock %}
+					<div class="feature-1 d-md-flex">
+						<div class="align-self-center">
+							<span class="flaticon-mail display-4 text-primary"></span>
+							<h3>Easy to Connect</h3>
+							<p class="mb-0">Even the all-powerful Pointing has no control about the blind texts.</p>
+						</div>
+					</div>
 
-    <main>
-        {# <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h1>MAIN</h1>
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
+					<div class="feature-1 d-md-flex">
+						<div class="align-self-center">
+							<span class="flaticon-phone-call display-4 text-primary"></span>
+							<h3>24/7 Support</h3>
+							<p class="mb-0">Even the all-powerful Pointing has no control about the blind texts.</p>
+						</div>
+					</div>
 
-                </div>
-            </div>
-        </div> #}
+				</div>
 
-        <!-- Carrusel de imágenes -->
-        <div id="carouselDestinos" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
-                <li data-target="#carouselDestinos" data-slide-to="0" class="active"></li>
-                <li data-target="#carouselDestinos" data-slide-to="1"></li>
-                <li data-target="#carouselDestinos" data-slide-to="2"></li>
-            </ol>
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="https://www.freetour.com/images/home/slider1-1440.webp" class="d-block w-100"
-                        alt="Provincia 1">
-                </div>
-                <div class="carousel-item">
-                    <img src="https://www.freetour.com/images/home/slider2-1440.webp" class="d-block w-100"
-                        alt="Provincia 2">
-                </div>
-                <div class="carousel-item">
-                    <img src="https://www.freetour.com/images/home/slider3-1440.webp" class="d-block w-100"
-                        alt="Provincia 3">
-                </div>
-            </div>
-            <a class="carousel-control-prev" href="#carouselDestinos" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Anterior</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselDestinos" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Siguiente</span>
-            </a>
-        </div>
+			</div>
+		</div>
+	</div> -->
 
-        <!-- Input para búsqueda -->
-        <div class="form-group">
-            <!-- <label for="busqueda">Buscar Destino:</label> -->
-            {# <input type="text" class="form-control" id="busqueda" placeholder="Introduce el destino"> #}
-            <select id="combobox">
-                <option value>Selecciona una ciudad...</option>
-                {% for locality in localities %}
-                    <option value="{{ locality.id }}">{{ locality.name }}</option>
-                {% endfor %}
-            </select>
-            {# <div class="input-group-append"> #}
-                <button class="btn btn-primary" type="button">Buscar</button>
-            {# </div> #}
-        </div>
-    </main>
+		<!-- SECTION #2 - "Counter of numbers" -->
+	<div class="untree_co-section count-numbers py-5">
+		<div class="container">
+			<div class="row">
+				<div class="col-6 col-sm-6 col-md-6 col-lg-3">
+					<div class="counter-wrap">
+						<div class="counter">
+							<span class="" data-number="9313">0</span>
+						</div>
+						<span class="caption">Nº de Viajes</span>
+					</div>
+				</div>
+				<div class="col-6 col-sm-6 col-md-6 col-lg-3">
+					<div class="counter-wrap">
+						<div class="counter">
+							<span class="" data-number="8492">0</span>
+						</div>
+						<span class="caption">Nº de Clientes</span>
+					</div>
+				</div>
+				<div class="col-6 col-sm-6 col-md-6 col-lg-3">
+					<div class="counter-wrap">
+						<div class="counter">
+							<span class="" data-number="100">0</span>
+						</div>
+						<span class="caption">Nº de Empleados</span>
+					</div>
+				</div>
+				<div class="col-6 col-sm-6 col-md-6 col-lg-3">
+					<div class="counter-wrap">
+						<div class="counter">
+							<span class="" data-number="8000">0</span>
+						</div>
+						<span class="caption">Nº de Localidades</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+		<!-- SECTION #3 - "Popular Destination" -->
+	<div class="untree_co-section">
+		<div class="container">
+			<div class="row text-center justify-content-center mb-5">
+				<div class="col-lg-7"><h2 class="section-title text-center">Rutas Más Populares</h2></div>
+			</div>
+
+			<div class="owl-carousel owl-3-slider">
+
+				<div class="item">
+					<a class="media-thumb" href="{{ asset('images/template/hero-slider-1.jpg') }}" data-fancybox="gallery">
+						<div class="media-text">
+							<h3>Casco antiguo de Jaén</h3>
+							<span class="location">Italy</span>
+						</div>
+						<img src="{{ asset('images/template/hero-slider-1.jpg') }}" alt="Image" class="img-fluid">
+					</a> 
+				</div>
+
+				<div class="item">
+					<a class="media-thumb" href="{{ asset('images/template/hero-slider-2.jpg') }}" data-fancybox="gallery">
+						<div class="media-text">
+							<h3>Oia</h3>
+							<span class="location">Greece</span>
+						</div>
+						<img src="{{ asset('images/template/hero-slider-2.jpg') }}" alt="Image" class="img-fluid">
+					</a> 
+				</div>
+
+				<div class="item">
+					<a class="media-thumb" href="{{ asset('images/template/hero-slider-3.jpg') }}" data-fancybox="gallery">
+						<div class="media-text">
+							<h3>Perhentian Islands</h3>
+							<span class="location">Malaysia</span>
+						</div>
+						<img src="{{ asset('images/template/hero-slider-3.jpg') }}" alt="Image" class="img-fluid">
+					</a> 
+				</div>
+
+
+				<div class="item">
+					<a class="media-thumb" href="{{ asset('images/template/hero-slider-4.jpg') }}" data-fancybox="gallery">
+						<div class="media-text">
+							<h3>Rialto Bridge</h3>
+							<span class="location">Italy</span>
+						</div>
+						<img src="{{ asset('images/template/hero-slider-4.jpg') }}" alt="Image" class="img-fluid">
+					</a> 
+				</div>
+
+				<div class="item">
+					<a class="media-thumb" href="{{ asset('images/template/hero-slider-5.jpg') }}" data-fancybox="gallery">
+						<div class="media-text">
+							<h3>San Francisco, United States</h3>
+							<span class="location">United States</span>
+						</div>
+						<img src="{{ asset('images/template/hero-slider-5.jpg') }}" alt="Image" class="img-fluid">
+					</a> 
+				</div>
+
+				<div class="item">
+					<a class="media-thumb" href="{{ asset('images/template/hero-slider-1.jpg') }}" data-fancybox="gallery">
+						<div class="media-text">
+							<h3>Lake Thun</h3>
+							<span class="location">Switzerland</span>
+						</div>
+						<img src="{{ asset('images/template/hero-slider-2.jpg') }}" alt="Image" class="img-fluid">
+					</a> 
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+
+		<!-- SECTION #4 -->
+	<!-- <div class="untree_co-section testimonial-section mt-5">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-lg-7 text-center">
+					<h2 class="section-title text-center mb-5">Testimonials</h2>
+
+					<div class="owl-single owl-carousel no-nav">
+						<div class="testimonial mx-auto">
+							<figure class="img-wrap">
+								<img src="{{ asset('images/template/person_2.jpg') }}" alt="Image" class="img-fluid">
+							</figure>
+							<h3 class="name">Adam Aderson</h3>
+							<blockquote>
+								<p>&ldquo;There live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.&rdquo;</p>
+							</blockquote>
+						</div>
+
+						<div class="testimonial mx-auto">
+							<figure class="img-wrap">
+								<img src="{{ asset('images/template/person_3.jpg') }}" alt="Image" class="img-fluid">
+							</figure>
+							<h3 class="name">Lukas Devlin</h3>
+							<blockquote>
+								<p>&ldquo;There live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.&rdquo;</p>
+							</blockquote>
+						</div>
+
+						<div class="testimonial mx-auto">
+							<figure class="img-wrap">
+								<img src="{{ asset('images/template/person_4.jpg') }}" alt="Image" class="img-fluid">
+							</figure>
+							<h3 class="name">Kayla Bryant</h3>
+							<blockquote>
+								<p>&ldquo;There live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.&rdquo;</p>
+							</blockquote>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div> -->
+
+		<!-- SECTION #5 - "Special Offers & Discounts" -->
+	<!-- <div class="untree_co-section">
+		<div class="container">
+			<div class="row justify-content-center text-center mb-5">
+				<div class="col-lg-6">
+					<h2 class="section-title text-center mb-3">Special Offers &amp; Discounts</h2>
+					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-6 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
+					<div class="media-1">
+						<a href="#" class="d-block mb-3"><img src="{{ asset('images/template/hero-slider-1.jpg') }}" alt="Image" class="img-fluid"></a>
+						<span class="d-flex align-items-center loc mb-2">
+							<span class="icon-room mr-3"></span>
+							<span>Italy</span>
+						</span>
+						<div class="d-flex align-items-center">
+							<div>
+								<h3><a href="#">Rialto Mountains</a></h3>
+								<div class="price ml-auto">
+									<span>$520.00</span>
+								</div>
+							</div>
+							
+						</div>
+						
+					</div>
+				</div>
+				<div class="col-6 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
+					<div class="media-1">
+						<a href="#" class="d-block mb-3"><img src="{{ asset('images/template/hero-slider-2.jpg') }}" alt="Image" class="img-fluid"></a>
+						<span class="d-flex align-items-center loc mb-2">
+							<span class="icon-room mr-3"></span>
+							<span>United States</span>
+						</span>
+						<div class="d-flex align-items-center">
+							<div>
+								<h3><a href="#">San Francisco</a></h3>
+								<div class="price ml-auto">
+									<span>$520.00</span>
+								</div>
+							</div>
+							
+						</div>
+						
+					</div>
+				</div>
+				<div class="col-6 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
+					<div class="media-1">
+						<a href="#" class="d-block mb-3"><img src="{{ asset('images/template/hero-slider-3.jpg') }}" alt="Image" class="img-fluid"></a>
+						<span class="d-flex align-items-center loc mb-2">
+							<span class="icon-room mr-3"></span>
+							<span>Malaysia</span>
+						</span>
+						<div class="d-flex align-items-center">
+							<div>
+								<h3><a href="#">Perhentian Islands</a></h3>
+								<div class="price ml-auto">
+									<span>$750.00</span>
+								</div>
+							</div>
+							
+						</div>
+						
+					</div>
+				</div>
+				<div class="col-6 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
+					<div class="media-1">
+						<a href="#" class="d-block mb-3"><img src="{{ asset('images/template/hero-slider-4.jpg') }}" alt="Image" class="img-fluid"></a>
+
+						<span class="d-flex align-items-center loc mb-2">
+							<span class="icon-room mr-3"></span>
+							<span>Switzerland</span>
+						</span>
+
+						<div class="d-flex align-items-center">
+							<div>
+								<h3><a href="#">Lake Thun</a></h3>
+								<div class="price ml-auto">
+									<span>$520.00</span>
+								</div>
+							</div>
+							
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> -->
+
+		<!-- SECTION #6 - "Take a look at Tour Video" -->
+	<!-- <div class="untree_co-section">
+		<div class="container">
+			<div class="row justify-content-between align-items-center">
+				
+				<div class="col-lg-6">
+					<figure class="img-play-video">
+						<a id="play-video" class="video-play-button" href="https://www.youtube.com/watch?v=mwtbEGNABWU" data-fancybox>
+							<span></span>
+						</a>
+						<img src="{{ asset('images/template/hero-slider-2.jpg') }}" alt="Image" class="img-fluid rounded-20">
+					</figure>
+				</div>
+
+				<div class="col-lg-5">
+					<h2 class="section-title text-left mb-4">Take a look at Tour Video</h2>
+					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+
+					<p class="mb-4">A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+
+					<ul class="list-unstyled two-col clearfix">
+						<li>Outdoor recreation activities</li>
+						<li>Airlines</li>
+						<li>Car Rentals</li>
+						<li>Cruise Lines</li>
+						<li>Hotels</li>
+						<li>Railways</li>
+						<li>Travel Insurance</li>
+						<li>Package Tours</li>
+						<li>Insurance</li>
+						<li>Guide Books</li>
+					</ul>
+
+					<p><a href="#" class="btn btn-primary">Get Started</a></p>
+
+					
+				</div>
+			</div>
+		</div>
+	</div> -->
+
+		<!-- SECTION #7 - "Contact us" -->
+	<div class="py-5 cta-section">
+		<div class="container">
+			<div class="row text-center">
+				<div class="col-md-12">
+					<h2 class="mb-2 text-white">Para Saber Tu Destino Perfecto. Contactanos Ahora</h2>
+					<p class="mb-4 lead text-white text-white-opacity">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi, fugit?</p>
+					<p class="mb-0"><a href="booking.html" class="btn btn-outline-white text-white btn-md font-weight-bold">Contactar</a></p>
+				</div>
+			</div>
+		</div>
+	</div>
+    <!-- <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< SECTIONS - END -->
+
+	<div id="overlayer"></div>
+	<div class="loader">
+		<div class="spinner-border" role="status">
+			<span class="sr-only">Loading...</span>
+		</div>
+	</div>
+
+	<script src="{{ asset('js/template/aos.js') }}"></script>
 
 {% endblock %}

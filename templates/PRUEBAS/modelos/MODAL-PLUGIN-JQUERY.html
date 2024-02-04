@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Botón con Modal de Inicio de Sesión</title>
+
+    <script src="../../../public/jquery/jquery-3.7.1.min.js"></script>
+    <script src="../../../public/jquery/jquery-ui-1.13.2/jquery-ui.js"></script>
+    <link rel="stylesheet" href="../../../public/jquery/jquery-ui-1.13.2/jquery-ui.css">
+
+    <style>
+        .ui-widget-overlay { opacity: 0.5; }
+    </style>
+
+    <script>
+        $(function () {
+            var dialog;
+
+            dialog = $("#dialog-form").dialog({
+                autoOpen: false,
+                height: 250,
+                width: 250,
+                modal: true,
+                close: function () {}
+            });
+
+            $("#login").button().on("click", function () {
+                dialog.dialog("open");
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="dialog-form" title="Iniciar sesión">
+        <form>
+            <fieldset>
+                <label for="name">Nombre</label>
+                <input type="text" name="name" id="name" class="text ui-widget-content ui-corner-all">
+                <label for="email">Email</label>
+                <input type="text" name="email" id="email" class="text ui-widget-content ui-corner-all">
+                <input type="submit" value="Enviar">
+            </fieldset>
+        </form>
+    </div>
+
+    <button id="login">Iniciar sesión</button>
+</body>
+
+</html>

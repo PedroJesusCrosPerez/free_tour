@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        <title>{% block title %}Plantilla base de la appweb{% endblock %}</title>
+        {# icono por defecto symfony #} {# <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>"> #}
         {% block metas %}
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,7 +11,7 @@
             <meta name="keywords" content="proyecto, practicas, html, css, javascript, symfony, jquery, bootstrap, formulario, free tour">
             <meta name="author" content="Pedro Jesús Cros Pérez">
             <meta name="language" content="Spanish">
-            <meta name="application-name" content="Proyecto final HTML5, CSS3 y javascript">
+            <meta name="application-name" content="Proyecto estudiante utilizando lenguajes, librerías y frameworks: php, symfony, jquery, bootstrap, javascript, HTML5 y CSS3">
             <meta name="generator" content="Visual Studio Code">
             {# <meta name="robots" content="index, follow">
             <meta name="revisit-after" content="7 days">
@@ -22,18 +22,34 @@
             <meta name="msapplication-TileColor" content="#000000">
             <meta name="msapplication-TileImage" content="/ms-icon-144x144.png"> #}
         {% endblock %}
-        {% block stylesheets %}
-            {# the CSS file lives at "public/css/baseStyle.css" #}
-            {# <link href="/css/baseStyle.css" rel="stylesheet"/> #}
-            <link href="{{ asset('css/baseStyle.css') }}" rel="stylesheet">
+
+        {% block base_scripts %}
+            {# JQUERY #}
+            <script src="{{ asset('jquery/jquery-3.7.1.min.js') }}"></script>
+            <script src="{{ asset('jquery/jquery-ui-1.13.2/jquery-ui.js') }}"></script>
+            {# BOOTSTRAP #}
+            <script src="{{ asset('bootstrap/bootstrap-5.3.2.min.js') }}"></script>
+            {# {% block importmap %}{{ importmap('app') }}{% endblock %} #}
         {% endblock %}
 
-        {% block javascripts %}
-            {# the JS file lives at "public/js/baseJs.js" #}
-            {# <script src="{{ asset('public/js/baseJs.js') }}"></script> #}
-            <script src="{{ asset('/js/baseJs.js') }}"></script>
-{% block importmap %}{{ importmap('app') }}{% endblock %}
+        {% block base_stylesheets %}
+            {# JQUERY #}
+            <link href="{{ asset('jquery/jquery-ui-1.13.2/jquery-ui.css') }}" rel="stylesheet">
+            {# BOOTSTRAP #}
+            <link href="{{ asset('bootstrap/bootstrap-5.3.2.min.css') }}" rel="stylesheet">
         {% endblock %}
+        
+        {% block headstylesheets %}{% endblock %}
+        {% block headscripts %}{% endblock %}
+        
+        {% block headnavstylesheets %}{% endblock %}
+        {% block headnavscripts %}{% endblock %}
+
+        {% block headfooterstylesheets %}{% endblock %}
+        {% block headfooterscripts %}{% endblock %}
+
+        {% block pagestylesheets %}{% endblock %}
+        {% block pagescripts %}{% endblock %}
     </head>
     <body>
         {% block body %}{% endblock %}

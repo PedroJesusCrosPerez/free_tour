@@ -1,0 +1,31 @@
+{# templates/admin/my-custom-page.html.twig #}
+{% include '@EasyAdmin/page/content.html.twig' %}
+
+{% block content_title %}Crear ruta{% endblock %}
+
+{% block main %}
+    <script>
+        window.addEventListener("load", function() {
+            var miprueba = document.querySelector("#miprueba")
+            document.querySelector(".content").append(miprueba)
+        });
+    </script>
+
+        <style>
+            *{
+                color: white;
+            }
+        </style>
+
+        <div id="miprueba">
+            <form>
+                <fieldset>
+                    <label for="name">Nombre</label>
+                    <input type="text"> <hr>
+                    <label for="name">Apellidos</label>
+                    <input type="text">
+                </fieldset>       
+            </form>
+        </div>
+        <h1>HOLA PRUEBA</h1>
+{% endblock %}

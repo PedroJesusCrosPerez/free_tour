@@ -18,7 +18,9 @@ $(function () {
                 .appendTo(this.wrapper)
                 .val(value)
                 .attr("title", "")
-                .addClass("custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left")
+                .addClass("form-control custom-select")
+                .css("background-image", "none  ")
+                // .addClass("custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left")
                 .autocomplete({
                     delay: 0,
                     minLength: 0,
@@ -48,7 +50,7 @@ $(function () {
 
             $("<a>")
                 .attr("tabIndex", -1)
-                .attr("title", "Show All Items")
+                .attr("title", "Ver todos")
                 .tooltip()
                 .appendTo(this.wrapper)
                 .button({
@@ -58,7 +60,8 @@ $(function () {
                     text: false
                 })
                 .removeClass("ui-corner-all")
-                .addClass("custom-combobox-toggle ui-corner-right")
+                // .addClass("custom-combobox-toggle ui-corner-right")
+                .addClass("icon-chevron-down")
                 .on("mousedown", function () {
                     wasOpen = input.autocomplete("widget").is(":visible");
                 })
