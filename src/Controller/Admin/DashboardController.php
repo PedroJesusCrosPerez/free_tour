@@ -56,6 +56,29 @@ class DashboardController extends AbstractDashboardController
         return Dashboard::new()
             ->setTitle('Free Tour');
     }
+    
+    // NOTA si esto lo cambias a RouteController.php o a HomeController.php
+    // en algunos funciona y en otros no
+    // además de ir alternando comentar las líneas => // Pruebas para formulario personalizado - START
+    #[Route('/prueba', name: 'prueba')]
+    public function prueba(): Response
+    {
+        return $this->render('admin/create-route.html.twig');
+    }
+
+    
+    //C:\Users\pedro\symfony\free_tour\vendor\easycorp\easyadmin-bundle\src\Resources\views\page\create-route.html.twig
+    #[Route('/prueba2', name: 'prueba2')]
+    public function prueba2(): Response
+    {
+        return $this->render('@EasyAdmin/page/create-route.html.twig');
+    }
+
+    #[Route('/create-route', name: 'create-route')]
+    public function createRoute(): Response
+    {
+        return $this->render('route/ruta.html.twig');
+    }
 
     public function configureMenuItems(): iterable
     {
@@ -69,10 +92,15 @@ class DashboardController extends AbstractDashboardController
 
         // Locality
         yield MenuItem::section('Ubicaciones');
+        
         yield MenuItem::linkToCrud('Visitas', 'fas fa-signal', Item::class);
-        yield MenuItem::linkToUrl('Rutas - linkToUrl(add Route)', 'fas fa-code-merge', $this->generateUrl('home'));
         yield MenuItem::linkToCrud('Rutas - linkToCrud(CRUD Route)', 'fas fa-signal', Entity\Route::class);
-        yield MenuItem::linkToRoute('Rutas', 'fas fa-signal', 'home');
+
+        // Pruebas para formulario personalizado - START
+        yield MenuItem::linkToUrl('Rutas - linkToUrl(add Route)', 'fas fa-code-merge', $this->generateUrl('prueba'));
+        yield MenuItem::linkToRoute('Rutas - CREAR FORM PERSONALIZADO', 'fas fa-signal', 'prueba');
+        // Pruebas para formulario personalizado - END
+
         yield MenuItem::linkToCrud('Localidades', 'fas fa-solid fa-map-pin', Locality::class);
         yield MenuItem::linkToCrud('Provincias', 'fas fa-regular fa-map', Province::class);
 
@@ -89,6 +117,11 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToUrl('Inicio', 'fas fa-home', $this->generateUrl('home'));
         yield MenuItem::linkToUrl('Inicio de sesión', 'fas fa-right-to-bracket', $this->generateUrl('action-login'));
         yield MenuItem::linkToUrl('Registro', 'fas fa-sign-hanging', $this->generateUrl('action-register'));
+    
+        yield MenuItem::section('TESTING ROUTING');
+        yield MenuItem::linkToUrl('linkToUrl($this->generateUrl("home"))', 'fas fa-home', $this->generateUrl('home'));
+        yield MenuItem::linkToRoute('linkToRoute("home")', 'fas fa-signal', 'home');
+        yield MenuItem::linkToUrl('Mi página', 'fas fa-code-merge', $this->generateUrl('prueba2'));
     }
 
     public function configureActions(): Actions

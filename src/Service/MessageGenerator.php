@@ -41,4 +41,19 @@ class MessageGenerator
 
         return $this->mailer->send($email) != null ? true : false;
     }
+    
+
+    public function sendMail(string $correo = "@null.es", string $body = "cuerpo por defecto"): bool
+    {
+        $email = (new Email())
+            ->from('pedro@freetour.es')
+            // ->to($this->adminEmail)
+            ->to($correo)
+            ->subject('Asunto por defecto')
+            ->text('{$body}')
+            ->html('<p>{$body}</p>')
+        ;
+
+        return $this->mailer->send($email) != null ? true : false;
+    }
 }

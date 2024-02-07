@@ -1,0 +1,158 @@
+{% include '@EasyAdmin/page/content.html.twig' %}
+{# {% extends '@EasyAdmin/page/content.html.twig' %} #}
+
+<div id="buenas">
+	<html lang="en">
+		<head>
+			<meta
+			charset="UTF-8"/>
+			{# bootstrap / jquery #}
+			<script src="js/jquery-3.7.1.js"></script>
+			<script src="js/jquery-ui.js"></script>
+
+			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDaeWicvigtP9xPv919E-RNoxfvC-Hqik"></script>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+			<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
+
+			<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+			{# <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"/> #}
+			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+
+			{# Coordenadas en mapa #}
+			<link rel="stylesheet" href="{{asset('js/plugins/leaflet/leaflet.css')}}">
+			<script src="{{asset('js/plugins/leaflet/leaflet.js')}}"></script>
+
+			{# fecha esp #}
+			<script src="js/datepicker-es.js"></script>
+
+			{# jqwidgets #}
+			<script type="text/javascript" src="https://jqwidgets.com/public/jqwidgets/jqx-all.js"></script>
+			<link
+			rel="stylesheet" href="https://jqwidgets.com/public/jqwidgets/styles/jqx.base.css" type="text/css"/>
+
+			{# imagen drag and drop #}
+			<link type="text/css" rel="stylesheet" href="{{asset('dist/image-uploader.min.css')}}">
+			<script type="text/javascript" src="{{asset('dist/image-uploader.min.js')}}"></script>
+
+			{# Validaciones #}
+			<script src="{{asset('js/validaciones.js')}}"></script>
+
+			{# js #}
+			<script src="{{asset('js/crearRuta.js')}}"></script>
+
+			{# sweetalerts #}
+			<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+			{# script de inicio #}
+			<script>
+				$(function () {
+var buenas = $("#buenas");
+
+$(".content").append(buenas);
+$(".title").append("Crear Ruta:");
+$('#descripcion').jqxEditor({height: '200px', width: '100%'});
+$('.input-images').imageUploader({maxFiles: 1});
+
+})
+			</script>
+
+			<title>Nueva Ruta</title>
+		</head>
+		<body>
+			<div class="container mt-5 p-5 border rounded shadow">
+				<h1 class="text-center display-4">Nueva Ruta</h1>
+				<form id="rutaForm">
+					<div class="mb-3">
+						<label for="titulo" class="form-label">Título</label>
+						<input type="text" data-valida="relleno" class="form-control" id="titulo"/>
+					</div>
+					<div class="mb-3">
+						<label for="descripcion" class="form-label">Descripción</label>
+						<div id="descripcion" data-valida="relleno"></div>
+					</div>
+					<div class="mb-3">
+						<label for="imagen" class="form-label">Imagen</label>
+						{# <input type="file" id="imagen" name="imagen" class="form-control"/> #}
+						<div class="input-images" id="imagen" data-valida="tieneImg"></div>
+					</div>
+					<div class="mb-3">
+						<label for="punto_encuentro" class="form-label">Punto de Encuentro</label>
+						<div class="input-group">
+							<input type="text" class="form-control" data-valida="relleno" id="punto_encuentro"/>
+							<div class="input-group-append">
+								<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mapModal">
+									Buscar
+								</button>
+							</div>
+						</div>
+					</div>
+					<div class="mb-3">
+						<label for="aforo" class="form-label">Aforo</label>
+						<input type="number" id="aforo" name="aforo" min="1" max="100" class="form-control" data-valida="relleno"/>
+					</div>
+
+
+					<div class="mb-3">
+						<label for="localidad" class="form-label">Localidad</label>
+						<select id="localidad" class="form-select" aria-label="Default select example" data-valida="relleno">
+							<option selected disabled>Seleccione una localidad</option>
+						</select>
+					</div>
+
+
+					<div class="row">
+						<div class="col">
+							<label for="fecha" class="form-label">Fecha Inicio</label>
+							<input type="text" class="form-control" id="fecha_inicio" data-valida="fecha"/>
+						</div>
+						<div class="col">
+							<label for="fecha_fin" class="form-label">Fecha Fin</label>
+							<input type="text" class="form-control" id="fecha_fin" data-valida="fecha"/>
+						</div>
+					</div>
+
+
+					<div class="container">
+						<div class="row mt-3">
+							<div class="col-6 border" style="height: 300px;">
+								<h3 class="text-center">Items</h3>
+								<ul id="sortable1" class="connectedSortable" style="min-height:230px;"></ul>
+
+							</div>
+							<div class="col-6 border" style="height: 300px;">
+								<h3 class="text-center">Items de la Ruta</h3>
+								<ul id="sortable2" class="connectedSortable" style="min-height:230px;" data-valida="tieneLi"></ul>
+							</div>
+						</div>
+						<div class="d-flex justify-content-center mt-3">
+							<button class="btn btn-primary" id="crear">Crear Ruta</button>
+						</div>
+					</div>
+				</form>
+			</div>
+
+			<!-- Modal -->
+			<div class="modal fade" id="mapModal" tabindex="-1" aria-labelledby="mapModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="mapModalLabel">Modal title</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<div id="map" style="height: 400px;"></div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+							<button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="saveLocation">Guardar</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</body>
+	</html>
+</div>

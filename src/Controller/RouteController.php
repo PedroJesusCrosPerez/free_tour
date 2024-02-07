@@ -22,12 +22,6 @@ class RouteController extends AbstractController
         return $this->render('route/create.html.twig');
     }
     
-    #[Route('/prueba', name: 'prueba')]
-    public function prueba(): Response
-    {
-        return $this->render('admin/create-route.html.twig');
-    }
-    
     #[Route('/search', name: 'search', methods: ['GET', 'POST'])] // No funciona con POST, PREGUNTAR
     public function search(Request $request): Response
     {

@@ -1,0 +1,6 @@
+crear comando:
+ - "php bin/console reset-admin-password" # para que introduzca la contraseña anterior
+ - "php bin/console reset-admin-password --force" # no hace falta q introduzca la anterior
+dialogo de confirmación "S/N"
+
+lista de estadísticas con servicio
