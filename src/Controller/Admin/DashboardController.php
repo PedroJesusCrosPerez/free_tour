@@ -10,6 +10,8 @@ use App\Entity\Report;
 use App\Entity\Reservation;
 use App\Entity\Tour;
 use App\Entity\User;
+use App\Repository\ItemRepository;
+use App\Repository\UserRepository;
 // use App\Entity\Route;
 use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
@@ -75,9 +77,17 @@ class DashboardController extends AbstractDashboardController
     }
 
     #[Route('/create-route', name: 'create-route')]
-    public function createRoute(): Response
+    public function createRoute(ItemRepository $itemRepository, UserRepository $userRepository): Response
     {
-        return $this->render('route/ruta.html.twig');
+        $items = $itemRepository->findAll();
+        $guides = $userRepository->findByRoles(array('ROLE_GUIDE'));
+    ;
+
+        // return $this->render('route/create.html.twig', [
+        //     'items' => $items,
+        //     'guides' => $guides,
+        // ]);
+        return $this->render('route/create.html.twig');
     }
 
     public function configureMenuItems(): iterable
@@ -95,10 +105,12 @@ class DashboardController extends AbstractDashboardController
         
         yield MenuItem::linkToCrud('Visitas', 'fas fa-signal', Item::class);
         yield MenuItem::linkToCrud('Rutas - linkToCrud(CRUD Route)', 'fas fa-signal', Entity\Route::class);
+        yield MenuItem::linkToRoute('Crear ruta', 'fas fa-signal', 'create-route');
 
         // Pruebas para formulario personalizado - START
-        yield MenuItem::linkToUrl('Rutas - linkToUrl(add Route)', 'fas fa-code-merge', $this->generateUrl('prueba'));
         yield MenuItem::linkToRoute('Rutas - CREAR FORM PERSONALIZADO', 'fas fa-signal', 'prueba');
+        yield MenuItem::linkToUrl('Rutas - linkToUrl(add Route)', 'fas fa-code-merge', $this->generateUrl('prueba'));
+        yield MenuItem::linkToRoute('create-route', 'fas fa-signal', 'create-route');
         // Pruebas para formulario personalizado - END
 
         yield MenuItem::linkToCrud('Localidades', 'fas fa-solid fa-map-pin', Locality::class);

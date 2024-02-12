@@ -8,6 +8,7 @@ parameters:
     project_root: '%kernel.project_dir%'
     uploads-dir: '%kernel.project_dir%/public/uploads'
     imgs-dir: '%kernel.project_dir%/public/uploads/images'
+    userImgDir: '/uploads/images'
 
 services:
     # default configuration for services in *this* file
@@ -29,3 +30,10 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    # servicios para eventos
+    # App\EventSubscriber\RequestSubscriber:
+    #         arguments:
+    #         # $mailer: '@Symfony\Component\Mailer\MailerInterface'
+    #         tags:
+    #             - { name: 'kernel.event_subscriber' }

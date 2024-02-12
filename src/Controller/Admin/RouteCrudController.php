@@ -2,14 +2,15 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Item;
 use App\Entity\Route;
+use App\Repository\ItemRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class RouteCrudController extends AbstractCrudController
@@ -53,28 +54,26 @@ class RouteCrudController extends AbstractCrudController
         ;
     }
 
-    /*
-    public function configureFields(string $pageName): iterable
-    {
-        return [
-            IdField::new('id')
-                ->onlyOnDetail(),
-            TextField::new('name'),
-            TextEditorField::new('description')
-                ->setFormTypeOptions([
-                    'attr' => ['maxlength' => 1000]
-                ]),
-            ImageField::new('photo')
-                ->setBasePath('images/route/')
-                ->setUploadDir('public/images/route/')
-                ->setUploadedFileNamePattern('[randomhash].[extension]'),
-            TextField::new('coordinates'),
-            IntegerField::new('capacity'),
-            DateField::new('datetime_start'),
-            DateField::new('datetime_end'),
-        ];
-    }
-    */
+    // public function configureFields(string $pageName): iterable
+    // {
+    //     return [
+    //         IdField::new('id')
+    //             ->onlyOnDetail(),
+    //         TextField::new('name'),
+    //         TextEditorField::new('description')
+    //             ->setFormTypeOptions([
+    //                 'attr' => ['maxlength' => 1000]
+    //             ]),
+    //         ImageField::new('photo')
+    //             ->setBasePath('images/route/')
+    //             ->setUploadDir('public/images/route/')
+    //             ->setUploadedFileNamePattern('[randomhash].[extension]'),
+    //         TextField::new('coordinates'),
+    //         IntegerField::new('capacity'),
+    //         DateField::new('datetime_start'),
+    //         DateField::new('datetime_end'),
+    //     ];
+    // }
 
     public function configureActions(Actions $actions): Actions
     {
@@ -82,9 +81,9 @@ class RouteCrudController extends AbstractCrudController
             ->update(Crud::PAGE_INDEX, Action::NEW, function (Action $action) {
                 return $action->linkToRoute('create-route', []);
             })
-            // ->update(Crud::PAGE_INDEX, Action::EDIT, function (Action $action) {
-            //     return $action->linkToRoute('ruta', ["id"=>"hola"]);
-            // })
+            ->update(Crud::PAGE_INDEX, Action::EDIT, function (Action $action) {
+                return $action->linkToRoute('create-route', ["id"=>"hola"]);
+            })
             ;
     }
 

@@ -1,0 +1,17 @@
+.ranges{
+    display: block;
+    float: none !important;
+}
+.range_inputs{
+    display: block;
+    text-align: right;
+}
+.daterangepicker td.in-range{
+    background-color: #86daff;
+}
+.daterangepicker td.active, .daterangepicker td.active:hover{
+    background-color: #357ebd !important;
+}
+
+/* Toque personal */
+.daterangepicker.dropdown-menu.ltr.show-calendar.opensleft { display: none; }

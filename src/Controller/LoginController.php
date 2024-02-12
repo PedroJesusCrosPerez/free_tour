@@ -9,6 +9,13 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class LoginController extends AbstractController
 {
+    #[Route('/form-login', name: 'form-login')]
+    public function formLogin(): Response
+    {
+        return $this->render('login/_login.html.twig');
+    }
+
+    
     #[Route('/login', name: 'action-login')]
     public function index(AuthenticationUtils $authenticationUtils): Response
     {

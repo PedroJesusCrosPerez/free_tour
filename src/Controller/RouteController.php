@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\ItemRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,9 +18,11 @@ class RouteController extends AbstractController
     }
     
     #[Route('/create', name: 'create')]
-    public function create(): Response
+    public function create(ItemRepository $itemRepository): Response
     {
-        return $this->render('route/create.html.twig');
+        return $this->render('route/create.html.twig', [
+            'items' => $itemRepository->findAll(),
+        ]);
     }
     
     #[Route('/search', name: 'search', methods: ['GET', 'POST'])] // No funciona con POST, PREGUNTAR

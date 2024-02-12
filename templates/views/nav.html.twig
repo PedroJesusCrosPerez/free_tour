@@ -9,7 +9,7 @@
         $(function () {
             var dialog, form;
 
-            dialog = $("#dialog-form").dialog({
+            $("#dialog-form").dialog({
                 autoOpen: false,
                 height: 250,
                 width: 250,
@@ -19,17 +19,92 @@
 
             $("#openLoginForm").button().on("click", function (ev) {
 				ev.preventDefault();
-                dialog.dialog("open");
+                $("#dialog-form").dialog("open");
             });
         });
     </script> #}
+
+	{# TODO intento modal 2 con estilos #}
+	{# <script>
+		$(function(){
+			$("#loginBtn")[0].click(function(){
+				$("#loginModal").css("display", "block");
+			});
+			
+			$(".close").click(function(){
+				$("#loginModal").css("display", "none");
+			});
+			
+			$(window).click(function(event) {
+				if (event.target == $("#loginModal")[0]) {
+				$("#loginModal").css("display", "none");
+				}
+			});
+		});
+	</script>
+	<style>
+		.modal {
+			display: none;
+			position: fixed;
+			z-index: 1;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			overflow: auto;
+			background-color: rgb(0,0,0);
+			background-color: rgba(0,0,0,0.4);
+			}
+
+		.modal-content {
+			background-color: #fefefe;
+			margin: 15% auto;
+			padding: 20px;
+			border: 1px solid #888;
+			width: 80%;
+			max-width: 400px;
+			border-radius: 8px;
+			position: relative;
+			}
+
+		.close {
+			color: #aaa;
+			float: right;
+			font-size: 28px;
+			font-weight: bold;
+			}
+
+		.close:hover,
+		.close:focus {
+			color: black;
+			text-decoration: none;
+			cursor: pointer;
+		}
+
+			/* Animation */
+		.modal-content {
+			animation: modalopen 0.3s;
+		}
+
+		@keyframes modalopen {
+			from {opacity: 0}
+			to {opacity: 1}
+		}
+
+	</style> #}
+
+    {% if app.request.attributes.get('_route') == 'home' %}
+		<style>
+			nav { position: relative; background-color: #6998AB; }
+		</style>
+	{% endif %}
 {% endblock %}
 
 
 {% block nav %}
 	<!-- LOGIN FORM -->
 	{% block login_form %}
-		<div id="dialog-form" title="Iniciar sesión">
+		{# <div id="modalLogin" class="modal" title="Iniciar sesión">
 			<form method="post" action="{{ path('action-login') }}">
 				<label for="username">Email:</label>
 				<input type="text" id="username" name="_username" required>
@@ -39,7 +114,20 @@
 
 				<button type="submit">Login</button>
 			</form>
-		</div>
+		</div> #}
+		{# Login de intento de modal 2 #}
+		{# <div id="loginModal" class="modal">
+			<div class="modal-content">
+				<span class="close">&times;</span>
+				<h2>Login</h2>
+				<form id="loginForm">
+				<input type="text" placeholder="Username" required>
+				<input type="password" placeholder="Password" required>
+				<button type="submit">Login</button>
+				</form>
+			</div>
+		</div> #}
+
 	{% endblock %}
 
 	<!-- MOBILE VERSIÓN -->
@@ -79,9 +167,10 @@
 						{% else %}
 							<ul class="dropdown">
 								{# <li><a id="openLoginForm" href="#iniciar_sesión">Iniciar sesión</a></li> #}
-								<li id="openLoginForm"><button>Iniciar Sesión</button></li>
+								{# <li><button id="loginBtn">Iniciar Sesión</button></li>
 								<hr>
-								<li><a href="#crear-cuenta">Crear cuenta</a></li>
+								<li><a href="#crear-cuenta">Crear cuenta</a></li> #}
+								<li><a href="{{ path('form-login') }}">Acceder</a></li>
 								{# <li class="has-children">
 									<a href="#">Menu Two</a>
 									<ul class="dropdown">

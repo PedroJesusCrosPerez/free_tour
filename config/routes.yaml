@@ -9,3 +9,11 @@ landingpage:
     methods: GET
 action-logout:
     path: /logout
+# route_api:
+#     resource: App\Controller\Api\RouteApi
+#     type: annotation
+# config/routes.yaml
+# api_route_find_all:
+#     path: /api/route/findAll
+#     controller: App\Api\RouteApi::findAll
+#     methods: GET

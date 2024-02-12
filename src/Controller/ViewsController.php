@@ -24,4 +24,12 @@ class ViewsController extends AbstractController
     //         'controller_name' => 'ViewsController',
     //     ]);
     // }
+
+    
+    #[Route('/access', name: 'access', methods: ['GET'])]
+    public function access(): Response
+    {
+        // return $this->render('views/access.html.twig');
+        return $this->render('login/forms.html.twig');
+    }
 }
