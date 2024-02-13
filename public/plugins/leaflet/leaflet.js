@@ -12,7 +12,7 @@ $(function() {
             map.removeLayer(marker);
         }
         marker = L.marker(latlng).addTo(map);
-        console.log("Coordenadas del clic: " + latlng.lat + ", " + latlng.lng);
+        // console.log("Coordenadas del clic: " + latlng.lat + ", " + latlng.lng);
     });
 
     $('#addMarkerBtn').on('click', function() {

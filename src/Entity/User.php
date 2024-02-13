@@ -256,4 +256,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->getName() . " " . $this->getSurname();
     }
+    
+    public function __toString(): string
+    {
+        return $this->getFormalName();
+    }
 }

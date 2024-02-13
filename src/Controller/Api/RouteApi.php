@@ -16,25 +16,27 @@ use Symfony\Component\Serializer\SerializerInterface;
 #[RouteAnnotation("/api/route", name: "route-")]
 class RouteApi extends AbstractController
 {
+    private RouteRepository $routeRepository;
     private SerializerInterface $serializer;
 
-    public function __construct(SerializerInterface $serializer)
+    public function __construct(RouteRepository $routeRepository, SerializerInterface $serializer)
     {
+        $this->routeRepository = $routeRepository;
         $this->serializer = $serializer;
     }
 
     #[RouteAnnotation("/findAll", name: "findAll", methods: ["GET"])]
-    public function findAll(RouteRepository $routeRepository): Response
+    public function findAll(): Response
     {
-        $routes = $routeRepository->findAll();
+        $routes = $this->routeRepository->findAll();
         $data = $this->serializer->serialize($routes, 'json');
         return new Response($data, Response::HTTP_OK, ['Content-Type' => 'application/json']);
     }
 
     #[RouteAnnotation("/findById/{id}", name: "findById", methods: ["GET"])]
-    public function findById($id, RouteRepository $routeRepository): Response
+    public function findById($id): Response
     {
-        $route = $routeRepository->find($id);
+        $route = $this->routeRepository->find($id);
         if (!$route) {
             return new Response(null, Response::HTTP_NOT_FOUND);
         }
@@ -49,18 +51,18 @@ class RouteApi extends AbstractController
         $data = json_decode($request->getContent(), true);
 
         // TODO validar y procesar los datos recibidos antes de insertar la nueva entidad Route
-        
+
         // Llamar al servicio 'route_service' que inserta los datos y devuelve el ID de la nueva entidad creada
-        $newEntityId = $routeService->insertNewEntity($data);
+        $newEntityId = $routeService->insertNewEntity($data, $request);
 
         // Devuelve una respuesta JSON con el ID de la nueva entidad creada y el código de estado HTTP 201 (Created)
         return new JsonResponse(['id' => $newEntityId], JsonResponse::HTTP_CREATED);
     }
 
     #[RouteAnnotation("/update/{id}", name: "update", methods: ["PUT"])]
-    public function update(Request $request, $id, RouteRepository $routeRepository): Response
+    public function update(Request $request, $id): Response
     {
-        $route = $routeRepository->find($id);
+        $route = $this->routeRepository->find($id);
         if (!$route) {
             return new Response(null, Response::HTTP_NOT_FOUND);
         }
@@ -69,9 +71,9 @@ class RouteApi extends AbstractController
     }
 
     #[RouteAnnotation("/delete/{id}", name: "delete", methods: ["DELETE"])]
-    public function delete($id, RouteRepository $routeRepository): Response
+    public function delete($id): Response
     {
-        $entityManager = $routeRepository->getManager();
+        $entityManager = $this->routeRepository->getManager();
         $route = $entityManager->getRepository(Route::class)->find($id);
         if (!$route) {
             return new Response(null, Response::HTTP_NOT_FOUND);

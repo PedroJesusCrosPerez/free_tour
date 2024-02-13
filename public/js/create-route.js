@@ -31,7 +31,6 @@ function takeProgramationData() {
     return data;
 }
 
-
 function takeData() {
     var daterange = $('input[name="daterange"]').val().split(' - ');
     // Get form data
@@ -54,11 +53,124 @@ function takeData() {
             return $(this).data('id');
         }).get()
     };
-
+    
     return formData;
 }
 
+function submit() {
+    // Url to send the form data to API server
+    const url = '/api/route/insert';
+
+    // Obtener datos del formulario
+    var formData = takeData();
+    console.log("ENVIAR ==> ");
+    console.log(formData);
+    console.log(" a servidor http://localhost:8000/, uri: " + url);
+    
+    // Here you can send the form data to your server using AJAX
+    $.ajax({
+        type: 'POST',
+        url: url,
+        data: JSON.stringify(formData),
+        contentType: 'application/json',
+        success: function(response) {
+            console.log('Server response:', response);
+        },
+        error: function(error) {
+            console.error('Error:', error);
+            console.log('Error:', error.responseText);
+        }
+    });
+
+}
+
+function testing() {
+    var formData = new FormData();
+    formData.append('name', 'titulo de prueba');
+    // formData.append('photo', 'blob:http://localhost:8000/a34e5762-6902-411c-b30c-cc258539f398');
+    formData.append('photo', $('.input-images img').attr('src'));
+    formData.append('coordinates', JSON.stringify({
+        'x': '51.508503734827706',
+        'y': '-0.060819089412689216'
+    }));
+    formData.append('capacity', '6');
+    formData.append('datetime_start', '20/02/2024 00:00');
+    formData.append('datetime_end', '22/02/2024 23:59');
+    formData.append('description', '<div>esto es una prueba de descripción con <b>negrita </b>y <i>cursiva</i>, fin.</div>');
+    formData.append('programation', JSON.stringify([
+        {
+            'time_start': '23:00',
+            'pattern': ['1', '3', '5'],
+            'patternf': ['Lunes', 'Miércoles', 'Viernes'],
+            'date_start': '24/02/2024',
+            'date_end': '26/02/2024',
+            'guide': {
+                'id': 13,
+                'name': '<span class="fullname">María Ramírez Castillo</span>'
+            }
+        }
+    ]));
+    formData.append('selected_items', JSON.stringify([1, 2]));
+
+    // Ejemplo de JSON de envío
+    var formData2  = {
+        "name": "titulo de prueba",
+        "photo": "blob:http://localhost:8000/a34e5762-6902-411c-b30c-cc258539f398",
+        "coordinates": {
+            "x": "51.508503734827706",
+            "y": "-0.060819089412689216"
+        },
+        "capacity": "6",
+        "datetime_start": "20/02/2024 00:00",
+        "datetime_end": "22/02/2024 23:59",
+        "description": "<div>esto es una prueba de descripción con <b>negrita </b>y <i>cursiva</i>, fin.</div>",
+        "programation": [
+            {
+                "time_start": "23:00",
+                "pattern": [
+                    "1",
+                    "3",
+                    "5"
+                ],
+                "patternf": [
+                    "Lunes",
+                    "Miércoles",
+                    "Viernes"
+                ],
+                "date_start": "24/02/2024",
+                "date_end": "26/02/2024",
+                "guide": {
+                    "id": 13,
+                    "name": "<span class=\"fullname\">María Ramírez Castillo</span>"
+                }
+            }
+        ],
+        "selected_items": [
+            1,
+            2
+        ]
+    }
+
+    // Here you can send the form data to your server using AJAX
+    $.ajax({
+        type: 'POST',
+        url: "/api/route/insert",
+        data: JSON.stringify(formData),
+        contentType: 'application/json',
+        success: function(response) {
+            console.log('Server response:', response);
+        },
+        error: function(error) {
+            console.error('Error:', error);
+            console.log('Error:', error.responseText);
+        }
+    });
+}
+
 $(function () {
+    // Añadir la clase 'active' al menú
+    $(".fa-route").parent().parent().addClass("active");
+
     // Get today's date
     var today = new Date();
     var datetime_start, datetime_end;
@@ -71,7 +183,7 @@ $(function () {
         "minDate": today,
         "opens": "left",
         locale: {
-            format: 'DD/MM/YYYY'
+            format: 'DD/MM/YYYY HH:mm'
         }
     }, function(start, end, label) {
         // console.log("New date range selected: " + start.format('DD/MM/YYYY') + " to " + end.format('DD/MM/YYYY') + " (predefined range: " + label + ")");
@@ -91,49 +203,28 @@ $(function () {
     });
 
 
-
     programAddProgramation(); // Botón que añade programaciones a la tabla
     // programCreateProgramation();
 
-    // CREATE BUTTON
-    $('button[name="create"]').on('click', function() {
-        // takeProgramationData();
-        var data = takeData();
-        console.log(data);
-    });
-
-    // SAVE BUTTON
+    // Submit form
     $('#create-route').on('submit', function (event) {
         // Prevent default form submission
         event.preventDefault();
 
-        // Obtener datos del formulario
-        var formData = takeData();
-        console.log("ENVIAR ==> ");
-        console.log(formData);
-        console.log(" a servidor http://localhost:8000/api/route/insert");
         // console.log(formData);
 
         // // Debugging: Output form data to console
         // localStorage.setItem('formData', JSON.stringify(formData));
         // console.log(formData);
         // var formData = localStorage.getItem('formData');
-
-        // Here you can send the form data to your server using AJAX
-        const url = '/api/route/insert';
-        $.ajax({
-            type: 'POST',
-            url: '/api/route/insert',
-            data: JSON.stringify(formData),
-            contentType: 'application/json',
-            success: function(response) {
-                console.log('Server response:', response);
-            },
-            error: function(error) {
-                console.error('Error:', error);
-                console.log('Error:', error.responseText);
-            }
-        });
     });
+
+    // Create button
+    $('#create').on('click', submit);
+    $('#printdata').on('click', function () { console.log(takeData()); /*Debugging*/ });
+
+
+    // Upload src 'items' and 'Guides'
+    uploadSrc();
 
 });

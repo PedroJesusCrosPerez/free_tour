@@ -4,6 +4,7 @@
     margin: 0;
     /* cursor: default; */
 }
+
 /* a,button,input[type="button"],input[type="submit"],input[type="reset"],input[type="file"],input[type="checkbox"],input[type="radio"],select {
     cursor: pointer;
 }
@@ -31,20 +32,55 @@ fieldset[name="information"] {
 
 /* ITEMS */
 fieldset[name="items"] {
-    display: flex;
-    justify-content: space-around;
+    /* display: flex;
+    justify-content: space-around; */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    
+    .item {
+        padding: 1em;
+        border: 1px solid black;
+        margin: .5em;
+        cursor: move; 
+    }
+    .item:active { 
+        width: 10em; 
+        height: 10em; 
+    }
+    .item:hover { 
+        background-color: rgb(189, 189, 189);
+    }
+    .item:active { 
+        background-color: rgb(138, 138, 138);
+    }
 
-    >div,
-    >div>div {
+
+    >section{
         border: 1px solid black;
         padding: 4em;
     }
-}
 
+    section[name="select-items"] img[name="item-image"] {
+        width: 10em;
+    }
 
-fieldset[name="items"] {
+    section[name="selected-items"] > ul > li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1em;
+        border: 1px solid black;
+        margin-bottom: .5em;
+    }
 
-    #sortable1, #sortable2 {
+    li {
+        padding: .5em 2em;
+        margin-bottom: .4em;
+        cursor: move;
+    }
+
+    /* Select items AND Selected items */
+    ul[name="select-items"], ul[name="selected-items"] {
         border: 1px solid black;
         list-style: none;
         padding: 0;
@@ -53,14 +89,24 @@ fieldset[name="items"] {
         max-height: 16em;
         min-height: 16em;
     }
-    li {
-        padding: .5em 2em;
-        margin-bottom: .4em;
-        cursor: move;
-    }
-    #sortable1>li:hover, #sortable2>li:hover { background-color: rgb(189, 189, 189); }
-    #sortable1>li:active, #sortable2>li:active { background-color: rgb(138, 138, 138); }
 
+    /* Select items */
+    #sortable1 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    }
+    section[name="select-items"] li.item {
+        display: flex;
+        /* flex-direction: column; */
+        flex-wrap: wrap;
+        align-content: center;
+        justify-content: center;
+    }
+
+    /* Selected items */
+    section[name="selected-items"] li.item > img[name="item-image"] {
+        width: 20em;
+    }
 }
 
 /* Programation */

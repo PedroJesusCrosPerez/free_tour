@@ -17,9 +17,13 @@
     <!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
     <!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>> PLUGINS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
     <!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
-    <!-- JEDITOR -->
-    {% include 'plugins/jeditor.html.twig' %}
-    <!-- drag&drop file uploader -->
+            {# >>>>>>>>>>>> Problemas técnicos >>>>>>>>>>>> #}
+    {# <!-- JEDITOR -->
+    {% include 'plugins/jeditor.html.twig' %} #}
+            {# <<<<<<<<<<<< Problemas técnicos <<<<<<<<<<<< #}
+    <!-- Rich text -->
+    {% include 'plugins/richtext.html.twig' %}
+    <!-- Drag&Drop file uploader -->
     {% include 'plugins/drag&drop-file-uploader.html.twig' %}
     <!-- Date range -->
     {% include 'plugins/date-range.html.twig' %}
@@ -123,9 +127,9 @@
             </div>
             <div id="tabs-3">
                 <fieldset name="items">
-                    <div>
-                        <h1>Items a elegir</h1>
-                        <ul id="sortable1" class="connectedSortable">
+                    <section name="select-items">
+                        <h1>Visitas a elegir</h1>
+                        <ul id="sortable1" class="connectedSortable" name="select-items">
                             {# {% for item in items %}
                                 <li class="ui-state-default" data-id="{{ item.id }}">{{ item.name }}</li>
                             {% endfor %} #}
@@ -135,13 +139,13 @@
                                 <li class="ui-state-default" data-id="madrid">Parque Natural Sierras de Cazorla</li>
                                 <li class="ui-state-default" data-id="barcelona">Item 5</li> #}
                         </ul>
-                    </div>
+                    </section>
 
-                    <div>
-                        <h1>Items a elegidos</h1>
-                        <ul id="sortable2" class="connectedSortable">
+                    <section name="selected-items">
+                        <h1>Visitas elegidas</h1>
+                        <ul id="sortable2" class="connectedSortable" name="selected-items">
                         </ul>
-                    </div>
+                    </section>
                 </fieldset>
             </div>
             <div id="tabs-4">
@@ -205,10 +209,11 @@
                         </div>
                         
                         <!-- Submit -->
-                        <input type="submit" name="save" value="Guardar">
+                        <input type="submit" name="save" value="Generar tours">
                         <button type="button" name="create" id="create">Crear</button>
                         <button type="button" name="generate" id="generate" disabled>Generar</button>
                         <button type="button" name="cancel" id="cancel" disabled>Cancelar</button>
+                        <button type="button" name="printdata" id="printdata">printdata</button>
                     </section>
 
                     <section name="programation-table">

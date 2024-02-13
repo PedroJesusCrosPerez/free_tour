@@ -1,17 +1,3 @@
-$(function () {
-    
-    $('.guide').on('click', function () {
-        var someselected = $('li[class="guide selected"]');
-        if ( someselected ) {
-            someselected.removeClass('selected');
-            $(this).toggleClass('selected');
-        } else {
-            $(this).toggleClass('selected');
-        }
-    })
-    
-})
-
     function format(id) {
         switch (id) {
             case "1": return 'Lunes';
