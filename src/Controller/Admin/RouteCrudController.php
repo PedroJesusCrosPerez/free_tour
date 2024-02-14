@@ -11,14 +11,19 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class RouteCrudController extends AbstractCrudController
 {
-    public static function getEntityFqcn(): string
-    {
-        return Route::class;
-    }
+    private $uploadsDir;
+    public function __construct(ParameterBagInterface $parameterBag) { $this->uploadsDir = $parameterBag->get('routeImgDir'); }
+    public static function getEntityFqcn(): string { return Route::class; }
 
     public function configureAssets(Assets $assets): Assets
     {
@@ -54,26 +59,31 @@ class RouteCrudController extends AbstractCrudController
         ;
     }
 
-    // public function configureFields(string $pageName): iterable
-    // {
-    //     return [
-    //         IdField::new('id')
-    //             ->onlyOnDetail(),
-    //         TextField::new('name'),
-    //         TextEditorField::new('description')
-    //             ->setFormTypeOptions([
-    //                 'attr' => ['maxlength' => 1000]
-    //             ]),
-    //         ImageField::new('photo')
-    //             ->setBasePath('images/route/')
-    //             ->setUploadDir('public/images/route/')
-    //             ->setUploadedFileNamePattern('[randomhash].[extension]'),
-    //         TextField::new('coordinates'),
-    //         IntegerField::new('capacity'),
-    //         DateField::new('datetime_start'),
-    //         DateField::new('datetime_end'),
-    //     ];
-    // }
+    public function configureFields(string $pageName): iterable
+    {
+        return [
+            TextField::new('name')
+                ->setLabel("Nombre"),
+            // ImageField::new('photo')
+            //     ->setLabel("Foto")
+            //     ->setBasePath('images/route/')
+            //     ->setUploadDir('public/images/route/')
+            //     ->setUploadedFileNamePattern('[randomhash].[extension]'),
+            ImageField::new('photo')
+                ->setLabel('Foto')
+                // ->setBasePath('images/route/')
+                // ->setUploadDir('public/images/route/')
+                // ->setUploadedFileNamePattern('[uuid].[extension]')
+                ->setRequired(false)
+                ->setHelp('Sube una imagen de ruta'),
+            IntegerField::new('capacity')
+                ->setLabel("Capacidad"),
+            DateField::new('datetime_start')
+                ->setLabel("Fecha de inicio"),
+            DateField::new('datetime_end')
+                ->setLabel("Fecha de fin"),
+        ];
+    }
 
     public function configureActions(Actions $actions): Actions
     {

@@ -9,7 +9,8 @@ parameters:
     uploads-dir: '%kernel.project_dir%/public/uploads'
     imgs-dir: '%kernel.project_dir%/public/uploads/images'
     userImgDir: '/uploads/images'
-    routeImgDir: '/images/route'
+    routeImgDir: '%kernel.project_dir%/public/images/route'
+    routeImgDirDB: '/images/route'
 
 services:
     # default configuration for services in *this* file
@@ -41,8 +42,7 @@ services:
                 - { name: doctrine.event_listener, event: 'prePersist' }
                 - { name: doctrine.event_listener, event: 'postPersist' }
                 - { name: doctrine.event_listener, event: 'postUpdate' }
-                - { name: doctrine.event_listener, event: 'postRemove' }
-                # - { name: doctrine.event_listener, event: prePersist }
+                # - { name: doctrine.event_listener, event: 'postRemove' }
 
                 # - { name: doctrine.event_subscriber, event: 'prePersist' }
                 # - { name: doctrine.event_subscriber, event: 'postPersist' }

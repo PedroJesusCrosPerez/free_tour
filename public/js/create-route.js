@@ -57,6 +57,44 @@ function takeData() {
     return formData;
 }
 
+function takeFormData() {
+    var daterange = $('input[name="daterange"]').val().split(' - ');
+
+    // Crear un nuevo objeto FormData
+    var formData = new FormData();
+
+    // Obtener el archivo de la entrada de imagen
+    var file = $('div.input-images input[type="file"]').prop('files')[0];
+
+    // Agregar los datos al formData
+    formData.append('name', $('#name').val());
+    var coordinates = {
+        'x': $('input[name="x"]').val(),
+        'y': $('input[name="y"]').val()
+    };
+    formData.append('coordinates', JSON.stringify(coordinates));
+    // formData.append('coordinates[x]', $('input[name="x"]').val());
+    // formData.append('coordinates[y]', $('input[name="y"]').val());
+    formData.append('capacity', $('input[name="capacity"]').val());
+    formData.append('photo', file, file.name);
+    formData.append('datetime_start', daterange[0]);
+    formData.append('datetime_end', daterange[1]);
+    formData.append('description', $('#description').val());
+    formData.append('programation', JSON.stringify(programation));
+    // Selected items
+    // $('#sortable2 li').each(function() {
+    //     formData.append('selected_items[]', $(this).data('id'));
+    // });
+    var selected_items = [];
+    $('#sortable2 li').each(function() {
+        selected_items.push($(this).data('id'));
+    });
+    formData.append('selected_items', JSON.stringify(selected_items));
+
+    return formData;
+}
+
+
 function submit() {
     // Url to send the form data to API server
     const url = '/api/route/insert';
@@ -112,10 +150,27 @@ function testing() {
     ]));
     formData.append('selected_items', JSON.stringify([1, 2]));
 
+
+    $.ajax({
+        type: 'POST',
+        url: "/api/route/insert",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+            console.log('Server response:', response);
+        },
+        error: function(error) {
+            console.error('Error:', error);
+            console.log('Error:', error.responseText);
+        }
+    });
+
     // Ejemplo de JSON de envío
     var formData2  = {
         "name": "titulo de prueba",
-        "photo": "blob:http://localhost:8000/a34e5762-6902-411c-b30c-cc258539f398",
+        // "photo": "blob:http://localhost:8000/a34e5762-6902-411c-b30c-cc258539f398",
+        "photo": $('.input-images img').attr('src'),
         "coordinates": {
             "x": "51.508503734827706",
             "y": "-0.060819089412689216"
@@ -155,7 +210,7 @@ function testing() {
     $.ajax({
         type: 'POST',
         url: "/api/route/insert",
-        data: JSON.stringify(formData),
+        data: JSON.stringify(formData2),
         contentType: 'application/json',
         success: function(response) {
             console.log('Server response:', response);

@@ -44,18 +44,28 @@ class RouteApi extends AbstractController
         return new Response($data, Response::HTTP_OK, ['Content-Type' => 'application/json']);
     }
 
+    // #[RouteAnnotation("/insert", name: "insert", methods: ["POST"])]
+    // public function insert(Request $request, RouteService $routeService): JsonResponse
+    // {
+    //     // Obtener los datos en formato JSON
+    //     $data = json_decode($request->getContent(), true);
+
+    //     // TODO validar y procesar los datos recibidos antes de insertar la nueva entidad Route
+
+    //     // Llamar al servicio 'route_service' que inserta los datos y devuelve el ID de la nueva entidad creada
+    //     $newEntityId = $routeService->insertNewEntity($data, $request);
+
+    //     // Devuelve una respuesta JSON con el ID de la nueva entidad creada y el código de estado HTTP 201 (Created)
+    //     return new JsonResponse(['id' => $newEntityId], JsonResponse::HTTP_CREATED);
+    // }
+
     #[RouteAnnotation("/insert", name: "insert", methods: ["POST"])]
-    public function insert(Request $request, RouteService $routeService): JsonResponse
+    public function insert(Request $request, RouteService $routeService): Response
     {
-        // Obtener los datos en formato JSON
-        $data = json_decode($request->getContent(), true);
-
-        // TODO validar y procesar los datos recibidos antes de insertar la nueva entidad Route
-
         // Llamar al servicio 'route_service' que inserta los datos y devuelve el ID de la nueva entidad creada
-        $newEntityId = $routeService->insertNewEntity($data, $request);
+        $newEntityId = $routeService->insertNewEntity($request);
 
-        // Devuelve una respuesta JSON con el ID de la nueva entidad creada y el código de estado HTTP 201 (Created)
+        // Devolver una respuesta adecuada
         return new JsonResponse(['id' => $newEntityId], JsonResponse::HTTP_CREATED);
     }
 

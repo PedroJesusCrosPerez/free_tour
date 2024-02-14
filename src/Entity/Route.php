@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 #[ORM\Entity(repositoryClass: RouteRepository::class)]
 class Route
@@ -46,10 +47,12 @@ class Route
     #[ORM\OneToMany(mappedBy: 'route', targetEntity: Tour::class, orphanRemoval: true)]
     private Collection $tours;
 
-    public function __construct()
+    //private $uploadsDir;
+    public function __construct(/*ParameterBagInterface $parameterBag*/)
     {
         $this->item = new ArrayCollection();
         $this->tours = new ArrayCollection();
+        //$this->uploadsDir = $parameterBag->get('routeImgDir');
     }
 
     public function getId(): ?int
@@ -88,7 +91,7 @@ class Route
 
     public function setPhoto($photo): static
     {
-        $this->photo = $photo;
+        $this->photo = /*$this->uploadsDir . */$photo;
 
         return $this;
     }
