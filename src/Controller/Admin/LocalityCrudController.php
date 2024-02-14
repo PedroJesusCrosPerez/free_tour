@@ -21,10 +21,12 @@ class LocalityCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id'),
-            TextField::new('name'),
-            IntegerField::new('province_id'),
+            IdField::new('id')
+                ->onlyOnDetail(),
+            TextField::new('name')
+                ->setLabel('Nombre'),
             AssociationField::new('province')
+                ->setLabel('Provincia')
                 ->setFormTypeOptions([
                     'placeholder' => 'Selecciona una provincia',
                 ]),

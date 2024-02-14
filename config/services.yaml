@@ -35,13 +35,13 @@ services:
 
     # servicios para eventos
     # App\EventSubscriber\DoctrineEventSubscriber:
-    App\EventListener\DoctrineEventListener:
-            arguments:
-                # $mailer: '@Symfony\Component\Mailer\MailerInterface'
-            tags:
-                - { name: doctrine.event_listener, event: 'prePersist' }
-                - { name: doctrine.event_listener, event: 'postPersist' }
-                - { name: doctrine.event_listener, event: 'postUpdate' }
+    # App\EventListener\DoctrineEventListener:
+    #         arguments:
+    #             # $mailer: '@Symfony\Component\Mailer\MailerInterface'
+    #         tags:
+    #             - { name: doctrine.event_listener, event: 'prePersist' }
+    #             - { name: doctrine.event_listener, event: 'postPersist' }
+    #             - { name: doctrine.event_listener, event: 'postUpdate' }
                 # - { name: doctrine.event_listener, event: 'postRemove' }
 
                 # - { name: doctrine.event_subscriber, event: 'prePersist' }

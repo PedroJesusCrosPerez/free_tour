@@ -62,16 +62,17 @@
 
             <ul>
                 <li><a href="#tabs-1">Información</a></li>
-                <li><a href="#tabs-2">Configuración</a></li>
-                <li><a href="#tabs-3">Items</a></li>
-                <li><a href="#tabs-4">Programación</a></li>
+                <li><a href="#tabs-2">Visitas</a></li>
+                <li><a href="#tabs-3">Programación</a></li>
             </ul>
 
             <div id="tabs-1">
                 <fieldset name="information">
-                    <label for="name">Nombre: </label>
-                    <input type="text" name="name" id="name">
+                    <!-- Name -->
+                    <label class="form-label" for="name">Nombre: </label>
+                    <input class="form-control" type="text" name="name" id="name">
 
+                    <!-- Description -->
                     <label for="description">Descripción: </label>
                     <textarea name="description" id="description" style="height:300px;width:600px;"></textarea>
                     <!-- Para cambiar el color de la interfaz -->
@@ -86,17 +87,14 @@
                                 <option value="square">Square</option>
                             </select>
                         </div>-->
-                </fieldset>
-            </div>
-            <div id="tabs-2">
-                <fieldset name="configuration">
-                    <!-- Drag&drop file upload 2 -->
+
+
+                    <!-- Drag&drop file upload -->
                     <label for="">Subir imágen: </label>
                     <div class="input-images"></div>
 
-                    <!-- Mapa -->
+                    <!-- Leaflet map -->
                     <button id="openModalBtn">Abrir Modal</button>
-
                     <div id="mapModal" title="Mapa">
                         <button id="addMarkerBtn">Añadir</button>
                         <select id="citySelect">
@@ -109,13 +107,13 @@
                         <div id="map-container"></div>
                     </div>
 
-                    <div>
-                        <label for="inputX">X:</label>
-                        <input type="text" id="inputX" name="x">
-                        <label for="inputY">Y:</label>
-                        <input type="text" id="inputY" name="y">
-                    </div>
+                    <!-- Coordinates from 'Leaflet map' -->
+                    <label for="inputX">X:</label>
+                    <input type="text" id="inputX" name="x">
+                    <label for="inputY">Y:</label>
+                    <input type="text" id="inputY" name="y">
 
+                    <!-- Feedback from 'Leaflet map' -->
                     <div id="snackbar">No hay marcador en el mapa</div>
 
                     <!-- Date range picker -->
@@ -125,10 +123,17 @@
                     <input name="daterange" type="text">
                 </fieldset>
             </div>
-            <div id="tabs-3">
+            <div id="tabs-2">
                 <fieldset name="items">
                     <section name="select-items">
                         <h1>Visitas a elegir</h1>
+                        <select id="filter_locality">
+                            <option value="castillo_santa_catalina">Castillo de Santa Catalina</option>
+                            <option value="banyos_arabes">Baños Arabes</option>
+                            <option value="catedral">Catedral</option>
+                            <option value="madrid">Parque Natural Sierras de Cazorla</option>
+                            <option value="barcelona">Item 5</option>
+                        </select>
                         <ul id="sortable1" class="connectedSortable" name="select-items">
                             {# {% for item in items %}
                                 <li class="ui-state-default" data-id="{{ item.id }}">{{ item.name }}</li>
@@ -148,7 +153,7 @@
                     </section>
                 </fieldset>
             </div>
-            <div id="tabs-4">
+            <div id="tabs-3">
                 <fieldset name="programation">
                     <section name="programation-configure">
                         <!-- Time picker -->

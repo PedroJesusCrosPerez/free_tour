@@ -17,13 +17,16 @@ class UploadApi extends AbstractController {
     public function uploadCreateRoute(EntityManagerInterface $entityManager): JsonResponse {
         $items = $entityManager->getRepository(Item::class)->findAll();
         $guides = $entityManager->getRepository(User::class)->findByRoles(["ROLE_GUIDE"]);
+        $itemsId = $this->getItemsId($items);
 
         $serializedItems = $this->serializeItems($items);
         $serializedGuides = $this->serializeGuides($guides);
+        // $serializedItemsId = $this->serializeItemsId($itemsId);
 
         $data = [
             'items' => $serializedItems,
             'guides' => $serializedGuides,
+            // 'itemsId' => $serializedItemsId,
         ];
 
         return $this->json($data, Response::HTTP_OK);
@@ -71,4 +74,30 @@ class UploadApi extends AbstractController {
         }
         return $serializedGuides;
     }
+
+    public function getItemsId($items): array {
+        $itemIds = [];
+        foreach ($items as $item) {
+            $itemId = $item->getId(); // Asumiendo que el método getId() devuelve el ID del elemento
+            // Verificar si el item_id ya ha sido agregado al array
+            if (!in_array($itemId, $itemIds)) {
+                // Si no ha sido agregado, agrégalo al array
+                $itemIds[] = $itemId;
+            }
+        }
+        return $itemIds;
+    }
+
+    public function serializeItemsId($itemIds): array {
+        $serializedItems = [];
+        foreach ($itemIds as $itemId) {
+            $serializedItems[] = [
+                'item_id' => $itemId,
+            ];
+        }
+        return $serializedItems;
+    }
+    
+    
+    
 }

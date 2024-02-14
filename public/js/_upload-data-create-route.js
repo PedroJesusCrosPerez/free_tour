@@ -47,6 +47,19 @@ function uploadGuides(guides) {
     });
 }
 
+function uploadFilterLocality(items) {
+    // Obtener el contenido de la plantilla de filter locality
+    var select = $("#filter_locality");
+    for (const item of items) {
+        var option = $("<option>")
+        option.html(item.locality.name + ", " + item.locality.province.name);
+        option.attr("data-locality_id", item.locality.id);
+        option.attr("data-province_id", item.locality.province.id);
+        select.append(option);
+    }
+    // TODO AQUÍ HE ME QUEDADO HOY 14/02/2024 a las 19:52
+}
+
 function uploadSrc() {
     // Obtener los items del servidor mediante una solicitud POST a la API
     $.ajax({
@@ -57,6 +70,8 @@ function uploadSrc() {
             console.log(response)
             uploadItems(response.items)
             uploadGuides(response.guides)
+            // uploadFilterLocality(response.itemsId)
+            uploadFilterLocality(response.items)
         },
         error: function (error) {
             console.error('Error:', error);

@@ -23,15 +23,22 @@ class ItemCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id')->hideOnForm(),
-            TextField::new('name'),
-            TextEditorField::new('description'),
+            IdField::new('id')
+                ->onlyOnDetail(),
+            TextField::new('name')
+                ->setLabel('Nombre'),
+            TextEditorField::new('description')
+                ->setLabel('Descripción'),
             ImageField::new('photo')
+                ->setLabel('Foto')
                 ->setBasePath('images/item/')
                 ->setUploadDir('public/images/item/')
                 ->setUploadedFileNamePattern('[uuid].[extension]'),
-            TextField::new('coordinates'),
+            TextField::new('coordinates')
+                ->setLabel('Coordenadas')
+                ->onlyOnDetail(),
             AssociationField::new('locality')
+                ->setLabel('Localidad')
                 ->setFormTypeOptions([
                     'placeholder' => 'Selecciona una localidad',
                 ]),
