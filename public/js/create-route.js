@@ -24,7 +24,7 @@ function takeProgramationData() {
         'date_end': date_end,
         'guide': {
             'id': guide.data('id'),
-            'name': guide.find("p").html()
+            'name': guide.find("p").find("span").html()
         }
     };
 
@@ -95,12 +95,12 @@ function takeFormData() {
 }
 
 
-function submit() {
+function createRoute() {
     // Url to send the form data to API server
     const url = '/api/route/insert';
 
     // Obtener datos del formulario
-    var formData = takeData();
+    var formData = takeFormData();
     console.log("ENVIAR ==> ");
     console.log(formData);
     console.log(" a servidor http://localhost:8000/, uri: " + url);
@@ -108,9 +108,35 @@ function submit() {
     // Here you can send the form data to your server using AJAX
     $.ajax({
         type: 'POST',
-        url: url,
-        data: JSON.stringify(formData),
-        contentType: 'application/json',
+        url: "/api/route/insert",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+            console.log('Server response:', response);
+        },
+        error: function(error) {
+            console.error('Error:', error);
+            console.log('Error:', error.responseText);
+        }
+    });
+
+}
+
+function createRouteAndGenerateTours() {
+    // Url to send the form data to API server
+    const url = '/api/route/insertAndGenerateTours';
+
+    // Obtener datos del formulario
+    var formData = takeFormData();
+    
+    // Here you can send the form data to your server using AJAX
+    $.ajax({
+        type: 'POST',
+        url: "/api/route/insertAndGenerateTours",
+        data: formData,
+        contentType: false,
+        processData: false,
         success: function(response) {
             console.log('Server response:', response);
         },
@@ -222,6 +248,24 @@ function testing() {
     });
 }
 
+function testingGenerateTour() {
+    // var data = takeProgramationData();
+    
+    $.ajax({
+        type: 'POST',
+        url: "/api/tour/generate",
+        data: JSON.stringify(programation),
+        contentType: 'application/json',
+        success: function(response) {
+            console.log('Server response:', response);
+        },
+        error: function(error) {
+            console.error('Error:', error);
+            console.log('Error:', error.responseText);
+        }
+    });
+}
+
 $(function () {
     // Añadir la clase 'active' al menú
     $(".fa-route").parent().parent().addClass("active");
@@ -257,7 +301,8 @@ $(function () {
         }
     });
 
-
+    programOnChangeSelectFilter("locality");
+    programOnChangeSelectFilter("province");
     programAddProgramation(); // Botón que añade programaciones a la tabla
     // programCreateProgramation();
 
@@ -275,9 +320,14 @@ $(function () {
     });
 
     // Create button
-    $('#create').on('click', submit);
+    $('#create').on('click', createRoute);
+    $('#create_generate').on('click', createRouteAndGenerateTours);
+        // Print to debugg
     $('#printdata').on('click', function () { console.log(takeData()); /*Debugging*/ });
-
+        // Testing
+    $('#testtour').on('click', function () { console.log(testingGenerateTour()); /*Debugging*/ });
+    $('#testryt').on('click', function () { console.log(testingCreateRouteAndGenerateTours()); /*Debugging*/ });
+    
 
     // Upload src 'items' and 'Guides'
     uploadSrc();

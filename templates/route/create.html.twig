@@ -12,6 +12,16 @@
     <script src="{{ asset('jquery/jquery-ui-1.13.2/jquery-ui.min.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('jquery/jquery-ui-1.13.2/jquery-ui.min.css') }}">
 
+    <script> 
+        $(function() {
+            var btnSave = $("<button>");
+            btnSave.html("Guardar");
+            btnSave.addClass("action-saveAndReturn btn btn-primary action-save");
+            btnSave.attr("type", "submit");
+            btnSave.attr("id", "btnSave");
+            $("section.content-header").append(btnSave);
+        });
+    </script>
 
 
     <!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
@@ -46,7 +56,6 @@
     <script src="{{ asset('js/_upload-data-create-route.js') }}"></script>
     <script src="{{ asset('js/_add-create-route.js') }}"></script>
     <script src="{{ asset('js/create-route.js') }}"></script>
-
 {% endblock %}
 
 
@@ -67,7 +76,8 @@
             </ul>
 
             <div id="tabs-1">
-                <fieldset name="information">
+                {# <fieldset name="information"> #}
+                <div name="information">
                     <!-- Name -->
                     <label class="form-label" for="name">Nombre: </label>
                     <input class="form-control" type="text" name="name" id="name">
@@ -90,11 +100,12 @@
 
 
                     <!-- Drag&drop file upload -->
-                    <label for="">Subir imágen: </label>
-                    <div class="input-images"></div>
+                    <label for="upload-image">Subir imágen: </label>
+                    <div class="input-images" name="upload-image"></div>
 
                     <!-- Leaflet map -->
-                    <button id="openModalBtn">Abrir Modal</button>
+                    {# <button id="openModalBtn" name="btnOpenMap" class="fa-solid fa-map-location-dot">Abrir Modal</button> #}
+                    <i id="openModalBtn" name="btnOpenMap" class="fa-solid fa-map-location-dot"></i>
                     <div id="mapModal" title="Mapa">
                         <button id="addMarkerBtn">Añadir</button>
                         <select id="citySelect">
@@ -108,32 +119,27 @@
                     </div>
 
                     <!-- Coordinates from 'Leaflet map' -->
-                    <label for="inputX">X:</label>
-                    <input type="text" id="inputX" name="x">
-                    <label for="inputY">Y:</label>
-                    <input type="text" id="inputY" name="y">
+                    <label for="inputX" style="display:none;">X:</label>
+                    <input type="text" id="inputX" name="x" style="display:none;">
+                    <label for="inputY" style="display:none;">Y:</label>
+                    <input type="text" id="inputY" name="y" style="display:none;">
 
                     <!-- Feedback from 'Leaflet map' -->
                     <div id="snackbar">No hay marcador en el mapa</div>
 
                     <!-- Date range picker -->
                     <label for="capacity">Aforo: </label>
-                    <input type="number" name="capacity">
+                    <input type="number" name="capacity" class="form-control" min="1">
                     <label for="daterange">Rango de fechas</label>
-                    <input name="daterange" type="text">
-                </fieldset>
+                    <input name="daterange" type="text" class="form-control">
+                </div>
             </div>
             <div id="tabs-2">
                 <fieldset name="items">
                     <section name="select-items">
                         <h1>Visitas a elegir</h1>
-                        <select id="filter_locality">
-                            <option value="castillo_santa_catalina">Castillo de Santa Catalina</option>
-                            <option value="banyos_arabes">Baños Arabes</option>
-                            <option value="catedral">Catedral</option>
-                            <option value="madrid">Parque Natural Sierras de Cazorla</option>
-                            <option value="barcelona">Item 5</option>
-                        </select>
+                        <select id="filter_locality"></select>
+                        <select id="filter_province"></select>
                         <ul id="sortable1" class="connectedSortable" name="select-items">
                             {# {% for item in items %}
                                 <li class="ui-state-default" data-id="{{ item.id }}">{{ item.name }}</li>
@@ -214,11 +220,14 @@
                         </div>
                         
                         <!-- Submit -->
-                        <input type="submit" name="save" value="Generar tours">
                         <button type="button" name="create" id="create">Crear</button>
+                        <button type="button" name="create_generate" id="create_generate">Crear y generar tours</button>
+                        <input type="submit" name="save" value="Generar tours" disabled>
                         <button type="button" name="generate" id="generate" disabled>Generar</button>
                         <button type="button" name="cancel" id="cancel" disabled>Cancelar</button>
                         <button type="button" name="printdata" id="printdata">printdata</button>
+                        <button type="button" name="testtour" id="testtour">Testing generate tour</button>
+                        <button type="button" name="testryt" id="testryt">Testing create route and generate tour</button>
                     </section>
 
                     <section name="programation-table">

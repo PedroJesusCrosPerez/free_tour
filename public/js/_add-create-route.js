@@ -56,6 +56,29 @@
         $('#add').on('click', addButtonProgram);
     }
 
+    function programOnChangeSelectFilter(field) {
+
+        switch (field) {
+            case "locality":
+                $('#filter_locality').on('change', function() {
+                    var locality_id = $(this).find('option:selected').data('locality_id');
+                    toggleItemsByLocalityId([locality_id]);
+                });
+                break;
+
+            case "province":
+                $('#filter_province').on('change', function() {
+                    var province_id = $(this).find('option:selected').data('province_id');
+                    toggleItemsByProvinceId([province_id]);
+                });
+                
+                break;
+        
+            default:
+                break;
+        }
+        
+    }
 
     // function createButtonProgram() {
     //     // console.log(takeData());

@@ -15,11 +15,17 @@ use Symfony\Component\HttpFoundation\Request;
 class RouteService
 {
     private $entityManager;
+    private $tourService;
     private $uploadsDir;
     private $nameUploadsDirDB;
 
-    public function __construct(EntityManagerInterface $entityManager, ParameterBagInterface $parameterBag)
+    public function __construct(
+        EntityManagerInterface $entityManager, 
+        ParameterBagInterface $parameterBag,
+        TourService $tourService
+        )
     {
+        $this->tourService = $tourService;
         $this->entityManager = $entityManager;
         $this->uploadsDir = $parameterBag->get('routeImgDir');
         $this->nameUploadsDirDB = $parameterBag->get('routeImgDirDB');
@@ -41,8 +47,7 @@ class RouteService
         // $x = $coordinates['x'];
         // $y = $coordinates['y'];
         $selected_items = json_decode($request->request->get('selected_items'));
-        // dump($selected_items[0]);
-        // dump($selected_items[1]);
+        // dd($request->request->all()); // debugg depurar
 
         // Save image on server
         $photoName = $this->saveUploadedFile($photo);
@@ -54,8 +59,8 @@ class RouteService
         $route->setDescription($description);
         $route->setPhoto($this->nameUploadsDirDB . $photoName);
         $route->setCoordinates(json_encode($coordinates));
-        $route->setDatetimeStart(\DateTime::createFromFormat('d/m/Y H:m', $datetimeStart));
-        $route->setDatetimeEnd(\DateTime::createFromFormat('d/m/Y H:m', $datetimeEnd));
+        $route->setDatetimeStart(\DateTime::createFromFormat('d/m/Y H:i', $datetimeStart));
+        $route->setDatetimeEnd(\DateTime::createFromFormat('d/m/Y H:i', $datetimeEnd));
         $route->setCapacity($capacity);
         $route->setProgramation(json_encode($programation));
         
@@ -72,6 +77,15 @@ class RouteService
         // Devolver el ID de la nueva entidad creada
         // dd($photoPath);
         return $route->getId();
+    }
+
+    public function insertNewEntityAndGenerateTours(Request $request): int
+    {
+        $route_id = $this->insertNewEntity($request);
+        // $this->tourService->generateTours($route_id, json_decode($request->request->get('programation'), true));
+        $this->tourService->generateTours($route_id);
+
+        return $route_id;
     }
 
     // public function insertNewEntity(array $data, Request $request): int

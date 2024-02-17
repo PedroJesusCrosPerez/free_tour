@@ -41,6 +41,7 @@ class UploadApi extends AbstractController {
 
     private function serializeLocality($locality): array {
         return [
+            'id' => $locality->getId(),
             'name' => $locality->getName(),
             'province' => $this->serializeProvince($locality->getProvince()),
         ];

@@ -69,6 +69,16 @@ class RouteApi extends AbstractController
         return new JsonResponse(['id' => $newEntityId], JsonResponse::HTTP_CREATED);
     }
 
+    #[RouteAnnotation("/insertAndGenerateTours", name: "insertAndGenerateTours", methods: ["POST"])]
+    public function insertAndGenerateTours(Request $request, RouteService $routeService): Response
+    {
+        // Llamar al servicio 'route_service' que inserta los datos y devuelve el ID de la nueva entidad creada
+        $newEntityId = $routeService->insertNewEntityAndGenerateTours($request);
+
+        // Devolver una respuesta adecuada
+        return new JsonResponse(['id' => $newEntityId], JsonResponse::HTTP_CREATED);
+    }
+
     #[RouteAnnotation("/update/{id}", name: "update", methods: ["PUT"])]
     public function update(Request $request, $id): Response
     {
