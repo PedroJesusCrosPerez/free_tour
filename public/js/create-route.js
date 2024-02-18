@@ -1,12 +1,20 @@
 function takeProgramationData() {
     var time_start = $('#time').val();
-    // var pattern = $('input[name="pattern"]').val();
+
     var pattern = [];
     var patternf = [];
-    $('input[name="pattern[]"]:checked').each(function() {
-        pattern.push($(this).val());
-        patternf.push( format( $(this).val() ) );
+    // Versión anterior (con radio buttons)
+    // $('input[name="pattern[]"]:checked').each(function() {
+    //     pattern.push($(this).val());
+    //     patternf.push( format( $(this).val() ) );
+    // });
+
+    // Nueva versión con divs seleccionables
+    $('div[name="container-daysOfWeek"] > div[class="dayOfWeek selected"]').each(function() {
+        pattern.push( $(this).data('id') );
+        patternf.push( $(this).html() );
     });
+
     patternf ? patternf : patternf = ['No hay días seleccionados'];
     patternf = patternf.length == 7 ? 'todos los días' : patternf;
 

@@ -11,6 +11,11 @@ function selectGuide() {
     })
 }
 
+function selectDayOfWeek() {
+    // Select Day Of Week
+    $('.dayOfWeek').on('click', function () { $(this).toggleClass('selected'); })
+}
+
 function uploadItems(items) {
     // Obtener el contenido de la plantilla de item
     $.get("/templates/item.html", function (text) {

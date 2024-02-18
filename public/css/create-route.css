@@ -189,17 +189,26 @@ fieldset[name="programation"] {
         input[type="checkbox"] { cursor: pointer; }
 
         div[name="container-daysOfWeek"] {
+            display: flex;
+            gap: .2em;
+
             .dayOfWeek {
                 background-color: lightblue;
                 padding: 0.4em 1em;
                 cursor: pointer;
+                border-radius: 20px;
             }
             .dayOfWeek:hover {
-                background-color: blue;
+                background-color: blue !important;
                 color: white;
             }
             .dayOfWeek:active {
+                background-color: darkblue !important;
+            }
+
+            .dayOfWeek.selected {
                 background-color: darkblue;
+                color: white;
             }
         }
     }
