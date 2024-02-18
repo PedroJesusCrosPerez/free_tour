@@ -7,9 +7,9 @@ landingpage:
     path: /
     controller: App\Controller\HomeController::home
     methods: GET
-    defaults:
-        path: /home
-        permanent: true
+    # defaults:
+    #     path: /home
+    #     permanent: true
 action-logout:
     path: /logout
 # route_api:

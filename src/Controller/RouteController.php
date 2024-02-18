@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\ItemRepository;
+use App\Repository\RouteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -43,6 +44,15 @@ class RouteController extends AbstractController
             'amount' => $amount,
             'saveSearch' => $saveSearch,
             'allParams' => $allParams
+        ]);
+    }
+    
+    #[Route('/list', name: 'list', methods: ['GET'])]
+    public function list(RouteRepository $routeRepository): Response
+    {
+        $routes = $routeRepository->findAll();
+        return $this->render('route/list.html.twig', [
+            'routes' => $routes,
         ]);
     }
 }

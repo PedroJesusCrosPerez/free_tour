@@ -68,20 +68,18 @@
         this.applyButtonClasses = 'btn-primary';
         this.cancelButtonClasses = 'btn-default';
 
-        // TODO código mío
         this.locale = {
             direction: 'ltr',
-            format: 'DD/MM/YYYY', // Formato de fecha para Madrid, España
-            separator: ' / ',
-            applyLabel: 'Aplicar', // Cambiado a español
-            cancelLabel: 'Cancelar', // Cambiado a español
-            weekLabel: 'Sem', // Abreviatura de "Semana" en español
-            customRangeLabel: 'Rango personalizado', // Cambiado a español
-            daysOfWeek: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'], // Abreviaturas de los días de la semana en español
-            monthNames: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'], // Nombres de los meses en español
-            firstDay: 1 // Lunes es el primer día de la semana en España
+            format: moment.localeData().longDateFormat('L'),
+            separator: ' - ',
+            applyLabel: 'Apply',
+            cancelLabel: 'Cancel',
+            weekLabel: 'W',
+            customRangeLabel: 'Custom Range',
+            daysOfWeek: moment.weekdaysMin(),
+            monthNames: moment.monthsShort(),
+            firstDay: moment.localeData().firstDayOfWeek()
         };
-        
 
         this.callback = function() { };
 

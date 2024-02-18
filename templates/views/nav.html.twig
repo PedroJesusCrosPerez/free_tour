@@ -149,8 +149,9 @@
 				<ul class="js-clone-nav d-none d-lg-inline-block text-left site-menu float-right">
 					<li class="active"><a href='{{ path('home') }}'>Inicio</a></li>
 					{# <li><a href="services.html">Servicios</a></li> #}
-					<li><a href="about.html">Sobre nosotros</a></li>
-					<li><a href="contact.html">Contactanos</a></li>
+					{# <li><a href="about.html">Sobre nosotros</a></li> #}
+					{# <li><a href="contact.html">Contactanos</a></li> #}
+					<li><a href="{{ path('route-list') }}">Bucar rutas</a></li>
 					<li class="has-children">
 						<a href="#">Usuario</a>
 						{% if app.user %}

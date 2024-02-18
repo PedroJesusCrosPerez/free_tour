@@ -131,7 +131,7 @@
                     <label for="capacity">Aforo: </label>
                     <input type="number" name="capacity" class="form-control" min="1">
                     <label for="daterange">Rango de fechas</label>
-                    <input name="daterange" type="text" class="form-control">
+                    <input name="daterange" type="text" class="form-control daterange">
                 </div>
             </div>
             <div id="tabs-2">
@@ -178,7 +178,7 @@
                         </div>
 
                         <!-- Select pattern -->
-                        <div>
+                        <!--<div>
                             <label for="monday">Lunes</label>
                             <input type="checkbox" value="1" name="pattern[]">
                             <label for="tuesday">Martes</label>
@@ -193,6 +193,15 @@
                             <input type="checkbox" value="6" name="pattern[]">
                             <label for="sunday">Domingo</label>
                             <input type="checkbox" value="7" name="pattern[]">
+                        </div>-->
+                        <div name="container-daysOfWeek">
+                            <div class="dayOfWeek" name="pattern" data-id="1">Lunes</div>
+                            <div class="dayOfWeek" name="pattern" data-id="2">Martes</div>
+                            <div class="dayOfWeek" name="pattern" data-id="3">Miércoles</div>
+                            <div class="dayOfWeek" name="pattern" data-id="4">Jueves</div>
+                            <div class="dayOfWeek" name="pattern" data-id="5">Viernes</div>
+                            <div class="dayOfWeek" name="pattern" data-id="6">Sábado</div>
+                            <div class="dayOfWeek" name="pattern" data-id="7">Domingo</div>
                         </div>
 
                         <!-- Date range picker -->

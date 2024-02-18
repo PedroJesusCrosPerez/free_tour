@@ -32,34 +32,34 @@
     <script src="{{ asset('js/template/daterangepicker.js') }}"></script>
     <script src="{{ asset('js/template/typed.js') }}"></script>
     {% if app.request.attributes.get('_route') == 'home' %}
-    <script>
-        $(function() {
-            var slides = $('.slides'),
-            images = slides.find('img');
+        <script>
+            $(function() {
+                var slides = $('.slides'),
+                images = slides.find('img');
 
-            images.each(function(i) {
-                $(this).attr('data-id', i + 1);
+                images.each(function(i) {
+                    $(this).attr('data-id', i + 1);
+                })
+
+                var typed = new Typed('.typed-words', {
+                    strings: ["Valencia.","Jaén.","Granada.", "Asturias.", "Madrid."],
+                    typeSpeed: 80,
+                    backSpeed: 80,
+                    backDelay: 4000,
+                    startDelay: 1000,
+                    loop: true,
+                    showCursor: true,
+                    preStringTyped: (arrayPos, self) => {
+                        arrayPos++;
+                        //console.log(arrayPos);
+                        $('.slides img').removeClass('active');
+                        $('.slides img[data-id="'+arrayPos+'"]').addClass('active');
+                    }
+
+                });
             })
-
-            var typed = new Typed('.typed-words', {
-                strings: ["Valencia.","Jaén.","Granada.", "Asturias.", "Madrid."],
-                typeSpeed: 80,
-                backSpeed: 80,
-                backDelay: 4000,
-                startDelay: 1000,
-                loop: true,
-                showCursor: true,
-                preStringTyped: (arrayPos, self) => {
-                    arrayPos++;
-                    //console.log(arrayPos);
-                    $('.slides img').removeClass('active');
-                    $('.slides img[data-id="'+arrayPos+'"]').addClass('active');
-                }
-
-            });
-        })
-    </script>
-    <script src="{{ asset('js/template/custom.js') }}"></script>
+        </script>
+        <script src="{{ asset('js/template/custom.js') }}"></script>
     {% endif %}
 {% endblock %}
 

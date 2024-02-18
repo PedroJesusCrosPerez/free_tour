@@ -187,6 +187,21 @@ fieldset[name="programation"] {
     section[name="programation-configure"] {
         input[name="timepicker"] { width: 80px; }
         input[type="checkbox"] { cursor: pointer; }
+
+        div[name="container-daysOfWeek"] {
+            .dayOfWeek {
+                background-color: lightblue;
+                padding: 0.4em 1em;
+                cursor: pointer;
+            }
+            .dayOfWeek:hover {
+                background-color: blue;
+                color: white;
+            }
+            .dayOfWeek:active {
+                background-color: darkblue;
+            }
+        }
     }
     section[name="programation-select-guide"] { 
         .guide { width: 180px; height: 150px; padding: 2px; }
