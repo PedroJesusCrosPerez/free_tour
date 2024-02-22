@@ -1,0 +1,88 @@
+{% extends 'views/layout.html.twig' %}
+
+{% block title %}Reserva{% endblock %}
+
+{% block main %}
+
+{% for flash_error in app.flashes('verify_email_error') %}
+    <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+{% endfor %}
+
+<div class="form-container">
+    <h1>Reserva</h1>
+
+    <div class="form-errors">
+        {{ form_errors(reservationForm) }}
+    </div>
+
+    {{ form_start(reservationForm) }}
+        {# <div class="form-group{% if reservationForm.datetime.vars.errors|length > 0 %} has-error{% endif %}">
+            {{ form_label(reservationForm.datetime, 'Fecha y Hora') }}
+            {{ form_widget(reservationForm.datetime, {'attr': {'class': 'form-control'}}) }}
+            {% if reservationForm.datetime.vars.errors|length > 0 %}
+                <div class="error-message">
+                    {{ reservationForm.datetime.vars.errors|join(', ') }}
+                </div>
+            {% endif %}
+        </div> #}
+
+        <div class="form-group{% if reservationForm.number_tickets.vars.errors|length > 0 %} has-error{% endif %}">
+            {{ form_label(reservationForm.number_tickets, 'Número de Tickets') }}
+            {{ form_widget(reservationForm.number_tickets, {'attr': {'class': 'form-control'}}) }}
+            {% if reservationForm.number_tickets.vars.errors|length > 0 %}
+                <div class="error-message">
+                    {{ reservationForm.number_tickets.vars.errors|join(', ') }}
+                </div>
+            {% endif %}
+        </div>
+
+        {# <div class="form-group{% if reservationForm.assistants.vars.errors|length > 0 %} has-error{% endif %}">
+            {{ form_label(reservationForm.assistants, 'Asistentes') }}
+            {{ form_widget(reservationForm.assistants, {'attr': {'class': 'form-control'}}) }}
+            {% if reservationForm.assistants.vars.errors|length > 0 %}
+                <div class="error-message">
+                    {{ reservationForm.assistants.vars.errors|join(', ') }}
+                </div>
+            {% endif %}
+        </div> #}
+
+        {# <div class="form-group{% if reservationForm.client.vars.errors|length > 0 %} has-error{% endif %}">
+            {{ form_label(reservationForm.client, 'Cliente') }}
+            {{ form_widget(reservationForm.client, {'attr': {'class': 'form-control'}}) }}
+            {% if reservationForm.client.vars.errors|length > 0 %}
+                <div class="error-message">
+                    {{ reservationForm.client.vars.errors|join(', ') }}
+                </div>
+            {% endif %}
+        </div> #}
+
+        <div class="form-group{% if reservationForm.tour.vars.errors|length > 0 %} has-error{% endif %}">
+            {{ form_label(reservationForm.tour, 'Tour') }}
+            {{ form_widget(reservationForm.tour, {'attr': {'class': 'form-control'}}) }}
+            {% if reservationForm.tour.vars.errors|length > 0 %}
+                <div class="error-message">
+                    {{ reservationForm.tour.vars.errors|join(', ') }}
+                </div>
+            {% endif %}
+        </div>
+
+        <button type="submit" class="btn btn-primary">Reservar</button>
+    {{ form_end(reservationForm) }}
+</div>
+
+<style>
+    .has-error input[type="text"],
+    .has-error input[type="number"],
+    .has-error select {
+        border-color: red;
+    }
+
+    .error-message {
+        color: red;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+</style>
+
+
+{% endblock %}

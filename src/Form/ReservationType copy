@@ -1,0 +1,80 @@
+namespace App\Form;
+
+use App\Entity\Reservation;
+use App\Entity\Tour;
+use App\Entity\User;
+use App\Repository\RouteRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+class ReservationTypeCOOPY extends AbstractType
+{
+    private $uri;
+    private $routeRepository;
+    public function __construct(RouteRepository $routeRepository) {
+        $this->routeRepository = $routeRepository;
+    }
+
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $routes = $this->routeRepository->findAll();
+        // dump($this->uri);
+        // dd($routes);
+        $builder
+        ->add('number_tickets', IntegerType::class, [
+            'label' => 'Número de personas',
+        ])
+        ->add('tour', EntityType::class, [
+            'class' => Tour::class,
+            // 'choice_label' => function ( $options ) {
+            //     return $options["data"];
+            // }
+            'choice_label' => function ($routes) {
+                return $routes->__toString();
+            }
+            // 'choices' => function ($tour) {
+            //     return $tour->__toString();
+            // }
+            ,
+            // 'choice_label' => function ($options) {
+            //     // return $options['tour']->getDatetime()->format('d/m/Y H:i') . ' - ' . $options['tour']->getRoute()->getName() . ' - ' . $options['tour']->getGuide()->getFullName();
+            //     return $options->tour->getRoute()->getName();
+            // },
+            'label' => 'Tour',
+            'placeholder' => 'Selecciona un tour',
+        ])
+            // ->add('datetime', DateTimeType::class, [
+            //     'label' => 'Fecha y hora',
+            //     'widget' => 'single_text',
+            //     'html5' => false,
+            //     'attr' => ['class' => 'js-datepicker'],
+            // ])
+            // ->add('assistants', IntegerType::class, [
+            //     'label' => 'Número de asistentes',
+            // ])
+            // ->add('client', EntityType::class, [
+            //     'class' => User::class,
+            //     'choice_label' => function ($user) {
+            //         return $user->getFullName(); // Assuming User entity has a method to get full name
+            //     },
+            //     'label' => 'Client',
+            //     'placeholder' => 'Select a client',
+            // ])
+        ;
+    }
+
+    // public function configureOptions(OptionsResolver $resolver): void
+    // {
+    //     $resolver->setDefaults([
+    //         'data_class' => Reservation::class,
+               
+    //     ]);
+    // }
+}

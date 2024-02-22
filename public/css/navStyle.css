@@ -1,4 +1,14 @@
-hr {
+nav hr {
     margin: 0;
     border: 1px solid rgb(0, 0, 0, .5);
+}
+
+.fa-regular.fa-calendar-days {
+    /* color: white;
+    opacity: 0.7; */
+    color: rgba(255, 255, 255, 0.7);
+}
+.fa-regular.fa-calendar-days:hover {
+    color: white;
+    opacity: 1;
 }

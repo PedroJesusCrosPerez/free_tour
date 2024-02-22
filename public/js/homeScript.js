@@ -1,3 +1,8 @@
+// $(function(){
+//     // Ocultar los divs con una animación cuando se carga la página
+//     $("#overlayer, .loader").fadeOut(600);
+// });
+
 // $(function () {
 //     $('form').on('submit', function(event) {
 //         event.preventDefault(); // Prevent the form from submitting via the browser

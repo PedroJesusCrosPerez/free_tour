@@ -26,6 +26,9 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
+    App\Service\MailService:
+        arguments:
+            $adminEmail: '%env(ADMIN_EMAIL)%'
     App\Service\MessageGenerator:
         arguments:
             $adminEmail: 'admin@gmail.es'

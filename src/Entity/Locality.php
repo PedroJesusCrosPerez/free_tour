@@ -89,7 +89,7 @@ class Locality
         return $this;
     }
 
-
+    // to string
     public function __toString()
     {
         // return $this->name . $this->;

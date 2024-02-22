@@ -139,4 +139,59 @@ class Tour
 
         return $this;
     }
+
+    // My methods
+    function getFormatDatetime(String $format): String
+    {
+        return $this->getDatetime()->format($format);
+    }
+
+    function getDatetimeFormated(): String
+    {
+        return $this->getDatetime()->format('d/m/Y H:i');
+    }
+
+    function getDatetimeFormatedForFullCalendar(): String
+    {
+        return $this->getDatetime()->format('Y-m-d H:i');
+    }
+
+    // DATE
+    function getFormatedDate($format): String
+    {
+        return $this->getDatetime()->format($format);
+    }
+
+    function getFormatedDate_es(): String
+    {
+        return $this->getDatetime()->format('d/m/Y');
+    }
+
+    function getFormatedDate_en(): String
+    {
+        return $this->getDatetime()->format('Y-m-d');
+    }
+
+    function getDate(): String
+    {
+        return $this->getDatetime()->format('d/m/Y');
+    }
+
+
+    // TIME
+    function getFormatedTime($format): String
+    {
+        return $this->getDatetime()->format($format);
+    }
+    function getTime(): String
+    {
+        return $this->getDatetime()->format('H:i');
+    }
+    
+    // to string
+    public function __toString()
+    {
+        $route = $this->getRoute();
+        return $route->getName() . " | " . $this->getDatetime()->format('d/m/Y H:i');
+    }
 }

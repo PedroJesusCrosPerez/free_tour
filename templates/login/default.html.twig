@@ -8,7 +8,7 @@
 
     <form method="post" action="{{ path('action-login') }}">
         <label for="username">Email:</label>
-        <input type="text" id="username" name="_username" required>
+        <input type="text" id="username" name="_username" required value="{{last_username}}">
 
         <label for="password">Password:</label>
         <input type="password" id="password" name="_password" required>

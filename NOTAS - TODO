@@ -11,3 +11,15 @@ RESPONSIVE
 móvil:
   easy admin > create route
   para la vista de móvil al seleccionar items tienes que poder hacer click con el dedo a cada item para seleccionarlo, a su vez se le asignará un número, el cuál indica su prioridad digamos (el item que va primero en la ruta)
+
+
+
+Lista de cosas por hacer
+ - Funcionalidades cliente:
+  . Valoraciones
+ - Funcionalidades guía:
+  . Terminar tour para hacer informe, pasar lista
+ - Funcionalidades admin:
+  . Comando
+  . Asignar guías en un calendario
+  . Gráfico

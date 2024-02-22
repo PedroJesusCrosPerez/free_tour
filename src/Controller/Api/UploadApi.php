@@ -17,7 +17,7 @@ class UploadApi extends AbstractController {
     public function uploadCreateRoute(EntityManagerInterface $entityManager): JsonResponse {
         $items = $entityManager->getRepository(Item::class)->findAll();
         $guides = $entityManager->getRepository(User::class)->findByRoles(["ROLE_GUIDE"]);
-        $itemsId = $this->getItemsId($items);
+        // $itemsId = $this->getItemsId($items);
 
         $serializedItems = $this->serializeItems($items);
         $serializedGuides = $this->serializeGuides($guides);

@@ -16,13 +16,13 @@ class Reservation
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: false)]
     private ?\DateTimeInterface $datetime = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: false)]
     private ?int $number_tickets = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $assistants = null;
 
     #[ORM\ManyToOne(inversedBy: 'reservations')]
@@ -74,7 +74,7 @@ class Reservation
         return $this->assistants;
     }
 
-    public function setAssistants(int $assistants): static
+    public function setAssistants(?int $assistants): static
     {
         $this->assistants = $assistants;
 

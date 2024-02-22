@@ -19,6 +19,9 @@
     <link rel="stylesheet" href="{{ asset('css/template/daterangepicker.css') }}">
     <link rel="stylesheet" href="{{ asset('css/template/aos.css') }}">
     <link rel="stylesheet" href="{{ asset('css/template/style.css') }}">
+    <style>
+        body { background-color: #6998AB !important;}
+    </style>
 {% endblock %}
 
 {% block headscripts %}
@@ -31,7 +34,7 @@
     <script src="{{ asset('js/template/moment.min.js') }}"></script>
     <script src="{{ asset('js/template/daterangepicker.js') }}"></script>
     <script src="{{ asset('js/template/typed.js') }}"></script>
-    {% if app.request.attributes.get('_route') == 'home' %}
+    {# {% if app.request.attributes.get('_route') == 'home' %} #}
         <script>
             $(function() {
                 var slides = $('.slides'),
@@ -60,7 +63,7 @@
             })
         </script>
         <script src="{{ asset('js/template/custom.js') }}"></script>
-    {% endif %}
+    {# {% endif %} #}
 {% endblock %}
 
 {% block headnavstylesheets %}{% endblock %}
@@ -82,7 +85,9 @@
         {% include 'views/main.html.twig' %}
     {% endblock %}
 
-    {% block footer %}
-        {% include 'views/footer.html.twig' %}
-    {% endblock %}
+    {# {% if app.request.attributes.get('_route') == 'home' %} #}
+		{% block footer %}
+            {% include 'views/footer.html.twig' %}
+        {% endblock %}
+	{# {% endif %} #}
 {% endblock %}

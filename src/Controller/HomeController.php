@@ -20,17 +20,24 @@ class HomeController extends AbstractController
     //     $this->params = $params;
     // }
     
-    #[Route('/home', name: 'home')]
-    public function home(EntityManagerInterface $entityManager, LocalityRepository $localityRepository): Response
+    #[Route('/', name: 'landingpage', methods: ['GET'])]
+    public function landingpage(EntityManagerInterface $entityManager, LocalityRepository $localityRepository): Response
     {
         $localities = $entityManager->getRepository(Locality::class)->findAll();
-        // $localities = $localityRepository->findAll();
         dump($localities);
         return $this->render('home/index.html.twig', [
             "localities" => $localities,
         ]);
-
-        // return $this->render('admin/create-route.html.twig');
+    }
+    
+    #[Route('/home', name: 'home', methods: ['GET'])]
+    public function home(EntityManagerInterface $entityManager, LocalityRepository $localityRepository): Response
+    {
+        $localities = $entityManager->getRepository(Locality::class)->findAll();
+        dump($localities);
+        return $this->render('home/index.html.twig', [
+            "localities" => $localities,
+        ]);
     }
     
 

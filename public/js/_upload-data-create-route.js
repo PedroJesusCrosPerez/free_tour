@@ -88,6 +88,7 @@ function uploadFilterLocality(items) {
 }
 
 function toggleItemsByLocalityId(arrLocality_id) {
+    // Filter locality
     var ul = $("ul[name='select-items']");
     if (!arrLocality_id.includes(0)) {
         // Mostrar solo los elementos cuyos IDs coincidan con los recibidos

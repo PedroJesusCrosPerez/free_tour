@@ -209,4 +209,21 @@ class Route
 
         return $this;
     }
+
+    // My methods
+    // public function getToursToString(): string
+    // {
+    //     return $this->getName();
+    // }
+
+    function getDatetimeStartFormated(): String
+    { return $this->getDatetimeStart()->format('d/m/Y H:i'); }
+    function getDatetimeEndFormated(): String
+    { return $this->getDatetimeEnd()->format('d/m/Y H:i'); }
+
+
+    public function __toString(): string
+    {
+        return $this->getName();
+    }
 }

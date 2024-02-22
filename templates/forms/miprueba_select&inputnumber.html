@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../../public/jquery/jquery-3.7.1.min.js"></script>
+
+    <!-- Select -->
+    <style>
+        html,
+        body {
+            min-height: 100%;
+            margin: 0;
+        }
+
+        body {
+            padding: 30px;
+            background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            box-sizing: border-box;
+        }
+
+        .select-box {
+            position: relative;
+            display: block;
+            width: 100%;
+            margin: 0 auto;
+            font-family: 'Open Sans', 'Helvetica Neue', 'Segoe UI', 'Calibri', 'Arial', sans-serif;
+            font-size: 18px;
+            color: #60666d;
+        }
+
+        .select-box__current {
+            position: relative;
+            box-shadow: 0 15px 30px -10px transparentize(#000, 0.9);
+            cursor: pointer;
+            outline: none;
+        }
+
+        .select-box__current:focus+.select-box__list {
+            opacity: 1;
+            animation-name: none;
+        }
+
+        .select-box__current:focus+.select-box__list .select-box__option {
+            cursor: pointer;
+        }
+
+        .select-box__current:focus .select-box__icon {
+            transform: translateY(-50%) rotate(180deg);
+        }
+
+        .select-box__icon {
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            width: 20px;
+            opacity: 0.3;
+            transition: 0.2s ease;
+        }
+
+        .select-box__value {
+            display: flex;
+        }
+
+        .select-box__input {
+            display: none;
+        }
+
+        .select-box__input:checked+.select-box__input-text {
+            display: block;
+        }
+
+        .select-box__input-text {
+            display: none;
+            width: 100%;
+            margin: 0;
+            padding: 15px;
+            background-color: #fff;
+        }
+
+        .select-box__list {
+            position: absolute;
+            width: 100%;
+            padding: 0;
+            list-style: none;
+            opacity: 0;
+            animation-name: HideList;
+            animation-duration: 0.5s;
+            animation-delay: 0.5s;
+            animation-fill-mode: forwards;
+            animation-timing-function: step-start;
+            box-shadow: 0 15px 30px -10px transparentize(#000, 0.9);
+        }
+
+        .select-box__option {
+            display: block;
+            padding: 15px;
+            background-color: #fff;
+        }
+
+        .select-box__option:hover,
+        .select-box__option:focus {
+            color: #546c84;
+            background-color: #fbfbfb;
+        }
+
+        @keyframes HideList {
+            from {
+                transform: scaleY(1);
+            }
+
+            to {
+                transform: scaleY(0);
+            }
+        }
+    </style>
+
+    <!-- input:number -->
+    <script>
+        $(function() {
+            // -- increase and decrease number on click
+            $('.input-group-number').on('click', '.btn', function () {
+                var inputNum = $(this).parent('.input-group-btn').siblings('input[type="number"]');
+                var inputVal = inputNum.val() || 0;
+                var min = parseInt(inputNum.prop('min'));
+                var max = parseInt(inputNum.prop('max'));
+                var incrementNum = $(this).data('increment') || 0;
+                var incrementVal = parseInt(inputVal) + parseInt(incrementNum);
+            
+                if ( incrementVal >= max && max != null ) {
+                    $( inputNum ).val( max );
+                }
+                else if ( min >= incrementVal && min != null ) {
+                    $( inputNum ).val( min );
+                }
+                else {
+                    $( inputNum ).val( incrementVal );
+                }
+            });
+        
+            // Validate min and max values
+            $('.input-group-number').on('change', 'input[type="number"]', function () {
+                if ($(this).prop("max")) {
+                    if(parseInt($(this).prop("max")) < $(this).val()) {
+                        $(this).val(parseInt($(this).prop('max')));
+                    }
+                }
+                if ($(this).prop("min")) {
+                    if(parseInt($(this).prop("min")) > $(this).val()) {
+                        $(this).val(parseInt($(this).prop('min')));
+                    }
+                }
+            });
+        });
+    </script>
+
+    <style>
+        /* Remove spinner */
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+        -webkit-appearance: none; 
+        margin: 0; 
+        }
+
+        /* Number picker */
+        .input-group-number { width: 100px; }
+        .input-group-number .input-xs { width: 60px; }
+    </style>
+</head>
+
+<body>
+
+    <!-- Select -->
+    <div class="select-box">
+        <div class="select-box__current" tabindex="1">
+            <div class="select-box__value">
+                <input class="select-box__input" type="radio" id="0" value="1" name="Ben" checked="true">
+                <p class="select-box__input-text">Cream</p>
+            </div>
+            <div class="select-box__value">
+                <input class="select-box__input" type="radio" id="1" value="2" name="Ben">
+                <p class="select-box__input-text">Cheese</p>
+            </div>
+            <div class="select-box__value">
+                <input class="select-box__input" type="radio" id="2" value="3" name="Ben">
+                <p class="select-box__input-text">Milk</p>
+            </div>
+            <div class="select-box__value">
+                <input class="select-box__input" type="radio" id="3" value="4" name="Ben">
+                <p class="select-box__input-text">Honey</p>
+            </div>
+            <div class="select-box__value">
+                <input class="select-box__input" type="radio" id="4" value="5" name="Ben">
+                <p class="select-box__input-text">Toast</p>
+            </div>
+            <img class="select-box__icon" src="http://cdn.onlinewebfonts.com/svg/img_295694.svg" alt="Arrow Icon"
+                aria-hidden="true">
+        </div>
+        <ul class="select-box__list">
+            <li>
+                <label class="select-box__option" for="0" aria-hidden>Cream</label>
+            </li>
+            <li>
+                <label class="select-box__option" for="1" aria-hidden>Cheese</label>
+            </li>
+            <li>
+                <label class="select-box__option" for="2" aria-hidden>Milk</label>
+            </li>
+            <li>
+                <label class="select-box__option" for="3" aria-hidden>Honey</label>
+            </li>
+            <li>
+                <label class="select-box__option" for="4" aria-hidden>Toast</label>
+            </li>
+        </ul>
+    </div>
+
+    <br><br><br>
+    <!-- input:number -->
+    <div class="input-group input-group-number">
+        <span class="input-group-btn">
+            <button class="btn btn-default" type="button" data-increment="-1"><i class="fa fa-minus" aria-hidden="true"></i></button>
+        </span>
+        <input type="number" class="form-control input-xs" min="0" max="100" value="0">
+        <span class="input-group-btn">
+            <button class="btn btn-default" type="button" data-increment="1"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        </span>
+    </div>
+      
+
+</body>
+
+</html>

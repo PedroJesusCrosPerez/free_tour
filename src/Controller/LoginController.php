@@ -9,15 +9,24 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class LoginController extends AbstractController
 {
-    #[Route('/form-login', name: 'form-login')]
-    public function formLogin(): Response
+    #[Route('/login', name: 'form-login')]
+    public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        return $this->render('login/_login.html.twig');
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
+        
+        // last username entered by the user
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+        return $this->render('login/_login.html.twig', [
+            'last_username' => $lastUsername,
+            'error'         => $error,
+        ]);
     }
 
     
-    #[Route('/login', name: 'action-login')]
-    public function index(AuthenticationUtils $authenticationUtils): Response
+    #[Route('/logindefault', name: 'action-login')]
+    public function default(AuthenticationUtils $authenticationUtils): Response
     {
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();

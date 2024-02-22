@@ -1,0 +1,12 @@
+{% extends 'views/main.html.twig' %}
+
+{% block title %} Mis reservas {% endblock %}
+
+{% block main %}
+    <h1>Listado de reservas</h1>
+    <ul>
+        {% for reservation in reservation %}
+            <li>{{ reservation.fecha|date('d/m/Y') }} a las {{ reservation.time|time('H:i') }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

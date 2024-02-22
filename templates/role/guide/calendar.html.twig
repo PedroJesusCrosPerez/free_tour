@@ -1,0 +1,29 @@
+{% extends 'views/main.html.twig' %}
+
+{% block pagescripts %}
+    {# {{ parent() }} #}
+    <!-- Full calendar -->
+    <script src="{{ asset('plugins/full-calendar/index.global.min.js') }}"></script>
+    <script src="{{ asset('plugins/full-calendar/es.global.min.js') }}"></script>
+
+    <!-- Page scripts -->
+    <script src="{{ asset('js/guide-calendar.js') }}"></script>
+{% endblock %}
+
+{% block pagestylesheets %}
+    {# {{ parent() }} #}
+    <!-- Full calendar -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/main.min.css" rel="stylesheet">
+    
+    <!-- Page style sheet -->
+    <link href="{{ asset('css/full-calendar.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}Calendario mis tours{% endblock %}
+
+{% block main %}
+    <hr>
+    <h1 class="h3 mt-3 text-center text-white">Calendario mis tours</h1>
+    {# <hr class="my-4"> #}
+    <div id="calendar"></div>
+{% endblock %}

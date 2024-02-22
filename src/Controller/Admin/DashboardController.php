@@ -97,6 +97,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::section('Funciones principales');
         yield MenuItem::linkToCrud('Rutas', 'fas fa-route', Entity\Route::class);
         yield MenuItem::linkToCrud('Planificación', 'fas fa-compass', Tour::class);
+        yield MenuItem::linkToUrl('Calendario', 'fa-regular fa-calendar-days', $this->generateUrl('home'));
 
         // Entities
         yield MenuItem::section('Tours');

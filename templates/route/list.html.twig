@@ -2,6 +2,7 @@
 
 {% block pagescripts %}
     {# <script src="{{ asset('js/route-listScript.js') }}"></script> #}
+    {# <script src="{{ asset('bootstrap/bootstrap-5.3.2.min.js') }}"></script> #}
 {% endblock %}
 {% block pagestylesheets %}
     {# <link rel="stylesheet" href="{{ asset('css/homeStyle.css') }}"> #}
@@ -12,6 +13,7 @@
 
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    {# <link href="{{ asset('bootstrap/bootstrap-5.3.2.min.css') }}" rel="stylesheet"> #}
 
     <!-- Customized Bootstrap Stylesheet -->
     {% include 'templates-dependences/multishop.twig' %}
@@ -20,6 +22,17 @@
     <!-- MODAL reservation -->
     <style>
         .ui-widget-overlay { opacity: 0.5; }
+        .actionColumns {
+            width: 100% !important;
+
+            >* {
+                display: flex !important;
+                width: 100% !important;
+            }
+            img {
+                height: 10em;
+            }
+        }
     </style>
 
     <script>
@@ -40,6 +53,16 @@
             });
 
             $(".openModal").removeClass("ui-button");
+
+
+            var routes = $(".col-lg-4.col-md-6.col-sm-6.pb-1")
+            $("button[name='actionColumn']").on("click", function (ev) {
+                routes.addClass("actionColumns");
+            });
+
+            $("button[name='actionGrid']").on("click", function (ev) {
+                routes.removeClass("actionColumns");
+            });
         });
     </script>
 
@@ -201,8 +224,8 @@
                     <div class="col-12 pb-1">
                         <div class="d-flex align-items-center justify-content-between mb-4">
                             <div>
-                                <button class="btn btn-sm btn-light"><i class="fa fa-th-large"></i></button>
-                                <button class="btn btn-sm btn-light ml-2"><i class="fa fa-bars"></i></button>
+                                <button class="btn btn-sm btn-light" name="actionGrid"><i class="fa fa-th-large"></i></button>
+                                <button class="btn btn-sm btn-light ml-2" name="actionColumn"><i class="fa fa-bars"></i></button>
                             </div>
                             <div class="ml-2">
                                 <div class="btn-group">
@@ -239,7 +262,7 @@
                                     </div>
                                 </div>
                                 <div class="text-center py-4">
-                                    <a class="h4 text-decoration-none text-truncate openModal" href="">{{ route.name }}</a>
+                                    {#openModal"#} <a class="h4 text-decoration-none text-truncate" href="/reserve/{{ route.id }}">{{ route.name }}</a>
                                     {# <div class="d-flex align-items-center justify-content-center mt-2">
                                         <h5>{{ route.description }}</h5>
                                     </div> #}
