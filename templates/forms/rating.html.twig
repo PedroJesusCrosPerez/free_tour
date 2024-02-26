@@ -1,0 +1,16 @@
+{% block ratingForm %}
+
+    <form id="ratingsForm">
+        <label for="guide_rating">Calificación del Guía:</label>
+        <input type="text" id="guide_rating" name="guide_rating" placeholder="Introduce una calificación numérica" required><br>
+
+        <label for="route_rating">Calificación de la Ruta:</label>
+        <input type="text" id="route_rating" name="route_rating" placeholder="Introduce una calificación numérica" required><br>
+
+        <label for="comments">Comentarios:</label><br>
+        <textarea id="comments" name="comments" rows="4" cols="50" required></textarea><br>
+
+        <input type="submit" value="Valorar">
+    </form>
+
+{% endblock %}

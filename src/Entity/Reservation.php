@@ -134,4 +134,21 @@ class Reservation
 
         return $this;
     }
+
+
+    // public function __toString(): string
+    // {
+    //     return $this->;
+    // }
+
+    // My methods
+    public function getDate(): string
+    {
+        return $this->getDatetime()->format("d/m/Y");
+    }
+    public function getTime(): string
+    {
+        return $this->getDatetime()->format("H:i");
+    }
+
 }

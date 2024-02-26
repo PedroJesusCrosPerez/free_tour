@@ -21,6 +21,19 @@ class ReservationRepository extends ServiceEntityRepository
         parent::__construct($registry, Reservation::class);
     }
 
+
+    function findAllByClient_id($client_id) : array 
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.client = :client')
+            ->setParameter('client', $client_id)
+            ->orderBy('r.datetime', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+
+    
 //    /**
 //     * @return Reservation[] Returns an array of Reservation objects
 //     */

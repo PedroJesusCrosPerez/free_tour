@@ -6,18 +6,23 @@ use App\Entity\Report;
 use App\Entity\Reservation;
 use App\Entity\Route as EntityRoute;
 use App\Entity\Tour;
+use App\Entity\User;
 use App\Form\ReportType;
 use App\Form\ReservationType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class ReservationController extends AbstractController
 {
-    private $entityManager;
-    public function __construct(EntityManagerInterface $entityManager) { $this->entityManager = $entityManager; }
+    public function __construct(
+        private EntityManagerInterface $entityManager,
+        private Security $security
+    ) {}
 
     #[Route('/reserve/{route_id}', name: 'testreserve', methods: ['GET'])]
     public function reserve(int $route_id): Response
@@ -36,15 +41,21 @@ class ReservationController extends AbstractController
         ]);
     }
 
-    #[Route('/reservationList', name: 'check-reserve', methods: ['GET'])]
-    public function reservationList(int $reservation_id): Response
+    #[Route('/reservationList', name: 'my-reservation-list', methods: ['GET'])]
+    public function reservationList(): Response
     {
-        $reservation = $this->entityManager->getRepository(Reservation::class)->find($reservation_id);
-        
-        // CREATE FORM
-        return $this->render('role/client/check-reservation.html.twig', [
-            'reservation' => $reservation,
-        ]);
+        $user = $this->security->getUser();
+
+        // if ($user instanceof User && $user->getRoles() == ["ROLE_GUIDE"]) {
+            $client_id = $user->getId();
+            $reservations = $this->entityManager->getRepository(Reservation::class)->findAllByClient_id($client_id);
+            
+            // CREATE FORM
+            return $this->render('role/client/reservation-list.html.twig', [
+                'reservations' => $reservations,
+            ]);
+        // }
+        // return $this->render('views/error.html.twig');
     }
 
     #[Route('/check-reserve/{reservation_id}', name: 'check-reserve', methods: ['GET'])]

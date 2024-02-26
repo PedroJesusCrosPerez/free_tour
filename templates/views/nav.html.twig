@@ -153,7 +153,7 @@
 					{# <li><a href="contact.html">Contactanos</a></li> #}
 					<li><a href="{{ path('route-list') }}">Bucar rutas</a></li>
 					{% if is_granted('ROLE_CLIENT') %}
-						<li><a href="{{ path('user-guide-calendar') }}"><i class="fa-solid fa-receipt"></i> Mis reservas</a></li>
+						<li><a href="{{ path('my-reservation-list') }}"><i class="fa-solid fa-receipt"></i> Mis reservas</a></li>
 					{% endif %}
 					{% if is_granted('ROLE_GUIDE') %}
 						<li><a href="{{ path('user-guide-calendar') }}"><i class="fa-regular fa-calendar-days"></i> Mis rutas</a></li>
