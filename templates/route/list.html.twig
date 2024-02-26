@@ -66,7 +66,81 @@
         });
     </script>
 
+    <style>
+    /* RATING */
+fieldset,
+label {
+    margin: 0;
+    padding: 0;
+}
 
+body {
+    margin: 20px;
+}
+
+h1 {
+    font-size: 1.5em;
+    margin: 10px;
+}
+
+/****** Style Star Rating Widget *****/
+
+/* TODO MEDIAQUERY RESPONSIVE */
+/* TAMAÑO TODO MEDIAQUERY RESPONSIVE */
+fieldset.rating label {
+    font-size: 1.8em;
+}
+
+.rating {
+    border: none;
+    float: left;
+}
+
+.rating>input {
+    display: none;
+}
+
+.rating>label:before {
+    margin: 5px;
+    font-size: 1.25em;
+    font-family: FontAwesome;
+    display: inline-block;
+    content: "\f005";
+}
+
+.rating>.half:before {
+    content: "\f089";
+    position: absolute;
+}
+
+.rating>label {
+    color: #ddd;
+    float: right;
+    cursor: pointer;
+}
+
+/***** CSS Magic to Highlight Stars on Hover *****/
+
+.rating>input:checked~label,
+/* show gold star when clicked */
+.rating:not(:checked)>label:hover,
+/* hover current star */
+.rating:not(:checked)>label:hover~label {
+    color: #FFD700;
+}
+
+/* hover previous stars in list */
+
+.rating>input:checked+label:hover,
+/* hover current star when changing rating */
+.rating>input:checked~label:hover,
+.rating>label:hover~input:checked~label,
+/* lighten current selection */
+.rating>input:checked~label:hover~label,
+.startSelected {
+    color: #FFED85;
+}
+    </style>
 {% endblock %}
 
 {% block title %}Lista de rutas{% endblock %}
@@ -247,7 +321,18 @@
                             </div>
                         </div>
                     </div>
-
+                                        {# <fieldset class="rating">
+                                            <input type="radio" id="tour_star5"     name="tour_rating" value="5" /><label class="full"      for="tour_star5"        title="Muy Excelente - 5 estrellas"></label>
+                                            <input type="radio" id="tour_star4half" name="tour_rating" value="4.5" /><label class="half"    for="tour_star4half"    title="Excelente - 5 estrellas"></label>
+                                            <input type="radio" id="tour_star4"     name="tour_rating" value="4" /><label class="full"      for="tour_star4"        title="Muy Bien - 4 estrellas"></label>
+                                            <input type="radio" id="tour_star3half" name="tour_rating" value="3.5" /><label class="half"    for="tour_star3half"    title="Bien - 3.5 estrellas"></label>
+                                            <input type="radio" id="tour_star3"     name="tour_rating" value="3" /><label class="full"      for="tour_star3"        title="Neutral - 3 estrellas"></label>
+                                            <input type="radio" id="tour_star2half" name="tour_rating" value="2.5" /><label class="half"    for="tour_star2half"    title="Regular - 2.5 estrellas"></label>
+                                            <input type="radio" id="tour_star2"     name="tour_rating" value="2" /><label class="full"      for="tour_star2"        title="Muy Mal - 2 estrellas"></label>
+                                            <input type="radio" id="tour_star1half" name="tour_rating" value="1.5" /><label class="half"    for="tour_star1half"    title="Muy Mal - 1.5 estrellas"></label>
+                                            <input type="radio" id="tour_star1"     name="tour_rating" value="1" /><label class="full"      for="tour_star1"        title="Horrible - 1 estrella"></label>
+                                            <input type="radio" id="tour_starhalf"  name="tour_rating" value="0.5" /><label class="half"    for="tour_starhalf"     title="Pérdida de tiempo - 0.5 estrella"></label>
+                                        </fieldset> #}
                     <!-- Routes -->
                     {% for route in routes %}
                         <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
@@ -266,13 +351,16 @@
                                     {# <div class="d-flex align-items-center justify-content-center mt-2">
                                         <h5>{{ route.description }}</h5>
                                     </div> #}
+
+                                    {# RATINGS #}
                                     <div class="d-flex align-items-center justify-content-center mb-1">
-                                        <small class="fa fa-star text-primary mr-1"></small>
-                                        <small class="fa fa-star text-primary mr-1"></small>
-                                        <small class="fa fa-star text-primary mr-1"></small>
-                                        <small class="fa fa-star text-primary mr-1"></small>
-                                        <small class="fa fa-star text-primary mr-1"></small>
+                                        <small class="fa-solid fa-star text-primary mr-1"></small>
+                                        <small class="fa-regular fa-star text-primary mr-1"></small>
+                                        <small class="fa-solid fa-star-half text-primary mr-1"></small>
+                                        <small class="fa-regular fa-star-half-stroke mr-1"></small>
+                                        <small class="fa-regular fa-star text-primary mr-1"></small>
                                         <small>(99)</small>
+
                                     </div>
                                 </div>
                             </div>

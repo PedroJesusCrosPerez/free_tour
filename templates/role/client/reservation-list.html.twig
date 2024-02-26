@@ -93,7 +93,7 @@
                         </div>
                     </div> #}
 
-                    <div class="col-lg-12 col-sm-6 pb-1">
+                    <div name="reservation" class="col-lg-12 col-sm-6 pb-1" data-id="{{ reservation.id }}">
                         {# Tour #}
                         <div class="row product-item bg-light mb-4">
                             <div class="col-6 product-img position-relative overflow-hidden">
@@ -104,16 +104,16 @@
                                 <p class="h4 text-decoration-none">Día {{ reservation.getDate() }} a las {{ reservation.getTime() }}</p>
 
                                 <fieldset class="rating">
-                                    <input type="radio" id="tour_star5"     name="tour_rating" value="5" /><label class="full" for="tour_star5" title="Muy Excelente - 5 estrellas"></label>
-                                    <input type="radio" id="star4half"      name="tour_rating" value="4 and a half" /><label class="half" for="star4half" title="Excelente - 5 estrellas"></label>
-                                    <input type="radio" id="tour_star4"     name="tour_rating" value="4" /><label class="full" for="tour_star4" title="Muy Bien - 4 estrellas"></label>
-                                    <input type="radio" id="tour_star3half" name="tour_rating" value="3 and a half" /><label class="half" for="tour_star3half" title="Bien - 3.5 estrellas"></label>
-                                    <input type="radio" id="tour_star3"     name="tour_rating" value="3" /><label class="full" for="tour_star3" title="Neutral - 3 estrellas"></label>
-                                    <input type="radio" id="tour_star2half" name="tour_rating" value="2 and a half" /><label class="half" for="tour_star2half" title="Regular - 2.5 estrellas"></label>
-                                    <input type="radio" id="tour_star2"     name="tour_rating" value="2" /><label class="full" for="tour_star2" title="Muy Mal - 2 estrellas"></label>
-                                    <input type="radio" id="tour_star1half" name="tour_rating" value="1 and a half" /><label class="half" for="tour_star1half" title="Muy Mal - 1.5 estrellas"></label>
-                                    <input type="radio" id="tour_star1"     name="tour_rating" value="1" /><label class="full" for="tour_star1" title="Horrible - 1 estrella"></label>
-                                    <input type="radio" id="tour_starhalf"  name="tour_rating" value="half" /><label class="half" for="tour_starhalf" title="Pérdida de tiempo - 0.5 estrella"></label>
+                                    <input type="radio" id="{{ reservation.id }}tour_star5"     name="{{ reservation.id }}tour_rating" value="5" /><label class="full"      for="{{ reservation.id }}tour_star5"        title="Muy Excelente - 5 estrellas"></label>
+                                    <input type="radio" id="{{ reservation.id }}tour_star4half" name="{{ reservation.id }}tour_rating" value="4.5" /><label class="half"    for="{{ reservation.id }}tour_star4half"    title="Excelente - 5 estrellas"></label>
+                                    <input type="radio" id="{{ reservation.id }}tour_star4"     name="{{ reservation.id }}tour_rating" value="4" /><label class="full"      for="{{ reservation.id }}tour_star4"        title="Muy Bien - 4 estrellas"></label>
+                                    <input type="radio" id="{{ reservation.id }}tour_star3half" name="{{ reservation.id }}tour_rating" value="3.5" /><label class="half"    for="{{ reservation.id }}tour_star3half"    title="Bien - 3.5 estrellas"></label>
+                                    <input type="radio" id="{{ reservation.id }}tour_star3"     name="{{ reservation.id }}tour_rating" value="3" /><label class="full"      for="{{ reservation.id }}tour_star3"        title="Neutral - 3 estrellas"></label>
+                                    <input type="radio" id="{{ reservation.id }}tour_star2half" name="{{ reservation.id }}tour_rating" value="2.5" /><label class="half"    for="{{ reservation.id }}tour_star2half"    title="Regular - 2.5 estrellas"></label>
+                                    <input type="radio" id="{{ reservation.id }}tour_star2"     name="{{ reservation.id }}tour_rating" value="2" /><label class="full"      for="{{ reservation.id }}tour_star2"        title="Muy Mal - 2 estrellas"></label>
+                                    <input type="radio" id="{{ reservation.id }}tour_star1half" name="{{ reservation.id }}tour_rating" value="1.5" /><label class="half"    for="{{ reservation.id }}tour_star1half"    title="Muy Mal - 1.5 estrellas"></label>
+                                    <input type="radio" id="{{ reservation.id }}tour_star1"     name="{{ reservation.id }}tour_rating" value="1" /><label class="full"      for="{{ reservation.id }}tour_star1"        title="Horrible - 1 estrella"></label>
+                                    <input type="radio" id="{{ reservation.id }}tour_starhalf"  name="{{ reservation.id }}tour_rating" value="0.5" /><label class="half"    for="{{ reservation.id }}tour_starhalf"     title="Pérdida de tiempo - 0.5 estrella"></label>
                                 </fieldset>
                             </div>
                         </div>
@@ -126,22 +126,28 @@
                                 <p class="h4 text-decoration-none text-truncate">{{ reservation.getTour().getGuide() }}</p>
 
                                 <fieldset class="rating">
-                                    <input type="radio" id="guide_star5"        name="guide_rating" value="5" /><label class="full" for="guide_star5" title="Muy Excelente - 5 estrellas"></label>
-                                    <input type="radio" id="guide_star4half"    name="guide_rating" value="4.5" /><label class="half" for="guide_star4half" title="Excelente - 4.5 estrellas"></label>
-                                    <input type="radio" id="guide_star4"        name="guide_rating" value="4" /><label class="full" for="guide_star4" title="Muy Bien - 4 stars"></label>
-                                    <input type="radio" id="guide_star3half"    name="guide_rating" value="3.5" /><label class="half" for="guide_star3half" title="Bien - 3.5 stars"></label>
-                                    <input type="radio" id="guide_star3"        name="guide_rating" value="3" /><label class="full" for="guide_star3" title="Neutral - 3 estrellas"></label>
-                                    <input type="radio" id="guide_star2half"    name="guide_rating" value="2.5" /><label class="half" for="guide_star2half" title="Regular - 2.5 estrellas"></label>
-                                    <input type="radio" id="guide_star2"        name="guide_rating" value="2" /><label class="full" for="guide_star2" title="Mal - 2 estrellas"></label>
-                                    <input type="radio" id="guide_star1half"    name="guide_rating" value="1.5" /><label class="half" for="guide_star1half" title="Muy mal - 1.5 estrellas"></label>
-                                    <input type="radio" id="guide_star1"        name="guide_rating" value="1" /><label class="full" for="guide_star1"title="Horrible - 1 estrella"></label>
-                                    <input type="radio" id="guide_starhalf"     name="guide_rating" value="0.5" /><label class="half" for="guide_starhalf" title="Pérdida de tiempo - 0.5 estrella"></label>
+                                    <input type="radio" id="{{ reservation.id }}guide_star5"        name="{{ reservation.id }}guide_rating" value="5" /><label class="full"     for="{{ reservation.id }}guide_star5"       title="Muy Excelente - 5 estrellas"></label>
+                                    <input type="radio" id="{{ reservation.id }}guide_star4half"    name="{{ reservation.id }}guide_rating" value="4.5" /><label class="half"   for="{{ reservation.id }}guide_star4half"   title="Excelente - 4.5 estrellas"></label>
+                                    <input type="radio" id="{{ reservation.id }}guide_star4"        name="{{ reservation.id }}guide_rating" value="4" /><label class="full"     for="{{ reservation.id }}guide_star4"       title="Muy Bien - 4 stars"></label>
+                                    <input type="radio" id="{{ reservation.id }}guide_star3half"    name="{{ reservation.id }}guide_rating" value="3.5" /><label class="half"   for="{{ reservation.id }}guide_star3half"   title="Bien - 3.5 stars"></label>
+                                    <input type="radio" id="{{ reservation.id }}guide_star3"        name="{{ reservation.id }}guide_rating" value="3" /><label class="full"     for="{{ reservation.id }}guide_star3"       title="Neutral - 3 estrellas"></label>
+                                    <input type="radio" id="{{ reservation.id }}guide_star2half"    name="{{ reservation.id }}guide_rating" value="2.5" /><label class="half"   for="{{ reservation.id }}guide_star2half"   title="Regular - 2.5 estrellas"></label>
+                                    <input type="radio" id="{{ reservation.id }}guide_star2"        name="{{ reservation.id }}guide_rating" value="2" /><label class="full"     for="{{ reservation.id }}guide_star2"       title="Mal - 2 estrellas"></label>
+                                    <input type="radio" id="{{ reservation.id }}guide_star1half"    name="{{ reservation.id }}guide_rating" value="1.5" /><label class="half"   for="{{ reservation.id }}guide_star1half"   title="Muy mal - 1.5 estrellas"></label>
+                                    <input type="radio" id="{{ reservation.id }}guide_star1"        name="{{ reservation.id }}guide_rating" value="1" /><label class="full"     for="{{ reservation.id }}guide_star1"       title="Horrible - 1 estrella"></label>
+                                    <input type="radio" id="{{ reservation.id }}guide_starhalf"     name="{{ reservation.id }}guide_rating" value="0.5" /><label class="half"   for="{{ reservation.id }}guide_starhalf"    title="Pérdida de tiempo - 0.5 estrella"></label>
                                 </fieldset>
+                            </div>
+                        </div>
+                        {# Comments #}
+                        <div class="row product-item bg-light mb-4">
+                            <div class="col-6 product-img position-relative overflow-hidden">
+                                <textarea class="form-control" id="comments" name="comments" rows="3" placeholder="Aquí puedes escribir tu comentario"></textarea>
                             </div>
                         </div>
                         {# Button Rate #}
                         <div class="row justify-content-center align-items-center g-2 btnRating">
-                            <button id="rate" class="openModalRating" class="btn btn-primary">Valorar</button>
+                            <button class="rate openModalRating" class="btn btn-primary" data-id="{{ reservation.id }}">Valorar</button>
                         </div>
                         
                     </div>

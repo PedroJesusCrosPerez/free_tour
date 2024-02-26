@@ -15,16 +15,26 @@ $(function () {
     //     $("#modal").dialog("open"); // Abrir el diálogo al hacer clic en el botón
     // });
 
-    $("#rate").on("click", function(ev) {
+    $(".rate").on("click", function(ev) {
         ev.preventDefault();
+        let btnThis = $(this);
+
+        let reservation_id = $(this).data("id");
+        let tour_rating = $(`input[name='${reservation_id}tour_rating']:checked`).val();
+        let guide_rating = $(`input[name='${reservation_id}guide_rating']:checked`).val();
+        let comments = $("textarea[name='comments']").val();
 
         console.log("Rate clicked");
-        console.log($("input[name='tour_rating']:checked").val());
-        console.log($("input[name='guide_rating']:checked").val());
+        console.log(" - Reservation_id: " + reservation_id);
+        console.log(" - Route_rating: " +   tour_rating);
+        console.log(" - Guide_rating: " +   guide_rating);
+        console.log(" - Comments: " +       comments);
 
         let formData = new FormData();
-        formData.append('tour_id', $("#tour_id").val());
-        formData.append('tour_rating', $("input[name='tour_rating']:checked").val());
+        formData.append( 'reservation_id',  reservation_id  );
+        formData.append( 'tour_rating',     tour_rating     );
+        formData.append( 'guide_rating',    guide_rating    );
+        formData.append( 'comments',        comments        );
 
         // Here you can send the form data to your server using AJAX
         $.ajax({
@@ -35,6 +45,16 @@ $(function () {
             processData: false,
             success: function(response) {
                 console.log('Server response:', response);
+                if (
+                    response.success && 
+                    ($.isNumeric(response.id) && parseInt(response.id) == response.id)
+                    ) {
+                    btnThis.parent().parent().remove();
+                    // TODO: mostar mensaje de valoración realizada
+                } else {
+                    // TODO: Mostrar mensaje de error en valorarción
+                    console.log('ERROR EN VALORAR ');
+                }
             },
             error: function(error) {
                 console.error('Error:', error);
