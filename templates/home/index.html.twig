@@ -31,9 +31,9 @@
 
 						<div class="row">
 							<div class="col-12">
-								<form class="form" method="get" action="{{ path('route-search') }}">
-									<div class="row mb-2">
-										<div class="col-sm-12 col-md-6 mb-3 mb-lg-0 col-lg-4">
+								<form id="searchForm" class="form w-80" method="get" action="{{ path('route-search') }}">
+									<div class="row mb-2 justify-content-center">
+										<div class="col-sm-12 col-md-6 mb-3 mb-lg-0 col-lg-6">
 											{# <select name="" id="" class="form-control custom-select">
 												<option value="">Destination</option>
 												<option value="">Peru</option>
@@ -52,17 +52,18 @@
                                                 {% endfor %}
                                             </select>
 										</div>
-										<div class="col-sm-12 col-md-6 mb-3 mb-lg-0 col-lg-5">
+										<div class="col-sm-12 col-md-6 mb-3 mb-lg-0 col-lg-6">
 											<input name="daterange" type="text" class="form-control">
 										</div>
-										<div class="col-sm-12 col-md-6 mb-3 mb-lg-0 col-lg-3">
+										{# AMOUNT - field #}
+										{# <div class="col-sm-12 col-md-6 mb-3 mb-lg-0 col-lg-3">
 											<input name="amount" type="number" class="form-control" placeholder="nº personas">
-										</div>
+										</div> #}
 
 									</div>    
-									<div class="row align-items-center">
+									<div class="row align-items-center justify-content-center">
 										<div class="col-sm-12 col-md-6 mb-3 mb-lg-0 col-lg-4">
-											<input type="submit" class="btn btn-primary btn-block" value="Buscar">
+											<input type="submit" class="btn btn-primary btn-block p-2 mt-2" value="Buscar">
 										</div>
 										{# Guardar búsqueda #}
 										{# <div class="col-lg-8">

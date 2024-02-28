@@ -13,6 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 #[Route("/api/upload", name: "upload-")]
 class UploadApi extends AbstractController {
+    
     #[Route("/create-route", name: "create-route", methods: ["GET"])]
     public function uploadCreateRoute(EntityManagerInterface $entityManager): JsonResponse {
         $items = $entityManager->getRepository(Item::class)->findAll();

@@ -1,0 +1,19 @@
+:root {
+    --link-color: rgb(37, 37, 37) !important;
+    --link-hover-color: #305774 !important;
+}
+
+#calendar {
+    margin: 0;
+}
+
+
+div.fc-daygrid-day-events > div.fc-daygrid-event-harness > a.fc-event.fc-event-start {
+    display: flex;
+    flex-direction: column;
+
+    cursor: pointer;
+}
+.fc-daygrid-event {
+    white-space: break-spaces;
+}

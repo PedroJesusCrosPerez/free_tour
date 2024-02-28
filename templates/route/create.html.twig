@@ -56,6 +56,11 @@
     <script src="{{ asset('js/_upload-data-create-route.js') }}"></script>
     <script src="{{ asset('js/_add-create-route.js') }}"></script>
     <script src="{{ asset('js/create-route.js') }}"></script>
+
+    <!-- ########################### VALIDATOR ############################## -->
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="{{ asset('js/validator-create-route.js') }}"></script>
+    <script src="{{ asset('js/_validate-create-route.js') }}"></script>
 {% endblock %}
 
 
@@ -66,6 +71,8 @@
     <!-- ##################################################################################### -->
     <!-- ##################################################################################### -->
     <form action="#" method="post" id="create-route">
+
+        <button class="btn btn-secondary" id="btnSaveAndTours" type="submit">Guardar y generar tours</button>
 
         <div id="tabs">
 
@@ -178,22 +185,6 @@
                         </div>
 
                         <!-- Select pattern -->
-                        <!--<div>
-                            <label for="monday">Lunes</label>
-                            <input type="checkbox" value="1" name="pattern[]">
-                            <label for="tuesday">Martes</label>
-                            <input type="checkbox" value="2" name="pattern[]">
-                            <label for="wednesday">Miércoles</label>
-                            <input type="checkbox" value="3" name="pattern[]">
-                            <label for="thursday">Jueves</label>
-                            <input type="checkbox" value="4" name="pattern[]">
-                            <label for="friday">Viernes</label>
-                            <input type="checkbox" value="5" name="pattern[]">
-                            <label for="saturday">Sábado</label>
-                            <input type="checkbox" value="6" name="pattern[]">
-                            <label for="sunday">Domingo</label>
-                            <input type="checkbox" value="7" name="pattern[]">
-                        </div>-->
                         <div name="container-daysOfWeek">
                             <div class="dayOfWeek" name="pattern" data-id="1">Lunes</div>
                             <div class="dayOfWeek" name="pattern" data-id="2">Martes</div>
@@ -252,28 +243,16 @@
                                         <th>Guía</th>
                                     </tr>
                                 </thead>
-                                <tbody class="table-group-divider">
-                                    {# <tr class="table-primary">
-                                        <td scope="row">Item</td>
-                                        <td>Item</td>
-                                        <td>Item</td>
-                                    </tr>
-                                    <tr class="table-primary">
-                                        <td scope="row">Item</td>
-                                        <td>Item</td>
-                                        <td>Item</td>
-                                    </tr> #}
-                                </tbody>
-                                <tfoot>
-                                    
-                                </tfoot>
+                                <tbody class="table-group-divider"></tbody>
+                                <tfoot></tfoot>
                             </table>
                         </div>
                         
                     </section>
                 </fieldset>
             </div>
-        </div>
+
+        </div> <!-- Fin de div#tabs -->
 
     </form>
 {% endblock %}

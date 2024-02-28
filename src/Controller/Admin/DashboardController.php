@@ -82,13 +82,27 @@ class DashboardController extends AbstractDashboardController
     {
         $items = $itemRepository->findAll();
         $guides = $userRepository->findByRoles(array('ROLE_GUIDE'));
-    ;
+    
 
         // return $this->render('route/create.html.twig', [
         //     'items' => $items,
         //     'guides' => $guides,
         // ]);
         return $this->render('route/create.html.twig');
+    }
+
+    #[Route('/manage-tours', name: 'manage-tours')]
+    public function manageTours(ItemRepository $itemRepository, UserRepository $userRepository): Response
+    {
+        $items = $itemRepository->findAll();
+        $guides = $userRepository->findByRoles(array('ROLE_GUIDE'));
+    
+
+        // return $this->render('route/create.html.twig', [
+        //     'items' => $items,
+        //     'guides' => $guides,
+        // ]);
+        return $this->render('route/manage-tours.html.twig');
     }
 
     public function configureMenuItems(): iterable
@@ -98,7 +112,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::section('Funciones principales');
         yield MenuItem::linkToCrud('Rutas', 'fas fa-route', Entity\Route::class);
         yield MenuItem::linkToCrud('Planificación', 'fas fa-compass', Tour::class);
-        yield MenuItem::linkToUrl('Calendario', 'fa-regular fa-calendar-days', $this->generateUrl('home'));
+        yield MenuItem::linkToUrl('Calendario', 'fa-regular fa-calendar-days', $this->generateUrl('manage-tours'));
 
         // Entities
         yield MenuItem::section('Tours');
@@ -165,11 +179,11 @@ class DashboardController extends AbstractDashboardController
     }
 
     // configureAssets
-    // public function configureAssets(): Assets
-    // {
-    //     return Assets::new()
-    //         ->addCssFile('css/admin.css')
-    //         ->addJsFile('js/admin.js')
-    //     ;
-    // }
+    public function configureAssets(): Assets
+    {
+        return Assets::new()
+            ->addCssFile('css/admin.css')
+            // ->addJsFile('js/admin.js')
+        ;
+    }
 }

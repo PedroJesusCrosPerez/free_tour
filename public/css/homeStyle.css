@@ -51,3 +51,7 @@
     overflow-y: auto;
     overflow-x: hidden;
 }
+
+.w-80 {
+    width: 80%;
+}

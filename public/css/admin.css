@@ -1,0 +1,118 @@
+/* ################################# */
+/* ############# ASIDE ############# */
+/* ################################# */
+#header-logo a.logo {
+    background-image: url("/favicon.ico");
+    background-position: left;
+    background-size: 3em;
+    background-repeat: no-repeat;
+    padding-left: 3em;
+}
+
+    /* ASIDE */
+aside.sidebar { background-color: #6998AB !important; } /* aside principal */
+#sidebar-resizer-handler { background-color: #557b8b !important; } /* bara lateral derecha del aside principal */
+
+    /* Nav => Items */
+.menu-item-label.position-relative  { color: rgba(255, 255, 255, 0.8); } /* item font color */
+
+#main-menu .menu .menu-item.active  { background-color: #97c3d5 !important; } /* item:selected */
+#main-menu .menu .menu-item:hover   { background-color: #73a1b3 !important; } /* item:hover */
+#main-menu .menu .menu-item:active  { background-color: #adc2ca !important; } /* item:active */
+
+/* icon:active */
+#main-menu .menu .menu-item.active:not(.expanded) .menu-icon, #main-menu .menu .menu-item.active:not(.expanded) a {
+    color: #1A374D;
+}
+
+
+/* ################################################################## */
+/* ##################### MAIN / content-wrapper ##################### */
+/* ################################################################## */
+
+section#main {
+
+    .table {
+        --bs-table-color-state: rgba(255, 255, 255, 0.8); /* table text color */
+        --bs-table-bg: #436c7c; /* table blackground */
+    }
+
+    /* tbody>tr:hover {
+        background-color: #9dff00 !important;
+    } */
+}
+
+
+/* ################################################################### */
+/* ################### OVERRIDE CSS RULES FROM @EA ################### */
+/* ################################################################### */
+
+.btn-primary:not(:disabled):not(.disabled):not(.btn-link):not(.btn-danger):hover {
+    background-color: var(--button-primary-hover-bg);
+    color: var(--button-primary-color);
+}
+.btn-primary:not(:disabled):not(.disabled):not(.btn-link):not(.btn-danger):active {
+    background-color: var(--button-primary-active-bg);
+    color: var(--button-primary-color);
+}
+
+.btn-secondary:not(:disabled):not(.disabled):not(.btn-link):not(.btn-danger):hover {
+    background-color: var(--button-secondary-hover-bg);
+    color: var(--button-secondary-color);
+}
+.btn-secondary:not(:disabled):not(.disabled):not(.btn-link):not(.btn-danger):active {
+    background-color: var(--button-secondary-active-bg);
+    color: var(--button-secondary-color);
+}
+.btn:not(:disabled):not(.disabled):not(.btn-link):focus {
+    border: 0;
+    box-shadow: none;
+    color: var(--button-secondary-focus-color);
+}
+:root {
+    --body-bg: #6998AB !important; /* body background */
+
+    /* FORM */
+        /* Top buttons */
+    --button-hover-color: white; /* button hover color */
+    /* --button-active-shadow: none; */ /* button active shadow */
+            /* Primary */
+    --button-primary-hover-bg: #305674; /* button hover bg */
+    --button-primary-active-bg:rgb(72, 112, 143)4; /* button active bg */
+    --button-primary-bg: #1A374D !important; /* button secondary background */
+    --button-primary-color: white; /* button secondary color */
+            /* Secondary */
+    --button-secondary-bg: #274a64 !important; /* button secondary background */
+    --button-secondary-color: white; /* button secondary color */
+    --button-secondary-hover-bg: #305674; /* button hover bg */
+    --button-secondary-active-bg:rgb(72, 112, 143)4; /* button active bg */
+    --button-secondary-focus-color:white; /* button focus color */
+
+        /* Form inputs */
+    --form-control-bg: #9cb1c2 !important; /* form background */
+    --form-control-border-color: #13293a !important; /* form border color */
+    --form-control-color: rgba(255, 255, 255, 0.8) !important; /* form text color */
+    --form-control-placeholder-color: rgba(255, 255, 255, 0.8) !important; /* form placeholder color */
+    --form-control-focus-border-color: #1A374D !important; /* form focus border color */
+    --form-control-focus-color: rgba(255, 255, 255, 0.8) !important; /* form focus text color */
+    --form-control-focus-bg: #1A374D !important; /* form focus background */
+
+        /* Checkbox */
+    --form-switch-bg: #9cb1c2 !important; /* Unselected checkbox background */
+    --form-switch-checked-bg: #1A374D !important; /* Selected checkbox background */
+    --form-switch-border-color: #13293a !important; /* Border checkbox */
+
+        /* Table */
+    --table-hover-cell-bg: #97c3d5 !important; /* table tbody>tr:hover */
+    --link-color: rgba(255, 255, 255, 0.8) !important; /* a from email */
+    --link-hover-color: rgb(221, 232, 255) !important; /* a:hover from email */
+
+
+    
+}
+
+tr:hover {
+    dropdown dropdown-actions {
+        background-color: #e8f9ff !important;
+    }
+}

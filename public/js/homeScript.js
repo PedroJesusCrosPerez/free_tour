@@ -50,3 +50,23 @@
 //         // // TODO hacer la redirección a la web => "http://localhost:8000/route/search?locality=2" etc
 //     });
 // })
+
+$(function () {
+    // Inicializar combobox 'placeholder' localidades
+    let inputLocalities = $('input.form-control.custom-select.ui-autocomplete-input');
+    inputLocalities.attr("placeholder", "Busca una localidad...");
+
+    // Capturamos el evento submit del formulario
+    $("#searchForm").submit(function(event) {
+        // Prevenimos la acción por defecto del formulario
+        event.preventDefault();
+
+        // Si el usuario confirma, volvemos a habilitar el envío del formulario
+        if (inputLocalities.val() != "") {
+            // Volvemos a habilitar el envío del formulario
+            $(this).unbind("submit").submit();
+        } else {
+            alert("Debes introducir una localidad");
+        }
+    });
+});

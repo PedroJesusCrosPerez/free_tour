@@ -12,6 +12,8 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/route', name: 'route-')]
 class RouteController extends AbstractController
 {
+    public function __construct(private RouteRepository $routeRepository) {}
+    
     #[Route('/', name: 'index')]
     public function index(): Response
     {
@@ -37,13 +39,36 @@ class RouteController extends AbstractController
 
         // Obtener todos los parámetros de la consulta GET
         $allParams = $request->query->all();
+
+        // Dividir el rango de fechas en date_start y date_end
+        list($date_start, $date_end) = explode(' / ', $daterange);
+        $date_start = explode('/', $date_start);
+        $date_end = explode('/', $date_end);
+
+        $datetime_start = new \DateTime();
+        $datetime_start->setDate($date_start[2], $date_start[1], $date_start[0]);
         
-        return $this->render('route/search.html.twig', [
-            'locality' => $locality,
-            'daterange' => $daterange,
-            'amount' => $amount,
-            'saveSearch' => $saveSearch,
-            'allParams' => $allParams
+        $datetime_end = new \DateTime();
+        $datetime_end->setDate($date_end[2], $date_end[1], $date_end[0]);
+
+
+        // // Formatear las fechas en el formato Y-m-d
+        // $date_start_formatted = $date_start[2] . '-' . $date_start[1] . '-' . $date_start[0];
+        // $date_end_formatted = $date_end[2] . '-' . $date_end[1] . '-' . $date_end[0];
+
+        // return $this->render('route/search.html.twig', [
+        //     'locality' => $locality,
+        //     // 'daterange' => $daterange,
+        //     'date_start' => $date_start_formatted,
+        //     'date_end' => $date_end_formatted,
+        //     // 'amount' => $amount,
+        //     // 'saveSearch' => $saveSearch,
+        //     // 'allParams' => $allParams
+        // ]);
+
+        $routes = $this->routeRepository->findByDateRange($datetime_start, $datetime_end);
+        return $this->render('route/list.html.twig', [
+            'routes' => $routes,
         ]);
     }
     

@@ -40,7 +40,13 @@ class UserCrudController extends AbstractCrudController
         return $actions
             // ->disable(Action::NEW, Action::DELETE);
             ->add(Crud::PAGE_EDIT, Action::INDEX)
-            ;
+
+            ->add(Crud::PAGE_NEW, Action::new('myCustomAction', 'Mi Acción Personalizada')
+                ->linkToCrudAction('myCustomCrudAction')
+                ->setIcon('fa fa-custom-icon')
+                ->addCssClass('btn btn-custom')
+            )
+        ;
     }
 
     public function configureFields(string $pageName): iterable

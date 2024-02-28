@@ -1,7 +1,7 @@
 {% extends 'views/main.html.twig' %}
 
 {% block pagescripts %}
-    {# <script src="{{ asset('js/route-listScript.js') }}"></script> #}
+    <script src="{{ asset('js/route-listScript.js') }}"></script>
     {# <script src="{{ asset('bootstrap/bootstrap-5.3.2.min.js') }}"></script> #}
 {% endblock %}
 {% block pagestylesheets %}
@@ -33,6 +33,7 @@
                 height: 10em;
             }
         }
+        a { cursor: pointer; }
     </style>
 
     <script>
@@ -67,85 +68,86 @@
     </script>
 
     <style>
-    /* RATING */
-fieldset,
-label {
-    margin: 0;
-    padding: 0;
-}
+        /* RATING */
+        fieldset,
+        label {
+            margin: 0;
+            padding: 0;
+        }
 
-body {
-    margin: 20px;
-}
+        body {
+            margin: 20px;
+        }
 
-h1 {
-    font-size: 1.5em;
-    margin: 10px;
-}
+        h1 {
+            font-size: 1.5em;
+            margin: 10px;
+        }
 
-/****** Style Star Rating Widget *****/
+        /****** Style Star Rating Widget *****/
 
-/* TODO MEDIAQUERY RESPONSIVE */
-/* TAMAÑO TODO MEDIAQUERY RESPONSIVE */
-fieldset.rating label {
-    font-size: 1.8em;
-}
+        /* TODO MEDIAQUERY RESPONSIVE */
+        /* TAMAÑO TODO MEDIAQUERY RESPONSIVE */
+        fieldset.rating label {
+            font-size: 1.8em;
+        }
 
-.rating {
-    border: none;
-    float: left;
-}
+        .rating {
+            border: none;
+            float: left;
+        }
 
-.rating>input {
-    display: none;
-}
+        .rating>input {
+            display: none;
+        }
 
-.rating>label:before {
-    margin: 5px;
-    font-size: 1.25em;
-    font-family: FontAwesome;
-    display: inline-block;
-    content: "\f005";
-}
+        .rating>label:before {
+            margin: 5px;
+            font-size: 1.25em;
+            font-family: FontAwesome;
+            display: inline-block;
+            content: "\f005";
+        }
 
-.rating>.half:before {
-    content: "\f089";
-    position: absolute;
-}
+        .rating>.half:before {
+            content: "\f089";
+            position: absolute;
+        }
 
-.rating>label {
-    color: #ddd;
-    float: right;
-    cursor: pointer;
-}
+        .rating>label {
+            color: #ddd;
+            float: right;
+            cursor: pointer;
+        }
 
-/***** CSS Magic to Highlight Stars on Hover *****/
+        /***** CSS Magic to Highlight Stars on Hover *****/
 
-.rating>input:checked~label,
-/* show gold star when clicked */
-.rating:not(:checked)>label:hover,
-/* hover current star */
-.rating:not(:checked)>label:hover~label {
-    color: #FFD700;
-}
+        .rating>input:checked~label,
+        /* show gold star when clicked */
+        .rating:not(:checked)>label:hover,
+        /* hover current star */
+        .rating:not(:checked)>label:hover~label {
+            color: #FFD700;
+        }
 
-/* hover previous stars in list */
+        /* hover previous stars in list */
 
-.rating>input:checked+label:hover,
-/* hover current star when changing rating */
-.rating>input:checked~label:hover,
-.rating>label:hover~input:checked~label,
-/* lighten current selection */
-.rating>input:checked~label:hover~label,
-.startSelected {
-    color: #FFED85;
-}
+        .rating>input:checked+label:hover,
+        /* hover current star when changing rating */
+        .rating>input:checked~label:hover,
+        .rating>label:hover~input:checked~label,
+        /* lighten current selection */
+        .rating>input:checked~label:hover~label,
+        .startSelected {
+            color: #FFED85;
+        }
     </style>
 {% endblock %}
 
-{% block title %}Lista de rutas{% endblock %}
+{% block title %}Listado de rutas{% endblock %}
 
 {% block main %}
+
     <!-- Modal - reservation -->
     <div class="modal" id="modal" title="Reserva">
         <div class="modal-dialog">
@@ -160,9 +162,9 @@ fieldset.rating label {
         <div class="row px-xl-5">
             <div class="col-12">
                 <nav class="breadcrumb bg-light mb-30 backgroudColor6998AB" >
-                    <a class="breadcrumb-item text-dark" href="#">Home</a>
-                    <a class="breadcrumb-item text-dark" href="#">Shop</a>
-                    <span class="breadcrumb-item active">Shop List</span>
+                    <a class="breadcrumb-item text-dark" href="#">Inicio</a>
+                    <a class="breadcrumb-item text-dark" href="#">Rutas</a>
+                    <span class="breadcrumb-item active">Listado</span>
                 </nav>
             </div>
         </div>
@@ -337,7 +339,7 @@ fieldset.rating label {
                     {% for route in routes %}
                         <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
                             <div class="product-item bg-light mb-4">
-                                <div class="product-img position-relative overflow-hidden">
+                                <div class="product-img position-relative overflow-hidden d-flex align-items-lg-center" style="max-height: 16em;">
                                     <img class="img-fluid w-100" src="{{ route.photo }}" alt="imágen de ruta">
                                     <div class="product-action">
                                         <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
@@ -347,7 +349,13 @@ fieldset.rating label {
                                     </div>
                                 </div>
                                 <div class="text-center py-4">
-                                    {#openModal"#} <a class="h4 text-decoration-none text-truncate" href="/reserve/{{ route.id }}">{{ route.name }}</a>
+                                
+                                    <!-- User autenticated -->
+                                    {% if is_granted('ROLE_CLIENT') %}
+                                        {#openModal"#} <a class="h4 text-decoration-none text-truncate" href="/reserve/{{ route.id }}">{{ route.name }}</a>
+                                    {% else %}
+                                        <a class="not-logged h4 text-decoration-none text-truncate">{{ route.name }}</a>
+                                    {% endif %}
                                     {# <div class="d-flex align-items-center justify-content-center mt-2">
                                         <h5>{{ route.description }}</h5>
                                     </div> #}
@@ -624,11 +632,11 @@ fieldset.rating label {
                     <div class="col-12">
                         <nav>
                           <ul class="pagination justify-content-center">
-                            <li class="page-item disabled"><a class="page-link" href="#">Previous</span></a></li>
+                            <li class="page-item disabled"><a class="page-link" href="#">Anterior</span></a></li>
                             <li class="page-item active"><a class="page-link" href="#">1</a></li>
                             <li class="page-item"><a class="page-link" href="#">2</a></li>
                             <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                            <li class="page-item"><a class="page-link" href="#">Siguiente</a></li>
                           </ul>
                         </nav>
                     </div>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario con Validación y Tabs</title>
+    <!-- Incluye jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Incluye jQuery Validation Plugin -->
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <!-- Incluye jQuery UI -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- Estilos personalizados -->
+    <style>
+        .error {
+            border: 2px solid red !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Contenedor de Tabs -->
+    <div id="tabs">
+        <!-- Tabs -->
+        <ul>
+            <li><a href="#tab-1">Tab 1</a></li>
+            <li><a href="#tab-2">Tab 2</a></li>
+            <li><a href="#tab-3">Tab 3</a></li>
+        </ul>
+        <!-- Contenido de los Tabs -->
+        <div id="tab-1">
+            <form id="myForm">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name"><br><br>
+                <label for="date1">Date:</label>
+                <input type="date" id="date1" name="date1"><br><br>
+            </form>
+        </div>
+        <div id="tab-2">
+            <form id="form-tab2">
+                <label for="date2">Date:</label>
+                <input type="date" id="date2" name="date2"><br><br>
+            </form>
+        </div>
+        <div id="tab-3">
+            <form id="form-tab3">
+                <label for="message">Message:</label><br>
+                <textarea id="message" name="message"></textarea><br><br>
+                <button type="submit" class="submit-button">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        $(document).ready(function () {
+            // Inicializa los Tabs utilizando jQuery UI
+            $("#tabs").tabs({
+                beforeActivate: function (event, ui) {
+                    var currentTabIndex = ui.oldTab.index();
+                    var $currentTab = $(ui.oldPanel);
+
+                    // Verifica si el formulario actual es válido
+                    var isValid = true;
+                    if ($currentTab.find("form").length > 0) {
+                        isValid = $currentTab.find("form").valid();
+                    }
+
+                    // Si el formulario no es válido, cancela el cambio de tab
+                    if (!isValid) {
+                        event.preventDefault();
+                    }
+                }
+            });
+
+            // Configura la validación de los formularios
+            $("form").each(function () {
+                $(this).validate({
+                    errorPlacement: function (error, element) {
+                        // Personaliza la colocación del mensaje de error
+                        error.insertAfter(element);
+                    },
+                    highlight: function (element) {
+                        // Cambia el estilo del elemento con error
+                        $(element).addClass('error');
+                    },
+                    unhighlight: function (element) {
+                        // Revierte el cambio de estilo cuando se corrige el error
+                        $(element).removeClass('error');
+                    },
+                    rules: {
+                        name: {
+                            required: true
+                        },
+                        date1: {
+                            required: true
+                        },
+                        date2: {
+                            required: true
+                        },
+                        message: {
+                            required: true
+                        }
+                    },
+                    messages: {
+                        name: {
+                            required: "Por favor, introduce tu nombre."
+                        },
+                        date1: {
+                            required: "Por favor, selecciona una fecha."
+                        },
+                        date2: {
+                            required: "Por favor, selecciona una fecha."
+                        },
+                        message: {
+                            required: "Por favor, escribe un mensaje."
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+
+</html>

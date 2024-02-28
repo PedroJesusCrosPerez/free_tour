@@ -7,6 +7,7 @@ use App\Entity\Route;
 use App\Entity\Tour;
 use App\Entity\User;
 use App\Repository\TourRepository;
+use App\Service\SerializeService;
 use App\Service\TourService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -18,13 +19,30 @@ use Symfony\Component\Serializer\SerializerInterface;
 #[RouteAnnotation("/api/tour", name: "tour-")]
 class TourApi extends AbstractController
 {
-    private TourRepository $tourRepository;
-    private SerializerInterface $serializer;
+    public function __construct(
+        private TourRepository $tourRepository, 
+        private SerializeService $serializeService, 
+        private SerializerInterface $serializer,
+    ){}
 
-    public function __construct(TourRepository $tourRepository, SerializerInterface $serializer)
+    #[RouteAnnotation("/findAll", name: "findAll", methods: ["GET"])]
+    public function findAll(): JsonResponse
     {
-        $this->tourRepository = $tourRepository;
-        $this->serializer = $serializer;
+        $tours = $this->tourRepository->findAll();
+        $serializedTours = $this->serializeService->serializeArrTour($tours, 'Level::BASIC');
+        
+        return new JsonResponse($serializedTours, JsonResponse::HTTP_OK, ['Content-Type' => 'application/json']);
+    }
+
+    #[RouteAnnotation("/findById/{id}", name: "findById", methods: ["GET"])]
+    public function findById($id): Response
+    {
+        $route = $this->tourRepository->find($id);
+        if (!$route) {
+            return new Response(null, Response::HTTP_NOT_FOUND);
+        }
+        $data = $this->serializer->serialize($route, 'json');
+        return new Response($data, Response::HTTP_OK, ['Content-Type' => 'application/json']);
     }
 
     #[RouteAnnotation("/generate", name: "generate", methods: ["POST"])]

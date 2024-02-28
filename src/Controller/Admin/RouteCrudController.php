@@ -10,6 +10,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
@@ -88,13 +89,36 @@ class RouteCrudController extends AbstractCrudController
     public function configureActions(Actions $actions): Actions
     {
         return $actions
+
             ->update(Crud::PAGE_INDEX, Action::NEW, function (Action $action) {
-                return $action->linkToRoute('create-route', []);
+                return $action
+                    ->linkToRoute('create-route', []) // Redirijir Action::NEW a formulario personalizado en plantilla twig
+                    ->setIcon('fa-solid fa-circle-plus') // Icono personalizado
+                    ->setLabel("Crear ruta") // Label personalizado
+                ;
             })
             ->update(Crud::PAGE_INDEX, Action::EDIT, function (Action $action) {
-                return $action->linkToRoute('create-route', ["id"=>"hola"]);
+                return $action
+                    // Redirijir Action::EDIT a formulario personalizado en plantilla twig
+                    ->linkToRoute('create-route', ["id"=>"hola"]) // TODO pasar datos para rellenar campos
+                    ->setIcon('fa fa-file-alt') // Icono personalizado 
+                    ->setLabel("Editar") // Label personalizado
+                ;
             })
-            ;
+            ->update(Crud::PAGE_INDEX, Action::DELETE, function (Action $action) {
+                return $action
+                    // ->setIcon('fa-regular fa-trash-can') // Sin relleno
+                    ->setIcon('fa-solid fa-trash') // Icono personalizado // Con relleno
+                    ->setLabel("Eliminar") // Label personalizado
+                ;
+            })
+            ->update(Crud::PAGE_INDEX, Action::DETAIL, function (Action $action) {
+                return $action
+                    ->setIcon('fas fa-search content-search-icon') // Icono personalizado  // Con relleno
+                    ->setLabel("Detallar")// Label personalizado
+                ;
+            })
+        ;
     }
 
 }

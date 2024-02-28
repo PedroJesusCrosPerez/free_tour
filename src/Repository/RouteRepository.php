@@ -43,6 +43,25 @@ class RouteRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
+    
+    /**
+     * Devuelve un array de rutas específicas según fechas.
+     *
+     * @param date $date_start Fecha de inicio de la ruta.
+     * @param date $date_end Fecha de inicio de la ruta.
+     * @return Route[]|null Devuelve un vector de objetos Route o null si no se encuentan.
+     */
+    public function findByDateRange(\DateTime $datetime_start, \DateTime $datetime_end): array
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.datetime_start >= :datetime_start')
+            ->setParameter('datetime_start', $datetime_start->format('Y-m-d 00:00:00'))
+            ->andWhere('r.datetime_end <= :datetime_end')
+            ->setParameter('datetime_end', $datetime_end->format('Y-m-d 23:59:59'))
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
     public function getLocality2($route_id)
     {

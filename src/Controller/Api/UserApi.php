@@ -6,6 +6,7 @@ namespace App\Controller\Api;
 use App\Entity\Route;
 use App\Entity\User;
 use App\Repository\UserRepository;
+use App\Service\SerializeService;
 use App\Service\TourService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -18,13 +19,38 @@ use Symfony\Component\Serializer\SerializerInterface;
 #[RouteAnnotation("/api/user", name: "user-")]
 class UserApi extends AbstractController
 {
-    private UserRepository $userRepository;
-    private SerializerInterface $serializer;
+    public function __construct(
+        private UserRepository $userRepository, 
+        private SerializerInterface $serializer,
+        private SerializeService $seriailizeService,
+        // private Request $request,
+    ){}
 
-    public function __construct(UserRepository $userRepository, SerializerInterface $serializer)
+    #[RouteAnnotation("/findAll", name: "findAll", methods: ["GET"])]
+    public function findAll(): JsonResponse
     {
-        $this->userRepository = $userRepository;
-        $this->serializer = $serializer;
+        $users = $this->userRepository->findAll();
+        $serializedUsers = $this->seriailizeService->serializeArrUser($users, 'Format::ASSOCIATIVE');
+        
+        return new JsonResponse($serializedUsers, JsonResponse::HTTP_OK, ['Content-Type' => 'application/json']);
+    }
+
+    #[RouteAnnotation("/findAll/{format}", name: "findAll-format", methods: ["GET"])]
+    public function findAllFormat(string $format="", Request $request): JsonResponse
+    {
+        // Comprueba si existe la variable role en la url
+        if ($request->query->has('role')) {
+            $role = $request->query->get('role');
+            $users = $this->userRepository->findByRoles([$role]);
+
+            $serializedUsers = $this->seriailizeService->serializeArrUser($users, "Format::".$format);
+            return new JsonResponse($serializedUsers, JsonResponse::HTTP_OK, ['Content-Type' => 'application/json']);
+        }
+
+        $users = $this->userRepository->findAll();
+        $serializedUsers = $this->seriailizeService->serializeArrUser($users, "Format::".$format);
+        
+        return new JsonResponse($serializedUsers, JsonResponse::HTTP_OK, ['Content-Type' => 'application/json']);
     }
 
     #[RouteAnnotation("/getTours", name: "getTours", methods: ["GET"])]

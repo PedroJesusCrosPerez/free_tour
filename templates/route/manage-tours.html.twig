@@ -1,0 +1,36 @@
+{# templates/route/manage-tours.html.twig #}
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block title %}Administrar tours{% endblock %}
+
+{% block content_title %}Administrar tours{% endblock %}
+
+{% block headsrcplugins %}
+    {# DEPENDENCES - jquery #}
+    <script src="{{ asset('jquery/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ asset('jquery/jquery-ui-1.13.2/jquery-ui.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('jquery/jquery-ui-1.13.2/jquery-ui.min.css') }}">
+
+    {# DEPENDENCES - fullcalendar #}
+    {% include 'plugins/full-calendar.html.twig' %}
+
+    {# styles #}
+        <link rel="stylesheet" href="{{ asset('css/manage-toursStyles.css') }}">
+    {# scripts #}
+        <script src="{{ asset('js/manage-toursScript.js') }}"></script>
+        <script src="{{ asset('js/manage-tours-calendar.js') }}"></script>
+
+{% endblock %}
+
+
+{% block main %}
+
+    <div id="calendar"></div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <h2 id="eventTitle"></h2>
+            <p id="eventDescription"></p>
+        </div>
+    </div>
+{% endblock %}

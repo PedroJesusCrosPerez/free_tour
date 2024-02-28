@@ -274,7 +274,23 @@ function testingGenerateTour() {
     });
 }
 
+function appendTopButtons() {
+    $("#btnSave").appendTo("div.page-actions") // Primary btn
+    $("#btnSaveAndTours").appendTo("div.page-actions") // Secondary btn
+    $('#printdata').appendTo("div.page-actions").html("Depurar") // Debugging btn
+
+    $("#btnSaveAndTours").on("click", function() {
+        // Dispara el envío del formulario
+        $("#create-route").submit();
+    });
+}
+
+
+
 $(function () {
+    // Iniciarlizar botones de @EasyAdmin
+    appendTopButtons();
+
     // Añadir la clase 'active' al menú
     $(".fa-route").parent().parent().addClass("active");
 
