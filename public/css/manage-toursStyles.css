@@ -1,3 +1,37 @@
+#modal {
+    .guide { width: 180px; height: 150px; padding: 2px; }
+    .guide:hover { 
+        cursor: pointer;
+        opacity: .8;
+        border: 2px solid lightgray;
+        border-radius: 10px;
+        padding: 0;
+    }
+
+    .guide.selected {
+        background-color: lightgray;
+        color: darkblue;
+    }
+
+    .guide > img {
+        width: 100%;
+        /* height: auto; */
+        height: 90%;
+    }
+    .guide > img:hover { border-radius: 10px; }
+
+    ul {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+
+        overflow-y: auto;
+        max-height: 300px;
+
+        list-style: none;
+        padding: 0;
+    }
+}
+
 :root {
     --link-color: rgb(37, 37, 37) !important;
     --link-hover-color: #305774 !important;
@@ -5,15 +39,24 @@
 
 #calendar {
     margin: 0;
+
+    img {
+        width: 30px;
+    }
 }
 
 
 div.fc-daygrid-day-events > div.fc-daygrid-event-harness > a.fc-event.fc-event-start {
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
+    flex-wrap: wrap;
 
     cursor: pointer;
 }
 .fc-daygrid-event {
     white-space: break-spaces;
+}
+
+div.fc-event-title {
+    margin-top: -1.4em;
 }

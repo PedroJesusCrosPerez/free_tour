@@ -19,16 +19,12 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ReservationService
 {
-    private $entityManager;
-    private $security;
-    private $mailService;
-
-    public function __construct(EntityManagerInterface $entityManager, Security $security, MailService $mailService, ParameterBagInterface $params)
-    {
-        $this->entityManager = $entityManager;
-        $this->security = $security;
-        $this->mailService = $mailService;
-    }
+    public function __construct(
+        private EntityManagerInterface $entityManager, 
+        private Security $security, 
+        private MailService $mailService, 
+        private ParameterBagInterface $params
+    ){}
 
     public function insert(int $tour_id, int $number_tickets)//: bool
     {
@@ -55,6 +51,15 @@ class ReservationService
 
         // Devolver el ID de la nueva entidad creada
             return $reservation->getId();
+    }
+
+    public function sendMailReservation(int $reservation_id)//: bool
+    {
+        $reservation = $this->entityManager->getRepository(Reservation::class)->find($reservation_id);
+        // Enviar un correo electrónico al cliente
+            $this->mailService->sendMail($reservation->getClient()->getEmail(), 'Reserva realizada', 'texto desde servicio de reserva');
+
+        return true;
     }
 
     public function getFormDataTours(int $route_id)//: bool

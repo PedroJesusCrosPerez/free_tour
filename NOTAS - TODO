@@ -16,13 +16,14 @@ móvil:
 
 Lista de cosas por hacer
  - Funcionalidades cliente:
-  . Valoraciones
+  . Valoraciones (diseño y que si una valoración ya está hecha, q no aparezca)
+  . Cuando se reserve enviar pdf 
+  . mejorar panel de reservar
  - Funcionalidades guía:
   . Terminar tour para hacer informe, pasar lista
  - Funcionalidades admin:
-  . editar Route
-  . Comando
-  . Asignar guías en un calendario
+  . editar Route (añadir o quitar items, programación, etc)
   . Gráfico
+  . mejorar comando (ver la parte superior de este documento)
 
   valoraciones en correo para facilitar la funcionalidad

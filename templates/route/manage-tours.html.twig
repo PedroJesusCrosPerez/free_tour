@@ -17,6 +17,7 @@
     {# styles #}
         <link rel="stylesheet" href="{{ asset('css/manage-toursStyles.css') }}">
     {# scripts #}
+        <script src="{{ asset('js/_manage-tours-functions.js') }}"></script>
         <script src="{{ asset('js/manage-toursScript.js') }}"></script>
         <script src="{{ asset('js/manage-tours-calendar.js') }}"></script>
 
@@ -30,7 +31,10 @@
     <div id="modal" class="modal">
         <div class="modal-content">
             <h2 id="eventTitle"></h2>
-            <p id="eventDescription"></p>
+            <p id="eventDescription" data-guide_id="0" data-tour_id="0"></p>
+            <div name="list-guides">
+                <ul id="guide-list"></ul>
+            </div>
         </div>
     </div>
 {% endblock %}

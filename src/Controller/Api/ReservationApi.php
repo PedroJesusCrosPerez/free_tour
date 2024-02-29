@@ -52,6 +52,7 @@ class ReservationApi extends AbstractController
 
         // Llamar al servicio 'Reservation service' que inserta los datos y devuelve el ID de la nueva entidad creada
             $newEntityId = $reservationService->insert($tour_id, $tickets);
+            $reservationService->sendMailReservation($newEntityId);
 
         // Devolver una respuesta adecuada
         return new JsonResponse(['id' => $newEntityId], JsonResponse::HTTP_CREATED);

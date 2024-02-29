@@ -9,6 +9,7 @@ use App\Entity\User;
 use App\Repository\TourRepository;
 use App\Service\SerializeService;
 use App\Service\TourService;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,8 +24,10 @@ class TourApi extends AbstractController
         private TourRepository $tourRepository, 
         private SerializeService $serializeService, 
         private SerializerInterface $serializer,
+        private EntityManagerInterface $entityManagerInterface,
     ){}
 
+    // SELECT *
     #[RouteAnnotation("/findAll", name: "findAll", methods: ["GET"])]
     public function findAll(): JsonResponse
     {
@@ -34,6 +37,7 @@ class TourApi extends AbstractController
         return new JsonResponse($serializedTours, JsonResponse::HTTP_OK, ['Content-Type' => 'application/json']);
     }
 
+    // SELECT * WHERE id = :id
     #[RouteAnnotation("/findById/{id}", name: "findById", methods: ["GET"])]
     public function findById($id): Response
     {
@@ -43,6 +47,49 @@ class TourApi extends AbstractController
         }
         $data = $this->serializer->serialize($route, 'json');
         return new Response($data, Response::HTTP_OK, ['Content-Type' => 'application/json']);
+    }
+
+    // UPDATE
+    #[RouteAnnotation("/update/{id}", name: "update", methods: ["PUT"])]
+    public function update(Request $request, $id): JsonResponse
+    {
+        $tour = $this->tourRepository->find($id);
+        if (!$tour) {
+            return new Response("Tour with id:".$id." => NOT FOUND", Response::HTTP_NOT_FOUND);
+        }
+        $data = json_decode($request->getContent(), true);
+
+        // Verificar si existe la clave "route_id" en los datos recibidos
+        if (array_key_exists('route_id', $data)) {
+            $route_id = $data['route_id'];
+            $newRoute = $this->entityManagerInterface->find(Route::class, $route_id);
+            $tour->setRoute($newRoute);
+        }
+
+        // Verificar si existe la clave "guide_id" en los datos recibidos
+        if (array_key_exists('guide_id', $data)) {
+            $guide_id = $data['guide_id'];
+            $newGuide = $this->entityManagerInterface->find(User::class, $guide_id);
+            $tour->setGuide($newGuide);
+        }
+
+        // Verificar si existe la clave "datetime" en los datos recibidos
+        if (array_key_exists('datetime', $data)) {
+            $newDatetime = $data['datetime'];
+            $tour->setDatetime($newDatetime);
+        }
+
+        // Verificar si existe la clave "available" en los datos recibidos
+        if (array_key_exists('available', $data)) {
+            $newAvailable = $data['available'];
+            $tour->setDatetime($newAvailable);
+        }
+
+        $serializedTour = $this->serializeService->serializeTour($tour, 'Level::BASIC');
+        // Aquí puedes actualizar la entidad Tour con los datos recibidos en $data
+        $this->entityManagerInterface->persist($tour);
+        $this->entityManagerInterface->flush();
+        return new JsonResponse($serializedTour, Response::HTTP_OK);
     }
 
     #[RouteAnnotation("/generate", name: "generate", methods: ["POST"])]

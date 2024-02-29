@@ -45,7 +45,7 @@ class SerializeService
                     'id' => $tour->getId(),
                     'datetime' => $tour->getDatetime()->format('Y-m-d H:i:s'),
                     'route' => $tour->getRoute()->getName(),
-                    'guide' => $tour->getGuide() ? $tour->getGuide()->getName() : null,
+                    'guide' => $this->serializeUser($tour->getGuide())/* ? $tour->getGuide()->getName() : null*/,
                     'number_tickets' => count($tour->getReservations()),
                     'capacity' => $tour->getRoute()->getCapacity(),
                     'available' => $tour->isAvailable(),
@@ -118,6 +118,16 @@ class SerializeService
         }
         
         return $serializedUsers;
+    }
+
+    public function serializeUser(User $user): array {
+        return [
+            'id' => $user->getId(),
+            'name' => $user->getName(),
+            'surname' => $user->getSurname(),
+            'photo' => $user->getPhoto(),
+            'fullname' => $user->getFullname(),
+        ];
     }
 
     public function getItemsId($items): array {
