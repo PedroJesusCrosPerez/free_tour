@@ -32,12 +32,13 @@ class ReservationController extends AbstractController
 
         $items = $route->getItem()->toArray()[0];
         $locality = $items->getLocality();
-
+        // dd($route, $tours, json_decode($route->getProgramation()), );
         // CREATE FORM
         return $this->render('forms/reservation.html.twig', [
             'route' => $route,
             'tours' => $tours,
             'locality' => $locality,
+            'daysOfWeek' => json_decode($route->getProgramation())[0]->patternf,
         ]);
     }
 

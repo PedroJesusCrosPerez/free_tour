@@ -11,6 +11,8 @@ parameters:
     userImgDir: '/uploads/images'
     routeImgDir: '%kernel.project_dir%/public/images/route'
     routeImgDirDB: '/images/route'
+    reportImgDir: '%kernel.project_dir%/public/images/report'
+    reportImgDirDB: '/images/report'
 
 services:
     # default configuration for services in *this* file

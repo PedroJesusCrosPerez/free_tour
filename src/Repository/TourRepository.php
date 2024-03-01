@@ -21,6 +21,21 @@ class TourRepository extends ServiceEntityRepository
         parent::__construct($registry, Tour::class);
     }
 
+    /**
+    * @return Tour[] Returns an array of Tour objects
+    */
+    public function findByExampleField($value): array
+    {
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.exampleField = :val')
+            ->setParameter('val', $value)
+            ->orderBy('t.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 //    /**
 //     * @return Tour[] Returns an array of Tour objects
 //     */

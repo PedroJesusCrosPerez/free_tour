@@ -21,28 +21,6 @@ class RouteRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Route::class);
     }
-
-    
-    /**
-     * Devuelve el nombre de la localidad para una ruta específica.
-     *
-     * @param int $routeId El ID de la ruta.
-     * @return string|null El nombre de la localidad o null si no se encuentra.
-     */
-    public function getLocality($route_id): ?string
-    {
-        return $this->createQueryBuilder('r')
-            ->select('l.name')
-            ->join('r.route_item', 'ri')
-            ->join('ri.item', 'i')
-            ->join('i.locality', 'l')
-            ->andWhere('r.id = :route_id')
-            ->setParameter('route_id', $route_id)
-            ->setMaxResults(1)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
     
     /**
      * Devuelve un array de rutas específicas según fechas.

@@ -53,6 +53,51 @@ class ReservationService
             return $reservation->getId();
     }
 
+    public function update(int $tour_id, int $number_tickets)//: bool
+    {
+        // Obtener datos
+            $tour = $this->entityManager->getRepository(Tour::class)->find($tour_id); // Obtener el tour
+            $user = $this->security->getUser(); // Obtener el usuario autenticado
+            $datetime = new \DateTime('now'); // Obtener fecha y hora actual
+
+        // Crear un nuevo objeto de la entidad 'Reservation'
+            $reservation = (new Reservation())
+                ->setClient($user)
+                ->setTour($tour)
+                ->setDatetime($datetime)
+                ->setNumberTickets($number_tickets)
+                ->setAssistants(null)
+            ;
+        // dd($reservation);
+        // Guardar la nueva entidad en la base de datos
+            $this->entityManager->persist($reservation);
+            $this->entityManager->flush();
+
+        // Enviar un correo electrónico al cliente
+            $this->mailService->sendMail($user->getEmail(), 'Reserva realizada', 'texto desde servicio de reserva');
+
+        // Devolver el ID de la nueva entidad creada
+            return $reservation->getId();
+    }
+
+    public function updateArrAssistants(array $reservations_assistants)//: bool
+    {
+        foreach ($reservations_assistants as $reservation_id => $assistants) {
+            // Obtener datos
+                $reservation = $this->entityManager->getRepository(Reservation::class)->find($reservation_id); // Obtener el tour
+            
+            // Crear un nuevo objeto de la entidad 'Reservation'
+                $reservation->setAssistants($assistants);
+            
+            // Guardar la nueva entidad en la base de datos
+                $this->entityManager->persist($reservation);
+                $this->entityManager->flush();
+        }
+
+        // Devolver el ID de la nueva entidad creada
+            // return $reservation->getId();
+    }
+
     public function sendMailReservation(int $reservation_id)//: bool
     {
         $reservation = $this->entityManager->getRepository(Reservation::class)->find($reservation_id);

@@ -41,15 +41,6 @@ class ReservationApi extends AbstractController
             $tickets = $request->request->get('tickets'); // Obtener el número de tickets
             $datetime = new \DateTime('now'); // Obtener fecha y hora actual
 
-        
-        // // Crear un nuevo objeto de la entidad 'Reservation'
-        //     $reservation = new Reservation();
-        //     $reservation
-        //         ->setClient($client)
-        //         ->setTour($tour_id)
-        //         ->setNumberTickets($tickets)
-        //         ->setDatetime($datetime);
-
         // Llamar al servicio 'Reservation service' que inserta los datos y devuelve el ID de la nueva entidad creada
             $newEntityId = $reservationService->insert($tour_id, $tickets);
             $reservationService->sendMailReservation($newEntityId);

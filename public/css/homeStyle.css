@@ -55,3 +55,29 @@
 .w-80 {
     width: 80%;
 }
+
+
+
+/* snackbar */
+/* SNACKBAR */
+
+/* Estilo para el snackbar */
+#snackbar {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    bottom: 30px;
+}
+
+#snackbar.show {
+    visibility: visible;
+    /* Agrega alguna animación de transición si lo deseas */
+}

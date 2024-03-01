@@ -51,22 +51,80 @@
 //     });
 // })
 
+function existenRutas(ruta_id) {
+    // // Obtener las rutas del servidor mediante una solicitud POST a la API
+    // $.ajax({
+    //     type: 'GET',
+    //     url: '/api/route/existsByLocality/',
+    //     contentType: 'application/json',
+    //     success: function (response) {
+    //         console.log(response)
+    //     },
+    //     error: function (error) {
+    //         console.error('Error:', error);
+    //         console.log('Error message:', error.responseText);
+    //     }
+    // });
+
+    if (ruta_id == 21) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+// Función para mostrar el snackbar
+function showSnackbar(message) {
+    // Selecciona el elemento del snackbar
+    var snackbar = $("#snackbar");
+
+    // Establece el mensaje del snackbar
+    snackbar.text(message);
+
+    // Agrega la clase show para mostrar el snackbar
+    snackbar.addClass("show");
+
+    // Después de 3 segundos, elimina la clase show para ocultar el snackbar
+    setTimeout(function(){
+        snackbar.removeClass("show");
+    }, 3000);
+}
+
 $(function () {
     // Inicializar combobox 'placeholder' localidades
-    let inputLocalities = $('input.form-control.custom-select.ui-autocomplete-input');
+    // let inputLocalities = $('input.form-control.custom-select.ui-autocomplete-input');
+    let inputLocalities = $('#combobox');
     inputLocalities.attr("placeholder", "Busca una localidad...");
 
     // Capturamos el evento submit del formulario
     $("#searchForm").submit(function(event) {
         // Prevenimos la acción por defecto del formulario
         event.preventDefault();
+        
+        // // Si el usuario confirma, volvemos a habilitar el envío del formulario
+        // if (inputLocalities.val() != "") {
+        //     if (existenRutas( inputLocalities.val() )) {
+        //         // Volvemos a habilitar el envío del formulario
+        //         $(this).unbind("submit").submit();
+        //     } else {
+        //         alert("No existen rutas en esta localidad");
+        //     }
+        // } else {
+        //     alert("Debes introducir una localidad");
+        // }
 
         // Si el usuario confirma, volvemos a habilitar el envío del formulario
         if (inputLocalities.val() != "") {
-            // Volvemos a habilitar el envío del formulario
-            $(this).unbind("submit").submit();
+            if (existenRutas(inputLocalities.val())) {
+                // Volvemos a habilitar el envío del formulario
+                $(this).unbind("submit").submit();
+            } else {
+                // Muestra el mensaje en el snackbar
+                showSnackbar("No existen rutas en esta localidad");
+            }
         } else {
-            alert("Debes introducir una localidad");
+            // Muestra el mensaje en el snackbar
+            showSnackbar("Debes introducir una localidad");
         }
     });
 });

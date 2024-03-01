@@ -429,8 +429,21 @@
                                     style="max-height: 200px;">
                                     <p class="mb-0">
                                     </p>
-                                    <p>🕑<strong>Horario: </strong>lunes, miércoles, viernes y domingos<strong> </strong>a
-                                        las <strong>10:30</strong> horas.</p>
+                                    <p>
+                                        🕑<strong>Horario: </strong>
+                                        {% set lastIndex = daysOfWeek|length - 1 %}
+                                        {% for index, day in daysOfWeek %}
+                                            {% if index == lastIndex %}
+                                                y {{ day }}
+                                            {% else %}
+                                                {{ day }}{% if not loop.last %}, {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
+
+
+                                        {# lunes, miércoles, viernes y domingos #}
+                                        <strong> </strong>a las <strong>10:30</strong> horas.
+                                    </p>
                                     <p>💲<strong>Los free tours no tienen un precio fijo sino que el precio es libre, es
                                             decir, al finalizar la visita el cliente le pagará al guía lo que considere
                                             oportuno valorando así su trabajo.</strong></p>

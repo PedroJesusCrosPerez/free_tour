@@ -102,4 +102,15 @@ class RouteApi extends AbstractController
         $entityManager->flush();
         return new Response(null, Response::HTTP_OK);
     }
+
+    #[RouteAnnotation("/existsByLocality/{id}", name: "update", methods: ["GET"])]
+    public function existsByLocality(Request $request, $id): Response
+    {
+        $route = $this->routeRepository->findByLocality($id);
+        if (!$route) {
+            return new Response(null, Response::HTTP_NOT_FOUND);
+        }
+        $data = json_decode($request->getContent(), true);
+        // Aquí puedes actualizar la entidad Route con los datos recibidos en $data
+    }
 }

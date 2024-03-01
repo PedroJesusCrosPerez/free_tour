@@ -4,10 +4,13 @@
 namespace App\Form;
 
 use App\Entity\Tour;
+use Doctrine\DBAL\Types\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -23,12 +26,21 @@ class ReportType extends AbstractType
                 // 'choices' => $this->formatTourChoices($tours),
                 'choices' => $tours,
             ])
-            ->add('observation', TextareaType::class, [
-                'label' => 'Observation'
+            ->add('image', FileType::class, [
+                'label' => 'Imagen',
+                'mapped' => false,
+                'required' => false,
             ])
-            ->add('money', MoneyType::class, [
-                'label' => 'Money'
-            ]);
+            ->add('observation', TextType::class, [
+                'label' => 'Observación',
+            ])
+            ->add('money', NumberType::class, [
+                'label' => 'Dinero',
+            ])
+            ->add('tour', TourType::class, [
+                'label' => 'Tour',
+            ])
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

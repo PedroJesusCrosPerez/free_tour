@@ -14,8 +14,8 @@ class Report
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::BLOB)]
-    private $image = null;
+    #[ORM\Column(length: 255)]
+    private ?string $image = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $observation = null;
@@ -32,12 +32,12 @@ class Report
         return $this->id;
     }
 
-    public function getImage()
+    public function getImage(): ?string
     {
         return $this->image;
     }
 
-    public function setImage($image): static
+    public function setImage(?string $image): self
     {
         $this->image = $image;
 

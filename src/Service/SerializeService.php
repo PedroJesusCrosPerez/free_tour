@@ -20,9 +20,16 @@ use Symfony\Component\HttpFoundation\Request;
 
 class SerializeService
 {
+    private $reportUploadDir;
+    private $reportUploadDirDB;
+
     public function __construct(
         private EntityManagerInterface $entityManager,
-    ){}
+        private ParameterBagInterface $parameterBag,
+    ){
+        $this->reportUploadDir = $parameterBag->get('reportImgDir');
+        $this->reportUploadDirDB = $parameterBag->get('reportImgDirDB');
+    }
 
     public function serializeArrTour(array $arrTour)//: JsonResponse
     {
@@ -151,6 +158,57 @@ class SerializeService
             ];
         }
         return $serializedItems;
+    }
+
+
+
+    
+
+    public function saveImg($img, $dstDir): bool {
+        // $file = $img->getData();
+        dd($img);
+        $file = $img;
+        if ($file) {
+            $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+    
+            $file->move(
+                $dstDir,
+                $fileName
+            );
+    
+            // $user->setPhoto($fileName);
+        } 
+        else {
+            dd('public/images/default.png');
+        }
+
+        return $fileName;
+    }
+
+    public function saveFile($file, $targetPath)
+    {
+        $uploadsDirectory = $targetPath; // Directorio donde se guardará la imagen
+        $filename = '/' . md5(uniqid()) . '.' . $file->guessExtension(); // Generar un nombre único para el archivo
+        $targetPath = $uploadsDirectory . $filename; // Ruta completa de destino
+
+        // Crear un objeto File para el archivo cargado
+        $uploadedFile = new File($file->getPathname());
+
+        // Crear un nuevo objeto Filesystem
+        $filesystem = new Filesystem();
+
+        // Intentar copiar el archivo cargado al directorio de uploads
+        try {
+            $filesystem->copy($uploadedFile->getPathname(), $targetPath);
+        } catch (\Exception $e) {
+            // Manejar cualquier error que pueda ocurrir durante la copia del archivo
+            throw new \Exception('Error al guardar el archivo: ' . $e->getMessage());
+        }
+
+        // Devolver la ruta completa del archivo guardado
+        // $uploadDirectoryRoutePhotoPath = trim(strpos($uploadsDirectory, '%'));
+        // $routePhotoPath = $uploadDirectoryRoutePhotoPath . '/' . $filename;
+        return $filename;
     }
 
 }

@@ -1,0 +1,59 @@
+{% extends 'views/main.html.twig' %}
+
+{% block pagescripts %}
+    <!-- Page scripts -->
+    <script src="{{ asset('js/reportScript.js') }}"></script>
+{% endblock %}
+
+{% block pagestylesheets %}
+    <!-- Page style sheet -->
+    <link href="{{ asset('css/reportStyle.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}Realizar informe{% endblock %}
+
+{% block main %}
+    <hr>
+    <h1 class="h3 mt-3 text-center text-white">Tours de hoy</h1>
+    {# <hr class="my-4"> #}
+    
+    <div id="tour-list">
+
+    </div>
+
+    <div id="form">
+        <!-- formulario_report.html -->
+        <form action="/api/report/insert" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="tour_id" value="{{ tour_id }}">
+
+            <label for="image">Imagen grupal:</label>
+            <input type="file" name="image" id="image"><br>
+
+            <label for="observation">Observaciones:</label>
+            <textarea name="observation" id="observation"></textarea><br>
+
+            <label for="money">Dinero recaudado:</label>
+            <input type="text" name="money" id="money"><span>€</span><br>
+
+            {# <label for="tour">Tour:</label>
+            <select name="tour" id="tour">
+                <option value="0">Selecciona un tour . . .</option>
+                {% for tour in tours %}
+                    <option value="{{tour.id}}">{{ tour.route.name }} a las {{tour.getDatetimeFormated}}</option>
+                {% endfor %}
+            </select><br> #}
+            <div name="assistants" id="reservations">
+                {% for reservation in reservations %}
+                    <div class="reservation" data-id="{{ reservation.id }}">
+                        <img src="/uploads/images/{{ reservation.client.photo }}" alt="client photo for reservation: {{ reservation.id }}">
+                        <p>{{ reservation.client.fullname }}</p>
+                        <p>{{ reservation.getNumberTickets }}</p>
+                        <input type="number" name="assistants[{{ reservation.id }}]" value="0">
+                    </div>
+                {% endfor %}
+            </div>
+
+            <input type="submit" value="Enviar">
+        </form>
+    </div>
+{% endblock %}
