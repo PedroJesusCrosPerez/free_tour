@@ -15,6 +15,18 @@ label.input-error {
     font-size: .8em !important;
     margin-top: 2.6em !important;
 }
+.inputBig-error {
+    border: 2px solid red !important;
+}
+
+.input-true {
+    color: green !important;
+    font-size: .8em !important;
+    font-weight: bold;
+}
+.fa-solid.fa-circle-check {
+    font-size: 1.4em;
+}
 
 #create-route {
     ul, ul p, div[name="information"] label {
@@ -61,6 +73,14 @@ div[name="information"] /*,fieldset[name="information"]*//*, fieldset[name="conf
         color: gray;
     }
 
+    /* Image FROM drag&drop file uploader */
+    div.uploaded-image {
+        margin: 0 !important;
+        position: static !important;
+    }
+    div.uploaded-image > img {
+        width: 96% !important;
+    }
     .image-uploader {
         min-height: auto;
         height: 100%;
@@ -69,23 +89,23 @@ div[name="information"] /*,fieldset[name="information"]*//*, fieldset[name="conf
     /* Name */
     label[for="name"]   { grid-area: 1 / 1 / 2 / 2; }
     input[name="name"]  { grid-area: 2 / 1 / 3 / 2; }
-    label#name-error    { grid-area: 2 / 1 / 3 / 2; margin-top: 2em; }
+    label#name-error    { grid-area: 2 / 1 / 3 / 2; margin-top: 2em; display: none; }
 
     /* Description TODO 4*/
-    label[for="description"]    { grid-area: 4 / 1 / 5 / 2; }
-    div.richText                { grid-area: 5 / 1 / 9 / 3; }
+    label[for="description"]    { grid-area: 4 / 1 / 5 / 5; }
+    div.richText                { grid-area: 5 / 1 / 9 / 5; }
     /* textarea[name="description"] { grid-area: 4 / 3 / 8 / 5; } */
-    label#description-error     { grid-area: 8 / 1 / 9 / 3; margin-top: 2em; }
+    label#description-error     { grid-area: 8 / 1 / 9 / 5; margin-top: 2em; display: none; }
 
     /* Upload images TODO 3*/
-    label[for="upload-image"]   { grid-area: 4 / 3 / 5 / 4; }
-    div[name="upload-image"]    { grid-area: 5 / 3 / 9 / 6; }
-    label#upload-image-error    { grid-area: 5 / 3 / 9 / 6; margin-top: 2em; }
+    label[for="upload-image"]   { grid-area: 4 / 5 / 5 / 7; }
+    div[name="upload-image"]    { grid-area: 5 / 5 / 9 / 7; }
+    label#upload-image-error    { grid-area: 8 / 5 / 9 / 7; margin-top: 2em; display: none; }
 
     /* Mapa */
     button[name="btnOpenMap"]   { grid-area: 1 / 2 / 4 / 3; }
-    i[name="btnOpenMap"]        { grid-area: 1 / 2 / 4 / 3; }
-    label#btnOpenMap-error      { grid-area: 1 / 2 / 4 / 3; margin-top: 2em; }
+    i[name="btnOpenMap"]        { grid-area: 1 / 2 / 4 / 3; border-radius: 20px; padding: 6px;}
+    label#btnOpenMap-error      { grid-area: 3 / 2 / 4 / 3; margin-top: 1em !important; display: none; text-align: center; }
     
     /* Capacity */
     label[for="capacity"]   { grid-area: 1 / 5 / 2 / 6; }
@@ -105,6 +125,8 @@ fieldset[name="items"] {
     justify-content: space-around; */
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+
+    label#sortable2-error { display: none; }
     
     .item {
         padding: 0;
@@ -180,18 +202,43 @@ fieldset[name="items"] {
 fieldset[name="programation"] {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    /* grid-template-rows: repeat(2, 8em); */
+    grid-template-rows: repeat(2, auto);
+
 
     section[name="programation-configure"] {
-        input[name="timepicker"] { width: 80px; }
+        grid-area: 1 / 1 / 2 / 2;
+
+        display: grid;
+        grid-template-columns: auto 3fr auto 3fr 2fr;
+        grid-template-rows: 2em 2em 2em 4em 2em;
+
+        label[for="period"]         { grid-area: 1 / 1 / 2 / 2; }
+        input[name="period"]        { grid-area: 1 / 2 / 2 / 3; }
+        label#period-error          { grid-area: 1 / 1 / 2 / 3; display: none; }
+
+        label[for="time"]           { grid-area: 1 / 3 / 2 / 4; }
+        input[name="timepicker"]    { grid-area: 1 / 4 / 2 / 5; }
+        label#time-error            { grid-area: 1 / 3 / 2 / 5; display: none; text-align: end; }
+
+        label[for="daysOfWeek"]          { grid-area: 3 / 1 / 4 / 6; }
+        div[name="container-daysOfWeek"] { grid-area: 4 / 1 / 5 / 6; }
+        label#pattern-error              { grid-area: 4 / 1 / 5 / 6; display: none; margin-top: 5.4em !important; }
+
+        label[for="period"], label[for="time"] { padding-right: .4em; }
+        label[for="time"] { margin-left: 1em; }
+        label[for="daysOfWeek"] { padding-top: 1em; margin-top: .4em; }
+        input[name="timepicker"] { width: 80px; cursor: pointer; }
         input[type="checkbox"] { cursor: pointer; }
 
         div[name="container-daysOfWeek"] {
             display: flex;
             gap: .2em;
+            margin-top: 1.4em;
 
             .dayOfWeek {
                 background-color: lightblue;
-                padding: 0.4em 1em;
+                padding: .4em .8em;
                 cursor: pointer;
                 border-radius: 20px;
             }
@@ -209,14 +256,28 @@ fieldset[name="programation"] {
             }
         }
     }
-    section[name="programation-select-guide"] { 
-        .guide { width: 180px; height: 150px; padding: 2px; }
+    section[name="programation-select-guide"] {
+        grid-area: 1 / 2 / 3 / 3;
+
+        label#slctguide-error {
+            display: none; 
+            margin: 0 !important;
+            margin-bottom: .3em !important;
+            font-size: 1em !important;
+        }
+
+        .guide {
+            /*width: 9em;*/ 
+            /* height: 11em;  */
+            height: auto; 
+            padding: 6px;
+        }
         .guide:hover { 
             cursor: pointer;
             opacity: .8;
             border: 2px solid lightgray;
             border-radius: 10px;
-            padding: 0;
+            padding: 4px;
         }
 
         .guide.selected {
@@ -225,9 +286,13 @@ fieldset[name="programation"] {
         }
         
         .guide > img {
-            width: 100%;
+            /* width: 100%; */
             /* height: auto; */
-            height: 90%;
+            /* height: 90%; */
+
+            width: 9em;
+            height: 9em;
+            border-radius: 20px;
         }
         .guide > img:hover { border-radius: 10px; }
 
@@ -235,12 +300,13 @@ fieldset[name="programation"] {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
 
+            text-align: center;
             overflow-y: auto;
             max-height: 300px;
         }
     }
     section[name="programation-table"] {
-        grid-column: 1/3;
+        grid-area: 2 / 1 / 3 / 2;
 
         table, td, tr, th {
             border: 1px solid black;

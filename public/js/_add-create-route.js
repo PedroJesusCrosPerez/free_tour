@@ -36,19 +36,15 @@
 
     const programation = [];
     function addButtonProgram() {
-        var data = takeProgramationData();
-        addTable(data);
-        
-        // if (localStorage.getItem("programation") !== null) {
-        //     var programation = localStorage.getItem(JSON.parse('programation'));
-        //     programation.push(data);
-        //     localStorage.setItem('programation', JSON.stringify(programation));
-        // } else {
-        //     localStorage.setItem('programation', JSON.stringify([]));
-        // }
-        
-        programation.push(data);
-        console.log(programation);
+        if (checkProgramation()) {
+            var data = takeProgramationData();
+            addTable(data);
+            
+            programation.push(data);
+            console.log(programation);
+        } else {
+            console.log("Programación errónea =>",programation);
+        }
     }
 
     function programAddProgramation() {

@@ -15,6 +15,7 @@ $(function() {
         // console.log("Coordenadas del clic: " + latlng.lat + ", " + latlng.lng);
     });
 
+    // BTN AÑADIR
     $('#addMarkerBtn').on('click', function() {
         if (marker) {
             $('#mapModal').dialog('close');
@@ -25,6 +26,8 @@ $(function() {
             snackbar.className = "show";
             setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 3000);
         }
+
+        checkInformation_Map();
     });
 
     // FLY TO
@@ -60,6 +63,8 @@ $(function() {
         autoOpen: false,
         modal: true,
         width: 650,
-        height: 490
+        height: 490,
+        close: function() {
+        },
     });
 });

@@ -24,6 +24,8 @@
     </script>
 
 
+    <script src="{{ asset('js/_upload-data-create-route.js') }}"></script>
+    <script src="{{ asset('js/_add-create-route.js') }}"></script>
     <!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
     <!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>> PLUGINS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
     <!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
@@ -53,8 +55,6 @@
     <!-- #################################################################### -->
     <!-- ####################### RECOGIDA DE DATOS ########################## -->
     <!-- #################################################################### -->
-    <script src="{{ asset('js/_upload-data-create-route.js') }}"></script>
-    <script src="{{ asset('js/_add-create-route.js') }}"></script>
     <script src="{{ asset('js/create-route.js') }}"></script>
 
     <!-- ########################### VALIDATOR ############################## -->
@@ -88,6 +88,7 @@
                     <!-- Name -->
                     <label class="form-label" for="name">Nombre: </label>
                     <input class="form-control" type="text" name="name" id="name">
+                    <label id="name-error" class="input-error" for="name">Por favor introduce un nombre</label>
 
                     <!-- Description -->
                     <label for="description">Descripción: </label>
@@ -104,11 +105,12 @@
                                 <option value="square">Square</option>
                             </select>
                         </div>-->
-
+                    <label id="description-error" class="input-error" for="description">Por favor introduce una descipción</label>
 
                     <!-- Drag&drop file upload -->
                     <label for="upload-image">Subir imágen: </label>
                     <div class="input-images" name="upload-image"></div>
+                    <label id="upload-image-error" class="input-error" for="upload-image">Por favor introduce una imágen</label>
 
                     <!-- Leaflet map -->
                     {# <button id="openModalBtn" name="btnOpenMap" class="fa-solid fa-map-location-dot">Abrir Modal</button> #}
@@ -124,6 +126,7 @@
                         </select>
                         <div id="map-container"></div>
                     </div>
+                    <label id="btnOpenMap-error" class="input-error" for="btnOpenMap">Por favor selecciona un punto de encuentro</label>
 
                     <!-- Coordinates from 'Leaflet map' -->
                     <label for="inputX" style="display:none;">X:</label>
@@ -136,9 +139,9 @@
 
                     <!-- Date range picker -->
                     <label for="capacity">Aforo: </label>
-                    <input type="number" name="capacity" class="form-control" min="1">
+                    <input type="number" name="capacity" id="capacity" class="form-control" min="1" value="1">
                     <label for="daterange">Rango de fechas</label>
-                    <input name="daterange" type="text" class="form-control daterange">
+                    <input name="daterange" id="daterange" type="text" class="form-control daterange">
                 </div>
             </div>
             <div id="tabs-2">
@@ -163,15 +166,26 @@
                         <h1>Visitas elegidas</h1>
                         <ul id="sortable2" class="connectedSortable" name="selected-items">
                         </ul>
+                        <label id="sortable2-error" class="input-error" for="sortable2">Por favor introduce una descipción</label>
                     </section>
                 </fieldset>
             </div>
             <div id="tabs-3">
                 <fieldset name="programation">
                     <section name="programation-configure">
+                        <!-- Date range picker -->
+                        <label for="period">Período: </label>
+                        <input name="period" type="text" class="daterange" id="period">
+                        <label id="period-error" class="input-error" for="period">Por favor introduce un rango de fechas dentro del rango de la ruta</label>
+
                         <!-- Time picker -->
-                        <label for="time">Hora de inicio: </label>
+                        <label for="time"><i class="fa-regular fa-clock"></i> Hora de inicio: </label>
                         <input type="text" name="timepicker" id="time">
+                        
+                        <label id="time-error" class="input-error" for="time">Por favor introduce una hora</label>
+
+                        <!-- Buttons actions -->
+                        <button type="button" id="add">Añadir</button>
 
                         <!-- Select frecuency -->
                         <div style="display:none;">
@@ -185,6 +199,7 @@
                         </div>
 
                         <!-- Select pattern -->
+                        <label for="daysOfWeek">Selecciona un patrón de días: </label>
                         <div name="container-daysOfWeek">
                             <div class="dayOfWeek" name="pattern" data-id="1">Lunes</div>
                             <div class="dayOfWeek" name="pattern" data-id="2">Martes</div>
@@ -194,19 +209,15 @@
                             <div class="dayOfWeek" name="pattern" data-id="6">Sábado</div>
                             <div class="dayOfWeek" name="pattern" data-id="7">Domingo</div>
                         </div>
+                        <label id="pattern-error" class="input-error" for="pattern">Por favor selecciona dias de la semana</label>
 
-                        <!-- Date range picker -->
-                        <label for="period">Período: </label>
-                        <input name="period" type="text" class="daterange">
-
-                        <!-- Buttons actions -->
-                        <button type="button" id="add">Añadir</button>
                     </section>
 
                     <section name="programation-select-guide">
                         <!-- Select Guides -->
                         <div name="select-guide" id="selectable-guide">
-                            <h1>Guías</h1>
+                            <h2>Selecciona un guía</h2>
+                            <label id="slctguide-error" class="input-error" for="pattern">Por favor selecciona un guía</label>
                             <ul id="guide-list">
                                     {# <li class="ui-state-default" data-id="{{ guide.id }}">{{ guide.name }}</li> #}
                                     {# {% include 'route/guide-example.html.twig' %} #}
@@ -220,6 +231,7 @@
                         </div>
                         
                         <!-- Submit -->
+                        <!--
                         <button type="button" name="create" id="create">Crear</button>
                         <button type="button" name="create_generate" id="create_generate">Crear y generar tours</button>
                         <input type="submit" name="save" value="Generar tours" disabled>
@@ -228,6 +240,7 @@
                         <button type="button" name="printdata" id="printdata">printdata</button>
                         <button type="button" name="testtour" id="testtour">Testing generate tour</button>
                         <button type="button" name="testryt" id="testryt">Testing create route and generate tour</button>
+                        -->
                     </section>
 
                     <section name="programation-table">
