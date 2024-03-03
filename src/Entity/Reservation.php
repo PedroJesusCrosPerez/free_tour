@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ReservationRepository::class)]
 class Reservation
@@ -20,16 +21,24 @@ class Reservation
     private ?\DateTimeInterface $datetime = null;
 
     #[ORM\Column(nullable: false)]
-    private ?int $number_tickets = null;
+    #[Assert\NotNull]
+    #[Assert\Type(type: 'integer')]
+    #[Assert\GreaterThan(value: 0)]
+    // private ?int $number_tickets = null;
+    private $number_tickets = null;
 
     #[ORM\Column(nullable: true)]
+    #[Assert\Type(type: 'integer')]
+    #[Assert\GreaterThan(value: 0)]
     private ?int $assistants = null;
 
     #[ORM\ManyToOne(inversedBy: 'reservations')]
+    #[Assert\NotNull]
     private ?User $client = null;
 
     #[ORM\ManyToOne(inversedBy: 'reservations')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotNull]
     private ?Tour $tour = null;
 
     #[ORM\OneToMany(mappedBy: 'reservation', targetEntity: Ratings::class, orphanRemoval: true)]
@@ -57,12 +66,14 @@ class Reservation
         return $this;
     }
 
-    public function getNumberTickets(): ?int
+    // public function getNumberTickets(): ?int
+    public function getNumberTickets()
     {
         return $this->number_tickets;
     }
 
-    public function setNumberTickets(int $number_tickets): static
+    // public function setNumberTickets(int $number_tickets): static
+    public function setNumberTickets($number_tickets): static
     {
         $this->number_tickets = $number_tickets;
 

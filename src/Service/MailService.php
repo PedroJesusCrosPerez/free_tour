@@ -33,7 +33,12 @@ class MailService
     }
 
 
-    public function confirmReservation(string $destinatary, string $subject): bool
+    public function confirmReservation(
+        string $destinatary, 
+        string $subject, 
+        string $encabezado = "Mi reserva",
+        $pdf,
+    ): bool
     {
         $email = (new Email())
             ->from($this->adminEmail)
@@ -41,7 +46,9 @@ class MailService
             ->subject($subject)
             ->html($this->twig->render('mailer/reservation-done.html.twig', [
                 'mytext' => '__texto personalizado escrito fuera de la plantilla__',
+                'header' => $encabezado,
             ]))
+            ->attach($pdf, 'mi_reserva.pdf', 'application/pdf')
         ;
         return $this->mailer->send($email) != null ? true : false;
     }

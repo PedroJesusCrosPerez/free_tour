@@ -13,6 +13,7 @@ parameters:
     routeImgDirDB: '/images/route'
     reportImgDir: '%kernel.project_dir%/public/images/report'
     reportImgDirDB: '/images/report'
+    pdf_reservation_path: '/mailer/reservation-done-pdf.html.twig'
 
 services:
     # default configuration for services in *this* file
@@ -35,6 +36,9 @@ services:
         arguments:
             $adminEmail: 'admin@gmail.es'
 
+    App\Service\PdfService:
+        arguments:
+            $twig: '@twig'
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 

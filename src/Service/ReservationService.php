@@ -8,6 +8,7 @@ use App\Entity\Reservation;
 use App\Entity\Route;
 use App\Entity\Tour;
 use App\Entity\User;
+use App\Event\ReservationEvent;
 use Doctrine\ORM\EntityManagerInterface;
 use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -15,7 +16,10 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class ReservationService
 {
@@ -23,7 +27,10 @@ class ReservationService
         private EntityManagerInterface $entityManager, 
         private Security $security, 
         private MailService $mailService, 
-        private ParameterBagInterface $params
+        private ParameterBagInterface $params,
+        private ValidatorInterface $validator,
+        private EventDispatcherInterface $dispatcher,
+        private PdfService $pdfService,
     ){}
 
     public function insert(int $tour_id, int $number_tickets)//: bool
@@ -32,7 +39,7 @@ class ReservationService
             $tour = $this->entityManager->getRepository(Tour::class)->find($tour_id); // Obtener el tour
             $user = $this->security->getUser(); // Obtener el usuario autenticado
             $datetime = new \DateTime('now'); // Obtener fecha y hora actual
-
+        
         // Crear un nuevo objeto de la entidad 'Reservation'
             $reservation = (new Reservation())
                 ->setClient($user)
@@ -41,13 +48,28 @@ class ReservationService
                 ->setNumberTickets($number_tickets)
                 ->setAssistants(null)
             ;
-        // dd($reservation);
+        
+        // Lanzar evento / Dispatch event => validar datos
+            $event = new ReservationEvent(['reservation'=>$reservation]);
+            $this->dispatcher->dispatch($event, ReservationEvent::NAME);
+
         // Guardar la nueva entidad en la base de datos
             $this->entityManager->persist($reservation);
             $this->entityManager->flush();
 
+        // Generar pdf
+            // $pdf = new PdfService('reservation', $this->params->get('pdf_reservation_path'));
+            // $pdf->generatePdf($reservation);
+            $pdf = $this->pdfService->generatePdfFromTemplate('/mailer/reservation-done-pdf.html.twig', ['reservation'=>$reservation]);
+
         // Enviar un correo electrónico al cliente
-            $this->mailService->sendMail($user->getEmail(), 'Reserva realizada', 'texto desde servicio de reserva');
+            $this->mailService->confirmReservation(
+                // $user->getEmail(), 
+                'pcroper1909@g.educaand.es', 
+                'Reserva realizada', 
+                'Reserva: '.$reservation->getClient()->getFormalName(),
+                $pdf
+            );
 
         // Devolver el ID de la nueva entidad creada
             return $reservation->getId();

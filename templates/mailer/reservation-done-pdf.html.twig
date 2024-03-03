@@ -1,0 +1,60 @@
+{# templates/pdf/reservation-pdf.html.twig #}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservation PDF</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h1>Reservation Details</h1>
+    <table>
+        <tr>
+            <th>ID:</th>
+            <td>{{ reservation.getId() }}</td>
+        </tr>
+        <tr>
+            <th>Date:</th>
+            <td>{{ reservation.getDate() }}</td>
+        </tr>
+        <tr>
+            <th>Time:</th>
+            <td>{{ reservation.getTime() }}</td>
+        </tr>
+        <tr>
+            <th>Number of Tickets:</th>
+            <td>{{ reservation.getNumberTickets() }}</td>
+        </tr>
+        <tr>
+            <th>Client:</th>
+            <td>{{ reservation.getClient().getFormalName() }}</td>
+        </tr>
+        <tr>
+            <th>Tour:</th>
+            <td>{{ reservation.getTour().getDatetimeFormated() }}</td>
+        </tr>
+    </table>
+</body>
+</html>

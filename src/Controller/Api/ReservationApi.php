@@ -31,21 +31,16 @@ class ReservationApi extends AbstractController
     #[RouteAnnotation("/insert", name: "insert", methods: ["POST"])]
     public function insert(Request $request, ReservationService $reservationService): Response
     {
-        $data = $request->request->all();
-        
         // Obtener los datos del formulario
-            $route_id = $request->request->get('route_id'); // Obtener el ID de la ruta
-
-            $client = $this->getUser(); // Obtener el usuario autenticado
             $tour_id = $request->request->get('tour_id'); // Obtener el ID del tour
             $tickets = $request->request->get('tickets'); // Obtener el número de tickets
-            $datetime = new \DateTime('now'); // Obtener fecha y hora actual
 
         // Llamar al servicio 'Reservation service' que inserta los datos y devuelve el ID de la nueva entidad creada
             $newEntityId = $reservationService->insert($tour_id, $tickets);
+        // Enviar mail con la información
             $reservationService->sendMailReservation($newEntityId);
 
-        // Devolver una respuesta adecuada
+        // Devolver respuesta con id del nuevo registro
         return new JsonResponse(['id' => $newEntityId], JsonResponse::HTTP_CREATED);
     }
 

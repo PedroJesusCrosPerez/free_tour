@@ -5,11 +5,13 @@ namespace App\Event;
 
 use Symfony\Contracts\EventDispatcher\Event;
 
-class MyCustomEvent extends Event
+class ReservationEvent extends Event
 {
-    private $data;
+    public const NAME = 'reservation.event';
 
-    public function __construct($data)
+    private array $data;
+
+    public function __construct(array $data)
     {
         $this->data = $data;
     }
