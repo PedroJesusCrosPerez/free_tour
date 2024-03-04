@@ -12,6 +12,7 @@ use App\Entity\Tour;
 use App\Entity\User;
 use App\Repository\ItemRepository;
 use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 // use App\Entity\Route;
 use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
@@ -23,6 +24,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Symfony\Component\HttpFoundation\Response;
 use EasyCorp\Bundle\EasyAdminBundle\Config\UserMenu;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class DashboardController extends AbstractDashboardController
@@ -103,6 +105,17 @@ class DashboardController extends AbstractDashboardController
         //     'guides' => $guides,
         // ]);
         return $this->render('route/manage-tours.html.twig');
+    }
+
+    #[Route('/edit-route', name: 'edit-route')]
+    public function editarRuta(EntityManagerInterface $entityManager, Request $request, UserRepository $userRepository/*, $id*/): Response
+    {
+        $id = $request->query->get('id');
+        return $this->render('route/edit.html.twig', [
+            'id' => $id,
+            'localities' => $entityManager->getRepository(Locality::class)->findAll(),
+            'guides' => $entityManager->getRepository(User::class)->findByRoles(['ROLE_GUIDE'])
+        ]);
     }
 
     public function configureMenuItems(): iterable

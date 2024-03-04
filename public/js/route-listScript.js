@@ -24,4 +24,23 @@ $(function () {
             }
         });  // Fin del diálogo
     });  // Fin del evento click
+
+    // // Obtener los items del servidor mediante una solicitud POST a la API
+    // $.ajax({
+    //     type: 'GET',
+    //     url: '/api/upload/create-route',
+    //     contentType: 'application/json',
+    //     success: function (response) {
+    //         console.log(response)
+    //         uploadFilterLocality(response.items)
+    //     },
+    //     error: function (error) {
+    //         console.error('Error:', error);
+    //         console.log('Error:', error.responseText);
+    //     }
+    // });
+    // $('#filter_locality').on('change', function() {
+    //     var locality_id = $(this).find('option:selected').data('locality_id');
+    //     toggleItemsByLocalityId([locality_id]);
+    // });
 });

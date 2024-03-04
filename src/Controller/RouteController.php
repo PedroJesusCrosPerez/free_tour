@@ -75,7 +75,27 @@ class RouteController extends AbstractController
     #[Route('/list', name: 'list', methods: ['GET'])]
     public function list(RouteRepository $routeRepository): Response
     {
+        // $reservations = $this->entityManager->getRepository(Reservation::class)->findAll();
+        // dump($reservations[2]->getRatings()[0]->getGuideRating());
+        // dump($reservations);
+        // $reservation = $this->entityManager->getRepository(Reservation::class)->find(3);
+        // dump($reservation->getRatings()[0]->getGuideRating());
+
         $routes = $routeRepository->findAll();
+        // dump($routeRepository->getRatings(26));
+        foreach ($routes as $route) {
+            $ratings = $routeRepository->getRatings($route->getId());
+            $media = 0;
+            if ($ratings != []) {
+                foreach ($ratings as $rating) {
+                    $media += $rating['route_rating'];
+                }
+                $route->setAverageRating($media / count($ratings));
+                $route->setCountRating(count($ratings));
+            } else {
+                // dump("La ruta " . $route->getId() . " no tiene valoraciones");
+            }
+        }
         return $this->render('route/list.html.twig', [
             'routes' => $routes,
         ]);

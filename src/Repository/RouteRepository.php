@@ -3,7 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Locality;
+use App\Entity\Ratings;
+use App\Entity\Reservation;
 use App\Entity\Route;
+use App\Entity\Tour;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -39,6 +42,26 @@ class RouteRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
         ;
+    }
+    
+    /**
+     * Devuelve un array de rutas específicas según fechas.
+     *
+     * @param date $date_start Fecha de inicio de la ruta.
+     * @param date $date_end Fecha de inicio de la ruta.
+     * @return Route[]|null Devuelve un vector de objetos Route o null si no se encuentan.
+     */
+    public function getRatings(int $route_id): array
+    {
+        return $this->createQueryBuilder('r')
+            ->select('r.id as route_id', 'res.id as reservation_id', 'rat.route_rating', 'rat.guide_rating')
+            ->join(Tour::class, 't', 'WITH', 'r = t.route')
+            ->join(Reservation::class, 'res', 'WITH', 't = res.tour')
+            ->join(Ratings::class, 'rat', 'WITH', 'res = rat.reservation')
+            ->andWhere('r.id = :route_id')
+            ->setParameter('route_id', $route_id)
+            ->getQuery()
+            ->getResult();
     }
 
     public function getLocality2($route_id)

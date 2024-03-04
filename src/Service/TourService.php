@@ -33,7 +33,7 @@ class TourService
             // Obtener las fechas de inicio y fin del tour
             $dateStart = \DateTime::createFromFormat('d/m/Y', $tourData->date_start);
             $dateEnd = \DateTime::createFromFormat('d/m/Y', $tourData->date_end);
-    
+            
             // Obtener los días de la semana a verificar
             $daysToCheck = $tourData->pattern;
     

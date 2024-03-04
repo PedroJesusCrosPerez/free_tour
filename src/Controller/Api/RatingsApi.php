@@ -20,6 +20,12 @@ class RatingsApi extends AbstractController
         private RatingsService $ratingsService
     ){}
 
+
+    // #[RouteAnnotation("/findBy/{route_id}", name: "insert", methods: ["GET"])]
+    // public function findBy(Request $request, $route_id): JsonResponse
+    // {}
+
+
     #[RouteAnnotation("/insert", name: "insert", methods: ["POST"])]
     public function insert(Request $request): JsonResponse
     {

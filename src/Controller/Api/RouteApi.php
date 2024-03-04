@@ -77,6 +77,10 @@ class RouteApi extends AbstractController
 
         // Devolver una respuesta adecuada
         return new JsonResponse(['id' => $newEntityId], JsonResponse::HTTP_CREATED);
+
+        // TODO por si no funciona crear ruta
+        // return $this->redirectToRoute('admin');
+        return $this->redirect('http://localhost:8000/admin?crudAction=index&crudControllerFqcn=App%5CController%5CAdmin%5CRouteCrudController');
     }
 
     #[RouteAnnotation("/update/{id}", name: "update", methods: ["PUT"])]

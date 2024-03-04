@@ -86,6 +86,14 @@ class RouteCrudController extends AbstractCrudController
         ];
     }
 
+
+    public function editRedirect(AdminContext $context){
+        $entityInstance = $context->getEntity()->getInstance();
+        $id= $entityInstance->getId();
+        // dd($id);
+        return $this->redirectToRoute('edit-route',['id' => $id]);
+    }
+
     public function configureActions(Actions $actions): Actions
     {
         return $actions
@@ -97,14 +105,21 @@ class RouteCrudController extends AbstractCrudController
                     ->setLabel("Crear ruta") // Label personalizado
                 ;
             })
-            ->update(Crud::PAGE_INDEX, Action::EDIT, function (Action $action) {
+            ->update(Crud::PAGE_INDEX, Action::EDIT,function(Action $action){
                 return $action
-                    // Redirijir Action::EDIT a formulario personalizado en plantilla twig
-                    ->linkToRoute('create-route', ["id"=>"hola"]) // TODO pasar datos para rellenar campos
+                    ->linkToCrudAction('editRedirect') //Redirijir Action::EDIT a formulario personalizado en plantilla twig
                     ->setIcon('fa fa-file-alt') // Icono personalizado 
                     ->setLabel("Editar") // Label personalizado
                 ;
             })
+            // ->update(Crud::PAGE_INDEX, Action::EDIT, function (Action $action) {
+            //     return $action
+            //         // Redirijir Action::EDIT a formulario personalizado en plantilla twig
+            //         ->linkToRoute('create-route', ["id"=>"hola"]) // TODO pasar datos para rellenar campos
+            //         ->setIcon('fa fa-file-alt') // Icono personalizado 
+            //         ->setLabel("Editar") // Label personalizado
+            //     ;
+            // })
             ->update(Crud::PAGE_INDEX, Action::DELETE, function (Action $action) {
                 return $action
                     // ->setIcon('fa-regular fa-trash-can') // Sin relleno

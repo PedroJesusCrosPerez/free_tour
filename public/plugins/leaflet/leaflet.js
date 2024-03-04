@@ -1,7 +1,7 @@
 $(function() {
     var map = L.map('map-container').setView([51.505, -0.09], 13);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 16,
+        maxZoom: 19,
     }).addTo(map);
     
     var marker = null;

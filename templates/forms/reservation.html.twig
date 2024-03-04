@@ -2,7 +2,11 @@
 
 {% block title %}Reserva{% endblock %}
 
-{% block pagestylesheets %} {% include 'templates-dependences/guruwalk.html.twig' %} {% endblock %}
+{% block pagestylesheets %}
+    {% include 'templates-dependences/guruwalk.html.twig' %}
+        <!-- Leaflet Map -->
+    {% include 'plugins/leaflet-reservation.html.twig' %}
+{% endblock %}
 
 {% block main %}
 
@@ -113,8 +117,7 @@
 
         <div class="main_container" id="page-wrapper">
             <div class="d-block d-lg-none listing-image-container">
-                <div class="gw-btn-circled bg-white d-sm-none tour-back-button" data-url="L2VzL3dhbGtzLzMxNzc3LWxhLXJvbWEtaW1wcmVzY2luZGlibGU=
-        " onclick="window.history.back();">
+                <div class="gw-btn-circled bg-white d-sm-none tour-back-button" data-url="L2VzL3dhbGtzLzMxNzc3LWxhLXJvbWEtaW1wcmVzY2luZGlibGU=" onclick="window.history.back();">
                     <span class="back-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                             <!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
                             <path fill="currentColor"
@@ -422,13 +425,9 @@
 
                             <div class="section-content" data-controller="expandable-container"
                                 data-expandable-container-container-height-value="200" data-section="tour_about">
-                                <h2 class="section-title">
-                                    Descripción del tour
-                                </h2>
-                                <div class="masked-content" data-expandable-container-target="expandableContent"
-                                    style="max-height: 200px;">
-                                    <p class="mb-0">
-                                    </p>
+                                <h2 class="section-title">Descripción del tour</h2>
+                                <div class="masked-content" data-expandable-container-target="expandableContent" style="max-height: 200px;">
+                                    <p class="mb-0"></p>
                                     <p>
                                         🕑<strong>Horario: </strong>
                                         {% set lastIndex = daysOfWeek|length - 1 %}
@@ -453,6 +452,9 @@
                                             el de nuestro tour "La Roma
                                             Nocturna".<br>___________________________________________________________</strong>
                                     </p>
+
+                                    {# DIV necesario para la descipción, pero bugeado por ahora #}
+                                    {#
                                     <p>El <strong>free tour La Roma Imprescindible</strong> es perfecto para contar con una
                                         visión general de la ciudad y, al mismo tiempo, conocer <strong>su historia y su
                                             cultura</strong> desde un punto de vista especializado pero también
@@ -462,15 +464,20 @@
                                             Navona</strong>.<br><br>También descubriremos construcciones tan monumentales
                                         como el impresionante <strong>Panteón de Agripa</strong>, el templo romano mejor
                                         conservado de Roma, y podrás pedir los tres deseos en la famosa <strong>Fontana di
-                                            Trevi</strong>.<br><br></p>
+                                            Trevi</strong>.<br><br>
+                                    </p>
+                                    
                                     <p>Por eso, <strong>te recomendamos realizar este tour cuando llegues a la ciudad
                                         </strong>para poder elegir en qué zona o en qué parte de su historia deseas
                                         profundizar más, ya que Roma es eterna y descubrirla por completo costaría ¡una
-                                        eternidad!.<br><br></p>
+                                        eternidad!.<br><br>
+                                    </p>
                                     <p><em>Si viajar es tu pasión y conocer otros lugares del mundo tu hobby preferido, no
                                             dudes en unirte a esta experiencia y ¡nosotros nos encargamos del resto!.</em>
                                     </p>
                                     <p></p>
+                                    #}
+
                                 </div>
                                 <div class="gw-btn-tertiary gw-btn-tertiary-light view-more-btn"
                                     data-action="click->expandable-container#toggleExpandable"
@@ -496,13 +503,13 @@
                                     <ul class="poi-listing">
                                         <li class="tour-meeting-point poi-item">
                                             <div class="poi-order poi-order-item-first">
-                                                <span class="poi-order-icon"><svg xmlns="http://www.w3.org/2000/svg"
-                                                        viewBox="0 0 512 512">
+                                                <span class="poi-order-icon">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                                                         <!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-                                                        <path fill="currentColor"
-                                                            d="M64 496C64 504.8 56.84 512 48 512h-32C7.164 512 0 504.8 0 496V32c0-17.67 14.33-32 32-32s32 14.33 32 32V496zM62.74 25.73C63.17 27.83 64 29.78 64 32V26.2L62.74 25.73zM496.3 185.5L96 37.99v340l400.3-147.5C505.7 227 512 218.1 512 208S505.7 188.1 496.3 185.5z">
+                                                        <path fill="currentColor" d="M64 496C64 504.8 56.84 512 48 512h-32C7.164 512 0 504.8 0 496V32c0-17.67 14.33-32 32-32s32 14.33 32 32V496zM62.74 25.73C63.17 27.83 64 29.78 64 32V26.2L62.74 25.73zM496.3 185.5L96 37.99v340l400.3-147.5C505.7 227 512 218.1 512 208S505.7 188.1 496.3 185.5z">
                                                         </path>
-                                                    </svg></span>
+                                                    </svg>
+                                                </span>
                                             </div>
                                             <div class="pb-3 d-flex align-items-center justify-content-between">
                                                 <div>
@@ -511,10 +518,12 @@
                                                     </div>
                                                     <div class="poi-title pe-3">
                                                         <div class="d-block d-sm-none">
-                                                            Piazza del Popolo, 00187 Roma RM, Italia
+                                                            {# Piazza del Popolo, 00187 Roma RM, Italia #}
+                                                            {{ route.getMeetingPoint() }}
                                                         </div>
                                                         <div class="d-none d-sm-block">
-                                                            Piazza del Popolo, 00187 Roma RM, Italia
+                                                            {# Piazza del Popolo, 00187 Roma RM, Italia #}
+                                                            {{ route.getMeetingPoint() }}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -533,10 +542,37 @@
                                                 </span>
                                             </div>
                                             <p class="m-0 pb-3">
-                                                En el obelisco del centro de la plaza. El guía llevará un PARAGUAS ROJO.
+                                                {# Texo del supuesto punto de encuentro. #}
+                                                {# En el obelisco del centro de la plaza. El guía llevará un PARAGUAS ROJO. #}
                                             </p>
                                         </li>
 
+                                        {# VARIABLES TWIG variables twig #}
+                                        {% for item in items %}
+                                            <li class="poi-item mt-4">
+                                                <div class="poi-order">
+                                                    <b>{{ loop.index }}</b>
+                                                </div>
+                                                <div class="pb-2">
+                                                    {# <div class="poi-prefix">
+                                                        Visita exterior
+                                                    </div> #}
+                                                    <div class="poi-title">
+                                                        {{ item.name }}
+                                                    </div>
+                                                </div>
+                                                {# <p class="m-0 pb-2"> #}
+                                                    {# {{ item.getDescription()|raw }} #}
+                                                    {% set max_words = 30 %} {# Define el número máximo de palabras #}
+                                                    {% set description = item.getDescription() %} {# Obtén el contenido del item #}
+                                                    {% set words = description|split(' ') %} {# Divide el contenido en palabras #}
+                                                    {% set limited_description = words|slice(0, max_words)|join(' ') %} {# Selecciona solo las primeras X palabras y únelas nuevamente #}
+
+                                                    {{ limited_description|raw }} ...
+                                                {# </p> #}
+                                            </li>
+                                        {% endfor %}
+                                        {#
                                         <li class="poi-item">
                                             <div class="poi-order">
                                                 <b>1</b>
@@ -596,7 +632,7 @@
                                                 Ver 4 paradas más
                                             </button>
                                         </li>
-
+                                        #}
                                     </ul>
                                     <ul class="poi-listing collapse" id="collapsedPois">
                                         <li class="poi-item">
@@ -669,9 +705,11 @@
                                         <span blank="true" data-controller="fake-link" data-action="click->fake-link#visit"
                                             data-fake-link-src-value="/bookings/by-tour/31777/google_maps_spot?locale=es"
                                             data-fake-link-remote-value="false" data-fake-link-blank-value="true">
-                                            >> INSERTAR LEAFET MAP <<
-                                            <img class="listing-guru-meet-point-img" loading="lazy"
-                                                src="https://media.guruwalk.com/tmal548cu5dhxtrginytdx34p52y">
+                                            
+                                            <h3>Punto de encuentro</h3>
+                                            <div id="map"></div>
+                                            {# <img class="listing-guru-meet-point-img" loading="lazy"
+                                                src="https://media.guruwalk.com/tmal548cu5dhxtrginytdx34p52y"> #}
                                         </span></p>
                                 </div>
                                 <script>
@@ -758,7 +796,8 @@
 
                                     </div>
                                 </div>
-                                <div class="row">
+
+                                {# <div class="row">
                                     <div class="col-12 col-md-6">
                                         <div class="category-ratings mb-4">
                                             <div class="title">
@@ -961,7 +1000,9 @@
                                         </div>
 
                                     </div>
-                                </div>
+                                </div> #}
+
+                                {# RATING Rating #}
                                 <div class="tour-testimonials-list">
                                     <div class="scrollable-container scrollable-container-gradient"
                                         data-controller="scrollable-container"
@@ -977,11 +1018,7 @@
                                                         <div class="testimonial-author-content align-items-center">
                                                             <div class="d-flex align-items-center w-100">
                                                                 <div class="me-2">
-                                                                    <img class="rounded-circle testimonial-avatar"
-                                                                        loading="lazy"
-                                                                        onerror="this.src='https://assets.guruwalk.com/assets/missing/thumb/user-865dc28a15768b19cc12732ebbd510f4f78cb8bbd5e1dfc6a9e6204610cef8a2.png'"
-                                                                        src="https://assets.guruwalk.com/assets/missing/thumb/user-865dc28a15768b19cc12732ebbd510f4f78cb8bbd5e1dfc6a9e6204610cef8a2.png"
-                                                                        width="48" height="48">
+                                                                    <img class="rounded-circle testimonial-avatar" loading="lazy" onerror="this.src='https://assets.guruwalk.com/assets/missing/thumb/user-865dc28a15768b19cc12732ebbd510f4f78cb8bbd5e1dfc6a9e6204610cef8a2.png'" src="https://assets.guruwalk.com/assets/missing/thumb/user-865dc28a15768b19cc12732ebbd510f4f78cb8bbd5e1dfc6a9e6204610cef8a2.png" width="48" height="48">
                                                                 </div>
                                                                 <div class="me-3 w-100">
                                                                     <div class="lex align-items-center">
@@ -1488,6 +1525,530 @@
                                         </div>
                                     </div>
                                 </div>
+                                {# <div class="tour-testimonials-list">
+                                    <div class="scrollable-container scrollable-container-gradient"
+                                        data-controller="scrollable-container"
+                                        data-scrollable-container-navigation-arrows-value=""
+                                        data-scrollable-container-target="scrollableContainer" id="scrollable-container">
+                                        <div class="scrollable-container-inner d-flex align-items-center"
+                                            data-action="scroll->scrollable-container#mouseScroll"
+                                            data-add-tour-images-target="observableContainer"
+                                            data-scrollable-container-target="scrollableContent">
+                                            <div class="testimonial-card" data-id="1330101">
+                                                <div class="d-flex">
+                                                    <div onclick="openTestimonials(this)">
+                                                        <div class="testimonial-author-content align-items-center">
+                                                            <div class="d-flex align-items-center w-100">
+                                                                <div class="me-2">
+                                                                    <img class="rounded-circle testimonial-avatar" loading="lazy" onerror="this.src='https://assets.guruwalk.com/assets/missing/thumb/user-865dc28a15768b19cc12732ebbd510f4f78cb8bbd5e1dfc6a9e6204610cef8a2.png'" src="https://assets.guruwalk.com/assets/missing/thumb/user-865dc28a15768b19cc12732ebbd510f4f78cb8bbd5e1dfc6a9e6204610cef8a2.png" width="48" height="48">
+                                                                </div>
+                                                                <div class="me-3 w-100">
+                                                                    <div class="lex align-items-center">
+                                                                        <b>SALVADOR</b>
+
+                                                                        <span class="testimonial-date ms-1">
+                                                                            19 Feb 2024
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="testimonial-rating-stars">
+                                                                <p></p>
+                                                                <div class="d-flex stars-list"><span
+                                                                        class="icon-star-testimonial"><svg
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            viewBox="0 0 576 512">
+                                                                            <!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) -->
+                                                                            <path fill="currentColor"
+                                                                                d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z">
+                                                                            </path>
+                                                                        </svg></span><span
+                                                                        class="icon-star-testimonial"><svg
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            viewBox="0 0 576 512">
+                                                                            <!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) -->
+                                                                            <path fill="currentColor"
+                                                                                d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z">
+                                                                            </path>
+                                                                        </svg></span><span
+                                                                        class="icon-star-testimonial"><svg
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            viewBox="0 0 576 512">
+                                                                            <!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) -->
+                                                                            <path fill="currentColor"
+                                                                                d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z">
+                                                                            </path>
+                                                                        </svg></span><span
+                                                                        class="icon-star-testimonial"><svg
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            viewBox="0 0 576 512">
+                                                                            <!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) -->
+                                                                            <path fill="currentColor"
+                                                                                d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z">
+                                                                            </path>
+                                                                        </svg></span><span
+                                                                        class="icon-star-testimonial disable"><svg
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            viewBox="0 0 576 512">
+                                                                            <!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) -->
+                                                                            <path fill="currentColor"
+                                                                                d="M528.1 171.5L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6zM388.6 312.3l23.7 138.4L288 385.4l-124.3 65.3 23.7-138.4-100.6-98 139-20.2 62.2-126 62.2 126 139 20.2-100.6 98z">
+                                                                            </path>
+                                                                        </svg></span></div>
+                                                                <p></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="testimonial-booking-info">
+                                                            <b class="testimonial-verification-tag">
+                                                                Reserva verificada
+                                                            </b>
+                                                            <div class="testimonial-booking-attendees">
+                                                                <span class="icon-pipe mx-1"><svg
+                                                                        xmlns="http://www.w3.org/2000/svg"
+                                                                        viewBox="0 0 64 512">
+                                                                        <!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                                                                        <path
+                                                                            d="M48 16v480c0 8.832-7.166 16-16 16s-16-7.168-16-16v-480C16 7.166 23.17 0 32 0S48 7.166 48 16z">
+                                                                        </path>
+                                                                    </svg></span>
+                                                                <span>
+                                                                    Viajó en familia -
+                                                                </span>
+                                                                Feb 2024
+                                                            </div>
+                                                        </div>
+                                                        <div class="testimonial-content mt-2">
+                                                            <span class="testimonial-text">
+                                                                Muy buenos comentarios los de Marina.
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="testimonial-card" data-id="1329283">
+                                                <div class="d-flex">
+                                                    <div onclick="openTestimonials(this)">
+                                                        <div class="testimonial-author-content align-items-center">
+                                                            <div class="d-flex align-items-center w-100">
+                                                                <div class="me-2">
+                                                                    <img class="rounded-circle testimonial-avatar"
+                                                                        loading="lazy"
+                                                                        onerror="this.src='https://assets.guruwalk.com/assets/missing/thumb/user-865dc28a15768b19cc12732ebbd510f4f78cb8bbd5e1dfc6a9e6204610cef8a2.png'"
+                                                                        src="https://assets.guruwalk.com/assets/missing/thumb/user-865dc28a15768b19cc12732ebbd510f4f78cb8bbd5e1dfc6a9e6204610cef8a2.png"
+                                                                        width="48" height="48">
+                                                                </div>
+                                                                <div class="me-3 w-100">
+                                                                    <div class="lex align-items-center">
+                                                                        <b>Lola</b>
+
+                                                                        <span class="testimonial-date ms-1">
+                                                                            19 Feb 2024
+                                                                        </span>
+                                                                    </div>
+                                                                    <div class="testimonial-author-place">
+                                                                        Madrid
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="testimonial-rating-stars">
+                                                                <p></p>
+                                                                <div class="d-flex stars-list"><span
+                                                                        class="icon-star-testimonial"><svg
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            viewBox="0 0 576 512">
+                                                                            <!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) -->
+                                                                            <path fill="currentColor"
+                                                                                d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z">
+                                                                            </path>
+                                                                        </svg></span><span
+                                                                        class="icon-star-testimonial"><svg
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            viewBox="0 0 576 512">
+                                                                            <!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) -->
+                                                                            <path fill="currentColor"
+                                                                                d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z">
+                                                                            </path>
+                                                                        </svg></span><span
+                                                                        class="icon-star-testimonial"><svg
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            viewBox="0 0 576 512">
+                                                                            <!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) -->
+                                                                            <path fill="currentColor"
+                                                                                d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z">
+                                                                            </path>
+                                                                        </svg></span><span
+                                                                        class="icon-star-testimonial"><svg
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            viewBox="0 0 576 512">
+                                                                            <!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) -->
+                                                                            <path fill="currentColor"
+                                                                                d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z">
+                                                                            </path>
+                                                                        </svg></span><span
+                                                                        class="icon-star-testimonial"><svg
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            viewBox="0 0 576 512">
+                                                                            <!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) -->
+                                                                            <path fill="currentColor"
+                                                                                d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z">
+                                                                            </path>
+                                                                        </svg></span></div>
+                                                                <p></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="testimonial-booking-info">
+                                                            <b class="testimonial-verification-tag">
+                                                                Reserva verificada
+                                                            </b>
+                                                            <div class="testimonial-booking-attendees">
+                                                                <span class="icon-pipe mx-1"><svg
+                                                                        xmlns="http://www.w3.org/2000/svg"
+                                                                        viewBox="0 0 64 512">
+                                                                        <!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                                                                        <path
+                                                                            d="M48 16v480c0 8.832-7.166 16-16 16s-16-7.168-16-16v-480C16 7.166 23.17 0 32 0S48 7.166 48 16z">
+                                                                        </path>
+                                                                    </svg></span>
+                                                                <span>
+                                                                    Viajó en pareja -
+                                                                </span>
+                                                                Feb 2024
+                                                            </div>
+                                                        </div>
+                                                        <div class="testimonial-content mt-2">
+                                                            <span class="testimonial-text">
+                                                                Nos gusto micho el tour. Nuestra guía fue Marina y todo
+                                                                perfecto! Hace el recorrido muy ameno e interesante. Muy
+                                                                recomendado.
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="testimonial-card" data-id="1324168">
+                                                <div class="d-flex">
+                                                    <div onclick="openTestimonials(this)">
+                                                        <div class="testimonial-author-content align-items-center">
+                                                            <div class="d-flex align-items-center w-100">
+                                                                <div class="me-2">
+                                                                    <img class="rounded-circle testimonial-avatar"
+                                                                        loading="lazy"
+                                                                        onerror="this.src='https://assets.guruwalk.com/assets/missing/thumb/user-865dc28a15768b19cc12732ebbd510f4f78cb8bbd5e1dfc6a9e6204610cef8a2.png'"
+                                                                        src="https://assets.guruwalk.com/assets/missing/thumb/user-865dc28a15768b19cc12732ebbd510f4f78cb8bbd5e1dfc6a9e6204610cef8a2.png"
+                                                                        width="48" height="48">
+                                                                </div>
+                                                                <div class="me-3 w-100">
+                                                                    <div class="lex align-items-center">
+                                                                        <b>Laura</b>
+
+                                                                        <span class="testimonial-date ms-1">
+                                                                            16 Feb 2024
+                                                                        </span>
+                                                                    </div>
+                                                                    <div class="testimonial-author-place">
+                                                                        Huelva
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="testimonial-rating-stars">
+                                                                <p></p>
+                                                                <div class="d-flex stars-list"><span
+                                                                        class="icon-star-testimonial"><svg
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            viewBox="0 0 576 512">
+                                                                            <!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) -->
+                                                                            <path fill="currentColor"
+                                                                                d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z">
+                                                                            </path>
+                                                                        </svg></span><span
+                                                                        class="icon-star-testimonial"><svg
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            viewBox="0 0 576 512">
+                                                                            <!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) -->
+                                                                            <path fill="currentColor"
+                                                                                d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z">
+                                                                            </path>
+                                                                        </svg></span><span
+                                                                        class="icon-star-testimonial"><svg
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            viewBox="0 0 576 512">
+                                                                            <!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) -->
+                                                                            <path fill="currentColor"
+                                                                                d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z">
+                                                                            </path>
+                                                                        </svg></span><span
+                                                                        class="icon-star-testimonial"><svg
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            viewBox="0 0 576 512">
+                                                                            <!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) -->
+                                                                            <path fill="currentColor"
+                                                                                d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z">
+                                                                            </path>
+                                                                        </svg></span><span
+                                                                        class="icon-star-testimonial"><svg
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            viewBox="0 0 576 512">
+                                                                            <!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) -->
+                                                                            <path fill="currentColor"
+                                                                                d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z">
+                                                                            </path>
+                                                                        </svg></span></div>
+                                                                <p></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="testimonial-booking-info">
+                                                            <b class="testimonial-verification-tag">
+                                                                Reserva verificada
+                                                            </b>
+                                                            <div class="testimonial-booking-attendees">
+                                                                <span class="icon-pipe mx-1"><svg
+                                                                        xmlns="http://www.w3.org/2000/svg"
+                                                                        viewBox="0 0 64 512">
+                                                                        <!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                                                                        <path
+                                                                            d="M48 16v480c0 8.832-7.166 16-16 16s-16-7.168-16-16v-480C16 7.166 23.17 0 32 0S48 7.166 48 16z">
+                                                                        </path>
+                                                                    </svg></span>
+                                                                <span>
+                                                                    Viajó en pareja -
+                                                                </span>
+                                                                Feb 2024
+                                                            </div>
+                                                        </div>
+                                                        <div class="testimonial-content mt-2">
+                                                            <span class="testimonial-text">
+                                                                Nos ha encantado. Además de ser muy interesante nos facilito
+                                                                información para otros tours y demás lugares donde comer
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="testimonial-card" data-id="1323742">
+                                                <div class="d-flex">
+                                                    <div onclick="openTestimonials(this)">
+                                                        <div class="testimonial-author-content align-items-center">
+                                                            <div class="d-flex align-items-center w-100">
+                                                                <div class="me-2">
+                                                                    <img class="rounded-circle testimonial-avatar"
+                                                                        loading="lazy"
+                                                                        onerror="this.src='https://assets.guruwalk.com/assets/missing/thumb/user-865dc28a15768b19cc12732ebbd510f4f78cb8bbd5e1dfc6a9e6204610cef8a2.png'"
+                                                                        src="https://assets.guruwalk.com/assets/missing/thumb/user-865dc28a15768b19cc12732ebbd510f4f78cb8bbd5e1dfc6a9e6204610cef8a2.png"
+                                                                        width="48" height="48">
+                                                                </div>
+                                                                <div class="me-3 w-100">
+                                                                    <div class="lex align-items-center">
+                                                                        <b>Ana Ahedo</b>
+
+                                                                        <span class="testimonial-date ms-1">
+                                                                            15 Feb 2024
+                                                                        </span>
+                                                                    </div>
+                                                                    <div class="testimonial-author-place">
+                                                                        Burgos
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="testimonial-rating-stars">
+                                                                <p></p>
+                                                                <div class="d-flex stars-list"><span
+                                                                        class="icon-star-testimonial"><svg
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            viewBox="0 0 576 512">
+                                                                            <!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) -->
+                                                                            <path fill="currentColor"
+                                                                                d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z">
+                                                                            </path>
+                                                                        </svg></span><span
+                                                                        class="icon-star-testimonial"><svg
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            viewBox="0 0 576 512">
+                                                                            <!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) -->
+                                                                            <path fill="currentColor"
+                                                                                d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z">
+                                                                            </path>
+                                                                        </svg></span><span
+                                                                        class="icon-star-testimonial"><svg
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            viewBox="0 0 576 512">
+                                                                            <!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) -->
+                                                                            <path fill="currentColor"
+                                                                                d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z">
+                                                                            </path>
+                                                                        </svg></span><span
+                                                                        class="icon-star-testimonial"><svg
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            viewBox="0 0 576 512">
+                                                                            <!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) -->
+                                                                            <path fill="currentColor"
+                                                                                d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z">
+                                                                            </path>
+                                                                        </svg></span><span
+                                                                        class="icon-star-testimonial"><svg
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            viewBox="0 0 576 512">
+                                                                            <!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) -->
+                                                                            <path fill="currentColor"
+                                                                                d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z">
+                                                                            </path>
+                                                                        </svg></span></div>
+                                                                <p></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="testimonial-booking-info">
+                                                            <b class="testimonial-verification-tag">
+                                                                Reserva verificada
+                                                            </b>
+                                                            <div class="testimonial-booking-attendees">
+                                                                <span class="icon-pipe mx-1"><svg
+                                                                        xmlns="http://www.w3.org/2000/svg"
+                                                                        viewBox="0 0 64 512">
+                                                                        <!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                                                                        <path
+                                                                            d="M48 16v480c0 8.832-7.166 16-16 16s-16-7.168-16-16v-480C16 7.166 23.17 0 32 0S48 7.166 48 16z">
+                                                                        </path>
+                                                                    </svg></span>
+                                                                <span>
+                                                                    Viajó en familia -
+                                                                </span>
+                                                                Feb 2024
+                                                            </div>
+                                                        </div>
+                                                        <div class="testimonial-content mt-2">
+                                                            <span class="testimonial-text">
+                                                                Manu es un guía estupendo!
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="testimonial-card" data-id="1319300">
+                                                <div class="d-flex">
+                                                    <div onclick="openTestimonials(this)">
+                                                        <div class="testimonial-author-content align-items-center">
+                                                            <div class="d-flex align-items-center w-100">
+                                                                <div class="me-2">
+                                                                    <img class="rounded-circle testimonial-avatar"
+                                                                        loading="lazy"
+                                                                        onerror="this.src='https://assets.guruwalk.com/assets/missing/thumb/user-865dc28a15768b19cc12732ebbd510f4f78cb8bbd5e1dfc6a9e6204610cef8a2.png'"
+                                                                        src="https://assets.guruwalk.com/assets/missing/thumb/user-865dc28a15768b19cc12732ebbd510f4f78cb8bbd5e1dfc6a9e6204610cef8a2.png"
+                                                                        width="48" height="48">
+                                                                </div>
+                                                                <div class="me-3 w-100">
+                                                                    <div class="lex align-items-center">
+                                                                        <b>AINARA</b>
+
+                                                                        <span class="testimonial-date ms-1">
+                                                                            12 Feb 2024
+                                                                        </span>
+                                                                    </div>
+                                                                    <div class="testimonial-author-place">
+                                                                        San Cristóbal de La Laguna
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="testimonial-rating-stars">
+                                                                <p></p>
+                                                                <div class="d-flex stars-list"><span
+                                                                        class="icon-star-testimonial"><svg
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            viewBox="0 0 576 512">
+                                                                            <!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) -->
+                                                                            <path fill="currentColor"
+                                                                                d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z">
+                                                                            </path>
+                                                                        </svg></span><span
+                                                                        class="icon-star-testimonial"><svg
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            viewBox="0 0 576 512">
+                                                                            <!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) -->
+                                                                            <path fill="currentColor"
+                                                                                d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z">
+                                                                            </path>
+                                                                        </svg></span><span
+                                                                        class="icon-star-testimonial"><svg
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            viewBox="0 0 576 512">
+                                                                            <!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) -->
+                                                                            <path fill="currentColor"
+                                                                                d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z">
+                                                                            </path>
+                                                                        </svg></span><span
+                                                                        class="icon-star-testimonial"><svg
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            viewBox="0 0 576 512">
+                                                                            <!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) -->
+                                                                            <path fill="currentColor"
+                                                                                d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z">
+                                                                            </path>
+                                                                        </svg></span><span
+                                                                        class="icon-star-testimonial"><svg
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            viewBox="0 0 576 512">
+                                                                            <!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) -->
+                                                                            <path fill="currentColor"
+                                                                                d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z">
+                                                                            </path>
+                                                                        </svg></span></div>
+                                                                <p></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="testimonial-booking-info">
+                                                            <b class="testimonial-verification-tag">
+                                                                Reserva verificada
+                                                            </b>
+                                                            <div class="testimonial-booking-attendees">
+                                                                <span class="icon-pipe mx-1"><svg
+                                                                        xmlns="http://www.w3.org/2000/svg"
+                                                                        viewBox="0 0 64 512">
+                                                                        <!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                                                                        <path
+                                                                            d="M48 16v480c0 8.832-7.166 16-16 16s-16-7.168-16-16v-480C16 7.166 23.17 0 32 0S48 7.166 48 16z">
+                                                                        </path>
+                                                                    </svg></span>
+                                                                <span>
+                                                                    Viajó en pareja -
+                                                                </span>
+                                                                Feb 2024
+                                                            </div>
+                                                        </div>
+                                                        <div class="testimonial-content mt-2">
+                                                            <span class="testimonial-text">
+                                                                Excelente tour con Manu!!
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                        <div class="scrollable-container-nav scrollable-container-nav-left hidden"
+                                            data-action="click->scrollable-container#scrollLeft"
+                                            data-scrollable-container-target="navLeft">
+                                            <span class="scrollable-container-arrow"><svg xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 320 512">
+                                                    <!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                                                    <path fill="currentColor"
+                                                        d="M96 480c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L242.8 256L73.38 86.63c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l192 192c12.5 12.5 12.5 32.75 0 45.25l-192 192C112.4 476.9 104.2 480 96 480z">
+                                                    </path>
+                                                </svg></span>
+                                        </div>
+                                        <div class="scrollable-container-nav scrollable-container-nav-right"
+                                            data-action="click->scrollable-container#scrollRight"
+                                            data-scrollable-container-target="navRight">
+                                            <span class="scrollable-container-arrow"><svg xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 320 512">
+                                                    <!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                                                    <path fill="currentColor"
+                                                        d="M96 480c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L242.8 256L73.38 86.63c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l192 192c12.5 12.5 12.5 32.75 0 45.25l-192 192C112.4 476.9 104.2 480 96 480z">
+                                                    </path>
+                                                </svg></span>
+                                        </div>
+                                    </div>
+                                </div> #}
+
+
                                 <div class="d-flex align-items-center flex-wrap">
                                     <div class="btn btn-secondary-inverse me-3"
                                         onclick="window.modal_bsht_testimonials_bottom_sheet.activate();">
@@ -7778,8 +8339,7 @@
                         <div class="container-fluid d-none d-lg-block">
                             <div class="d-flex align-items-center">
                                 <div class="me-3">
-                                    <img loading="lazy" title="version: 2.0.348
-        " src="https://assets.guruwalk.com/assets/logo-footer-06b9bce39c414a841f9160046148c2d78728e782917aa4f956b19065fbdc6c98.png"
+                                    <img loading="lazy" title="version: 2.0.348" src="https://assets.guruwalk.com/assets/logo-footer-06b9bce39c414a841f9160046148c2d78728e782917aa4f956b19065fbdc6c98.png"
                                         width="25" height="25">
                                 </div>
                                 <span class="component-footer">
@@ -7870,8 +8430,7 @@
                             <div class="row gw-items">
                                 <div class="col-12 d-flex align-items-center justify-content-center">
                                     <div class="d-flex align-items-center">
-                                        <img loading="lazy" class="logo-footer" title="version: 2.0.348
-        " src="https://assets.guruwalk.com/assets/logo-footer-06b9bce39c414a841f9160046148c2d78728e782917aa4f956b19065fbdc6c98.png"
+                                        <img loading="lazy" class="logo-footer" title="version: 2.0.348" src="https://assets.guruwalk.com/assets/logo-footer-06b9bce39c414a841f9160046148c2d78728e782917aa4f956b19065fbdc6c98.png"
                                             width="25" height="25">
                                         <span class="component-footer">
                                             © GuruWalk SL

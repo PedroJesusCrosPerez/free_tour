@@ -215,6 +215,42 @@ class Route
     // {
     //     return $this->getName();
     // }
+    public function getMeetingPoint(): string
+    {
+        $coordinates = json_decode($this->getCoordinates());
+        return "X: " . $coordinates->x . " Y: " . $coordinates->y;
+    }
+
+    // Average rating
+        private ?float $average_rating = null;
+
+        public function getAverageRating(): ?float
+        {
+            return $this->average_rating;
+        }
+
+        public function setAverageRating(?float $average_rating): static
+        {
+            $this->average_rating = $average_rating;
+
+            return $this;
+        }
+
+    // Count rating
+        private ?int $count_rating = null;
+
+        public function getCountRating(): ?int
+        {
+            return $this->count_rating;
+        }
+
+        public function setCountRating(?int $count_rating): static
+        {
+            $this->count_rating = $count_rating;
+
+            return $this;
+        }
+
 
     function getDatetimeStartFormated(): String
     { return $this->getDatetimeStart()->format('d/m/Y H:i'); }

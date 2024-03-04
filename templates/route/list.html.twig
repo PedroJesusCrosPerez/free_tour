@@ -1,6 +1,7 @@
 {% extends 'views/main.html.twig' %}
 
 {% block pagescripts %}
+    <script src="{{ asset('js/_route-listScript-filters.js') }}"></script>
     <script src="{{ asset('js/route-listScript.js') }}"></script>
     {# <script src="{{ asset('bootstrap/bootstrap-5.3.2.min.js') }}"></script> #}
 {% endblock %}
@@ -311,6 +312,9 @@
                                         <a class="dropdown-item" href="#">Popularity</a>
                                         <a class="dropdown-item" href="#">Best Rating</a>
                                     </div>
+                                    <select name="locality" id="filter_locality">
+                                        <option value="0">Selecciona una localidad</option>
+                                    </select>
                                 </div>
                                 <div class="btn-group ml-2">
                                     <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Showing</button>
@@ -335,9 +339,9 @@
                                             <input type="radio" id="tour_star1"     name="tour_rating" value="1" /><label class="full"      for="tour_star1"        title="Horrible - 1 estrella"></label>
                                             <input type="radio" id="tour_starhalf"  name="tour_rating" value="0.5" /><label class="half"    for="tour_starhalf"     title="Pérdida de tiempo - 0.5 estrella"></label>
                                         </fieldset> #}
-                    <!-- Routes -->
+                    <!-- Routes routes ROUTES -->
                     {% for route in routes %}
-                        <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
+                        <div class="col-lg-4 col-md-6 col-sm-6 pb-1 route">
                             <div class="product-item bg-light mb-4">
                                 <div class="product-img position-relative overflow-hidden d-flex align-items-lg-center" style="max-height: 16em;">
                                     <img class="img-fluid w-100" src="{{ route.photo }}" alt="imágen de ruta">
@@ -361,15 +365,42 @@
                                     </div> #}
 
                                     {# RATINGS #}
-                                    <div class="d-flex align-items-center justify-content-center mb-1">
-                                        <small class="fa-solid fa-star text-primary mr-1"></small>
+                                        {# <small class="fa-solid fa-star text-primary mr-1"></small>
                                         <small class="fa-regular fa-star text-primary mr-1"></small>
                                         <small class="fa-solid fa-star-half text-primary mr-1"></small>
                                         <small class="fa-regular fa-star-half-stroke mr-1"></small>
                                         <small class="fa-regular fa-star text-primary mr-1"></small>
-                                        <small>(99)</small>
+                                        <small>(99)</small> #}
+                                    {% if route.getAverageRating() != null %}
+                                        {% set average_rating = route.getAverageRating() %}
+                                        {% set count_rating = route.getCountRating() %}
+                                        {% set full_stars = average_rating | round(0, 'floor') %}
+                                        {% set half_star = average_rating != full_stars %}
+                                            {% set empty_stars = 5 - full_stars - half_star %}
 
-                                    </div>
+                                        <div class="d-flex align-items-center justify-content-center mb-1">
+                                            {% for _ in 1..full_stars %}
+                                                <small class="fa-solid fa-star text-primary mr-1"></small>
+                                            {% endfor %}
+
+                                            {% if half_star %}
+                                                <small class="fa-regular fa-star-half-stroke mr-1"></small>
+                                            {% endif %}
+
+                                            {% if average_rating <= 4.00 %}
+                                                {% for _ in 1..empty_stars %}
+                                                    <small class="fa-regular fa-star text-primary mr-1"></small>
+                                                {% endfor %}
+                                            {% endif %}
+
+                                            <small>({{ count_rating }}) </small>
+                                        </div>
+                                    {% else %}
+                                        <div class="d-flex align-items-center justify-content-center mb-1">
+                                            <p>No hay valoraciones</p>
+                                        </div>
+                                    {% endif %}
+
                                 </div>
                             </div>
                         </div>

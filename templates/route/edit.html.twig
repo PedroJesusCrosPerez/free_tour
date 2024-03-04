@@ -1,0 +1,271 @@
+{# templates/route/create.html.twig #}
+{% extends '@EasyAdmin/page/content.html.twig' %}
+{# {% extends 'views/main.html.twig' %} #}
+
+{% block title %}Crear ruta{% endblock %}
+
+{% block content_title %}Editar ruta => {{ id }}{% endblock %}
+
+{% block headsrcplugins %}
+    {# DEPENDENCES - jquery #}
+    <script src="{{ asset('jquery/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ asset('jquery/jquery-ui-1.13.2/jquery-ui.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('jquery/jquery-ui-1.13.2/jquery-ui.min.css') }}">
+
+    <script> 
+        $(function() {
+            var btnSave = $("<button>");
+            btnSave.html("Guardar");
+            btnSave.addClass("action-saveAndReturn btn btn-primary action-save");
+            btnSave.attr("type", "submit");
+            btnSave.attr("id", "btnSave");
+            $("section.content-header").append(btnSave);
+        });
+    </script>
+
+
+    <script src="{{ asset('js/_upload-data-create-route.js') }}"></script>
+    <script src="{{ asset('js/_add-create-route.js') }}"></script>
+    <!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+    <!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>> PLUGINS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+    <!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+            {# >>>>>>>>>>>> Problemas técnicos >>>>>>>>>>>> #}
+    {# <!-- JEDITOR -->
+    {% include 'plugins/jeditor.html.twig' %} #}
+            {# <<<<<<<<<<<< Problemas técnicos <<<<<<<<<<<< #}
+    <!-- Rich text -->
+    {% include 'plugins/richtext.html.twig' %}
+    <!-- Drag&Drop file uploader -->
+    {% include 'plugins/drag&drop-file-uploader.html.twig' %}
+    <!-- Date range -->
+    {% include 'plugins/date-range.html.twig' %}
+    <!-- Leaflet -->
+    {% include 'plugins/leaflet.html.twig' %}
+    <!-- Time picker -->
+    {% include 'plugins/timepicker.html.twig' %}
+    <!-- <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< -->
+    <!-- <<<<<<<<<<<<<<<<<<<<<<<<<<<<<< PLUGINS <<<<<<<<<<<<<<<<<<<<<<<<<<<<<< -->
+    <!-- <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< -->
+
+
+    {# styles #}
+    <link rel="stylesheet" href="{{ asset('css/create-route.css') }}">
+
+
+    <!-- #################################################################### -->
+    <!-- ####################### RECOGIDA DE DATOS ########################## -->
+    <!-- #################################################################### -->
+    <script src="{{ asset('js/create-route.js') }}"></script>
+
+    <!-- ########################### VALIDATOR ############################## -->
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="{{ asset('js/validator-create-route.js') }}"></script>
+    <script src="{{ asset('js/_validate-create-route.js') }}"></script>
+{% endblock %}
+
+
+{% block main %}
+    <!-- ##################################################################################### -->
+    <!-- ##################################################################################### -->
+    <!-- ################################## FORMULARIO ####################################### -->
+    <!-- ##################################################################################### -->
+    <!-- ##################################################################################### -->
+    <form action="#" method="post" id="create-route">
+
+        <button class="btn btn-secondary" id="btnSaveAndTours" type="submit">Guardar y generar tours</button>
+
+        <div id="tabs">
+
+            <ul>
+                <li><a href="#tabs-1">Información</a></li>
+                <li><a href="#tabs-2">Visitas</a></li>
+                <li><a href="#tabs-3">Programación</a></li>
+            </ul>
+
+            <div id="tabs-1">
+                {# <fieldset name="information"> #}
+                <div name="information">
+                    <!-- Name -->
+                    <label class="form-label" for="name">Nombre: </label>
+                    <input class="form-control" type="text" name="name" id="name">
+                    <label id="name-error" class="input-error" for="name">Por favor introduce un nombre</label>
+
+                    <!-- Description -->
+                    <label for="description">Descripción: </label>
+                    <textarea name="description" id="description" style="height:300px;width:600px;"></textarea>
+                    <!-- Para cambiar el color de la interfaz -->
+                    <!--<div>
+                            <label for="theme">Theme:</label>
+                            <select id="theme">
+                                <option value="default">Default</option>
+                                <option value="defaultdark">Default dark</option>
+                                <option value="modern">Modern</option>
+                                <option value="office-toolbar">Office Toolbar</option>
+                                <option value="office">Office</option>
+                                <option value="square">Square</option>
+                            </select>
+                        </div>-->
+                    <label id="description-error" class="input-error" for="description">Por favor introduce una descipción</label>
+
+                    <!-- Drag&drop file upload -->
+                    <label for="upload-image">Subir imágen: </label>
+                    <div class="input-images" name="upload-image"></div>
+                    <label id="upload-image-error" class="input-error" for="upload-image">Por favor introduce una imágen</label>
+
+                    <!-- Leaflet map -->
+                    {# <button id="openModalBtn" name="btnOpenMap" class="fa-solid fa-map-location-dot">Abrir Modal</button> #}
+                    <i id="openModalBtn" name="btnOpenMap" class="fa-solid fa-map-location-dot"></i>
+                    <div id="mapModal" title="Mapa">
+                        <button id="addMarkerBtn">Añadir</button>
+                        <select id="citySelect">
+                            <option value="37.7692200,-3.7902800">Jaén</option>
+                            <option value="41.38424664,2.17634927">Barcelona</option>
+                            <option value="36.72034267,-4.41997511">Málaga</option>
+                            <option value="39.47534441,-0.37565717">Valencia</option>
+                            <option value="40.40841191,-3.68760088">Madrid</option>
+                        </select>
+                        <div id="map-container"></div>
+                    </div>
+                    <label id="btnOpenMap-error" class="input-error" for="btnOpenMap">Por favor selecciona un punto de encuentro</label>
+
+                    <!-- Coordinates from 'Leaflet map' -->
+                    <label for="inputX" style="display:none;">X:</label>
+                    <input type="text" id="inputX" name="x" style="display:none;">
+                    <label for="inputY" style="display:none;">Y:</label>
+                    <input type="text" id="inputY" name="y" style="display:none;">
+
+                    <!-- Feedback from 'Leaflet map' -->
+                    <div id="snackbar">No hay marcador en el mapa</div>
+
+                    <!-- Date range picker -->
+                    <label for="capacity">Aforo: </label>
+                    <input type="number" name="capacity" id="capacity" class="form-control" min="1" value="1">
+                    <label for="daterange">Rango de fechas</label>
+                    <input name="daterange" id="daterange" type="text" class="form-control daterange">
+                </div>
+            </div>
+            <div id="tabs-2">
+                <fieldset name="items">
+                    <section name="select-items">
+                        <h1>Visitas a elegir</h1>
+                        <select id="filter_locality"></select>
+                        <select id="filter_province"></select>
+                        <ul id="sortable1" class="connectedSortable" name="select-items">
+                            {# {% for item in items %}
+                                <li class="ui-state-default" data-id="{{ item.id }}">{{ item.name }}</li>
+                            {% endfor %} #}
+                            {# <li class="ui-state-default" data-id="castillo_santa_catalina">Castillo de Santa Catalina</li>
+                                <li class="ui-state-default" data-id="banyos_arabes">Baños Arabes</li>
+                                <li class="ui-state-default" data-id="catedral">Catedral</li>
+                                <li class="ui-state-default" data-id="madrid">Parque Natural Sierras de Cazorla</li>
+                                <li class="ui-state-default" data-id="barcelona">Item 5</li> #}
+                        </ul>
+                    </section>
+
+                    <section name="selected-items">
+                        <h1>Visitas elegidas</h1>
+                        <ul id="sortable2" class="connectedSortable" name="selected-items">
+                        </ul>
+                        <label id="sortable2-error" class="input-error" for="sortable2">Por favor introduce una descipción</label>
+                    </section>
+                </fieldset>
+            </div>
+            <div id="tabs-3">
+                <fieldset name="programation">
+                    <section name="programation-configure">
+                        <!-- Date range picker -->
+                        <label for="period">Período: </label>
+                        <input name="period" type="text" class="daterange" id="period">
+                        <label id="period-error" class="input-error" for="period">Por favor introduce un rango de fechas dentro del rango de la ruta</label>
+
+                        <!-- Time picker -->
+                        <label for="time"><i class="fa-regular fa-clock"></i> Hora de inicio: </label>
+                        <input type="text" name="timepicker" id="time">
+                        
+                        <label id="time-error" class="input-error" for="time">Por favor introduce una hora</label>
+
+                        <!-- Buttons actions -->
+                        <button type="button" id="add">Añadir</button>
+
+                        <!-- Select frecuency -->
+                        <div style="display:none;">
+                            <label for="frecuency">Patrón: </label>
+                            <label for="frecuency">Todos los días</label>
+                            <input type="radio" name="frecuency" value="everyday">
+                            <label for="frecuency">Fines de semana (S&D)</label>
+                            <input type="radio" name="frecuency" value="weekend">
+                            <label for="frecuency">Personalizado</label>
+                            <input type="radio" name="frecuency" value="personalized">
+                        </div>
+
+                        <!-- Select pattern -->
+                        <label for="daysOfWeek">Selecciona un patrón de días: </label>
+                        <div name="container-daysOfWeek">
+                            <div class="dayOfWeek" name="pattern" data-id="1">Lunes</div>
+                            <div class="dayOfWeek" name="pattern" data-id="2">Martes</div>
+                            <div class="dayOfWeek" name="pattern" data-id="3">Miércoles</div>
+                            <div class="dayOfWeek" name="pattern" data-id="4">Jueves</div>
+                            <div class="dayOfWeek" name="pattern" data-id="5">Viernes</div>
+                            <div class="dayOfWeek" name="pattern" data-id="6">Sábado</div>
+                            <div class="dayOfWeek" name="pattern" data-id="7">Domingo</div>
+                        </div>
+                        <label id="pattern-error" class="input-error" for="pattern">Por favor selecciona dias de la semana</label>
+
+                    </section>
+
+                    <section name="programation-select-guide">
+                        <!-- Select Guides -->
+                        <div name="select-guide" id="selectable-guide">
+                            <h2>Selecciona un guía</h2>
+                            <label id="slctguide-error" class="input-error" for="pattern">Por favor selecciona un guía</label>
+                            <ul id="guide-list">
+                                    {# <li class="ui-state-default" data-id="{{ guide.id }}">{{ guide.name }}</li> #}
+                                    {# {% include 'route/guide-example.html.twig' %} #}
+                                {# {% for guide in guides %}
+                                    <li data-id="{{ guide.id }}" class="guide">
+                                        <img src="{{ asset('uploads/images/') }}{{ guide.photo }}">
+                                        <p>{{ guide.fullname }}</p>
+                                    </li>
+                                {% endfor %} #}
+                            </ul>
+                        </div>
+                        
+                        <!-- Submit -->
+                        <!--
+                        <button type="button" name="create" id="create">Crear</button>
+                        <button type="button" name="create_generate" id="create_generate">Crear y generar tours</button>
+                        <input type="submit" name="save" value="Generar tours" disabled>
+                        <button type="button" name="generate" id="generate" disabled>Generar</button>
+                        <button type="button" name="cancel" id="cancel" disabled>Cancelar</button>
+                        <button type="button" name="printdata" id="printdata">printdata</button>
+                        <button type="button" name="testtour" id="testtour">Testing generate tour</button>
+                        <button type="button" name="testryt" id="testryt">Testing create route and generate tour</button>
+                        -->
+                    </section>
+
+                    <section name="programation-table">
+                        <!-- Table -->
+                        <div class="table-responsive">
+                            <table name="programation" class="table table-striped table-hover table-borderless table-primary align-middle">
+                                <thead>
+                                    {# <caption>Programaciones</caption> #}
+                                    <tr>
+                                        <th>Período</th>
+                                        <th>Hora inicio</th>
+                                        <th>Patrón</th>
+                                        <th>Guía</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-group-divider"></tbody>
+                                <tfoot></tfoot>
+                            </table>
+                        </div>
+                        
+                    </section>
+                </fieldset>
+            </div>
+
+        </div> <!-- Fin de div#tabs -->
+
+    </form>
+{% endblock %}

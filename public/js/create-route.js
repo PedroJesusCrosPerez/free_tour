@@ -18,9 +18,12 @@ function takeProgramationData() {
     patternf ? patternf : patternf = ['No hay días seleccionados'];
     patternf = patternf.length == 7 ? 'todos los días' : patternf;
 
-    var period = $('input[name="period"]').val().split(' - ');
+    var period = $('input[name="period"]').val().split(' / ');
     var date_start = period[0];
     var date_end = period[1];
+    // var daterange_picker = $('input[name="period"]').data('daterangepicker');
+    // var date_start = daterange_picker.startDate._i;
+    // var date_end = daterange_picker.endDate._i;
     var guide = $('li[class="guide selected"]');
 
     // Get data
@@ -66,7 +69,10 @@ function takeData() {
 }
 
 function takeFormData() {
-    var daterange = $('input[name="daterange"]').val().split(' - ');
+    var daterange = $('input[name="daterange"]').val().split(' / ');
+    // var daterange_picker = $('input[name="daterange"]').data('daterangepicker');
+    // var daterange_startDate = daterange_picker.startDate._i;
+    // var daterange_endDate = daterange_picker.endDate._i;
 
     // Crear un nuevo objeto FormData
     var formData = new FormData();
@@ -87,6 +93,8 @@ function takeFormData() {
     formData.append('photo', file, file.name);
     formData.append('datetime_start', daterange[0]);
     formData.append('datetime_end', daterange[1]);
+    // formData.append('datetime_start', daterange_startDate);
+    // formData.append('datetime_end', daterange_endDate);
     formData.append('description', $('#description').val());
     formData.append('programation', JSON.stringify(programation));
     // Selected items
@@ -100,6 +108,13 @@ function takeFormData() {
     formData.append('selected_items', JSON.stringify(selected_items));
 
     return formData;
+}
+
+function printTakeFormData() {
+    var formData = takeFormData();
+    for (var pair of formData.entries()) {
+        console.log(pair[0]+ ', ' + pair[1]);
+    }
 }
 
 
@@ -359,6 +374,8 @@ $(function () {
     // Create button
     $('#create').on('click', createRoute);
     $('#create_generate').on('click', createRouteAndGenerateTours);
+    $('#btnSave').on('click', createRoute);
+    $('#btnSaveAndTours').on('click', createRouteAndGenerateTours);
         // Print to debugg
     $('#printdata').on('click', function () { console.log(takeData()); /*Debugging*/ });
         // Testing

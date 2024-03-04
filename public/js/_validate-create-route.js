@@ -139,7 +139,7 @@ function check_isItemsSelected() {
         lblError.addClass("input-error");
         lblError.css("display", "block");
     }
-    console.log(" ==> " + is_itemsSelected); // Debugging
+    // console.log(" ==> " + is_itemsSelected); // Debugging
 
     return is_itemsSelected;
 }
@@ -197,11 +197,13 @@ function checkProgramation_daterange() {
         input.addClass("input-error");
         lblError.addClass("input-error");
         lblError.css("display", "block");
+        return false;
     } else {
         console.log('Correcto: El rango de fechas del segundo input está dentro del rango del primer input.');
         input.removeClass("input-error");
         lblError.removeClass("input-error");
         lblError.css("display", "none");
+        return true;
     }
 }
 // Time picker - time start
