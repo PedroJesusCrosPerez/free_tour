@@ -112,7 +112,7 @@ class RouteService
             $photoName = $this->saveUploadedFile($photo); // Save image on server
             $route->setPhoto($this->nameUploadsDirDB . $photoName);
         } else {
-            $route->setPhoto($photo);
+            $route->setPhoto($request->request->get('photo'));
         }
         $route->setCoordinates(json_encode($coordinates));
         $route->setDatetimeStart(\DateTime::createFromFormat('d/m/Y H:i', $datetimeStart));
@@ -123,6 +123,7 @@ class RouteService
         }
         
         // Insert en la tabla "route_items"
+        $route->getItem()->clear(); // Eliminar todos los items asociados a la ruta (para evitar duplicados)
         foreach ($selected_items as $itemId) {
             $item = $this->entityManager->getReference(Item::class, $itemId);
             $route->addItem($item);

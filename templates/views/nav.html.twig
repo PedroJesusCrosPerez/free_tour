@@ -243,6 +243,7 @@
 								{# ROLE GUIDE #}
 								{% if is_granted('ROLE_GUIDE') %}
 									<li><a href="{{ path('user-guide-calendar') }}"><i class="fa-regular fa-calendar"></i> Mis rutas</a></li>
+									<li><a href="{{ path('report-list') }}"><i class="fa-solid fa-list-check"></i> Reportar</a></li>
 								{% endif %}
 								{# ROLE CLIENT #}
 								{% if is_granted('ROLE_CLIENT') %}

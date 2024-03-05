@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route as RouteAnnotation;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Serializer\SerializerInterface;
 
 #[RouteAnnotation("/api/route", name: "route-")]
@@ -54,7 +55,7 @@ class RouteApi extends AbstractController
         return new JsonResponse($data, Response::HTTP_OK, ['Content-Type' => 'application/json']);
     }
 
-    #[RouteAnnotation("/insert", name: "insert", methods: ["POST"])]
+    #[RouteAnnotation("/insert", name: "insert", methods: ["POST"]), IsGranted("ROLE_GUIDE")]
     public function insert(Request $request, RouteService $routeService): Response
     {
         // Llamar al servicio 'route_service' que inserta los datos y devuelve el ID de la nueva entidad creada
@@ -66,7 +67,7 @@ class RouteApi extends AbstractController
         return $this->redirect('http://localhost:8000/admin?crudAction=index&crudControllerFqcn=App%5CController%5CAdmin%5CRouteCrudController');
     }
 
-    #[RouteAnnotation("/insertAndGenerateTours", name: "insertAndGenerateTours", methods: ["POST"])]
+    #[RouteAnnotation("/insertAndGenerateTours", name: "insertAndGenerateTours", methods: ["POST"]), IsGranted("ROLE_GUIDE")]
     public function insertAndGenerateTours(Request $request, RouteService $routeService): Response
     {
         // Llamar al servicio 'route_service' que inserta los datos y devuelve el ID de la nueva entidad creada
@@ -80,10 +81,10 @@ class RouteApi extends AbstractController
         return $this->redirect('http://localhost:8000/admin?crudAction=index&crudControllerFqcn=App%5CController%5CAdmin%5CRouteCrudController');
     }
 
-    #[RouteAnnotation("/update", name: "update", methods: ["POST"])]
+    #[RouteAnnotation("/update", name: "update", methods: ["POST"]), IsGranted("ROLE_GUIDE")]
     public function update(Request $request): Response
     {
-        if ($this->routeService->update($request)) 
+        if (!$this->routeService->update($request)) 
         {
             return new Response(null, Response::HTTP_NOT_FOUND);
         }

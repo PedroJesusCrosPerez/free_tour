@@ -29,7 +29,8 @@ class ReservationService
         private MailService $mailService, 
         private ParameterBagInterface $params,
         private ValidatorInterface $validator,
-        private EventDispatcherInterface $dispatcher,
+        // private EventDispatcherInterface $dispatcher,
+        private DispatcherEvents $dispatcher,
         private PdfService $pdfService,
     ){}
 
@@ -50,8 +51,7 @@ class ReservationService
             ;
         
         // Lanzar evento / Dispatch event => validar datos
-            $event = new ReservationEvent(['reservation'=>$reservation]);
-            $this->dispatcher->dispatch($event, ReservationEvent::NAME);
+            $this->dispatcher->dispatchReservation(['reservation'=>$reservation]);
 
         // Guardar la nueva entidad en la base de datos
             $this->entityManager->persist($reservation);

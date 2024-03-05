@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class ReservationController extends AbstractController
 {
@@ -24,7 +25,7 @@ class ReservationController extends AbstractController
         private Security $security
     ) {}
 
-    #[Route('/reserve/{route_id}', name: 'testreserve', methods: ['GET'])]
+    #[Route('/reserve/{route_id}', name: 'testreserve', methods: ['GET']), IsGranted("ROLE_CLIENT")]
     public function reserve(int $route_id): Response
     {
         $route = $this->entityManager->getRepository(EntityRoute::class)->find($route_id);
@@ -43,7 +44,7 @@ class ReservationController extends AbstractController
         ]);
     }
 
-    #[Route('/reservationList', name: 'my-reservation-list', methods: ['GET'])]
+    #[Route('/reservationList', name: 'my-reservation-list', methods: ['GET']), IsGranted("ROLE_CLIENT")]
     public function reservationList(): Response
     {
         $user = $this->security->getUser();
@@ -61,7 +62,7 @@ class ReservationController extends AbstractController
         // return $this->render('views/error.html.twig');
     }
 
-    #[Route('/check-reserve/{reservation_id}', name: 'check-reserve', methods: ['GET'])]
+    #[Route('/check-reserve/{reservation_id}', name: 'check-reserve', methods: ['GET']), IsGranted("ROLE_CLIENT")]
     public function checkReservation(int $reservation_id): Response
     {
         $reservation = $this->entityManager->getRepository(Reservation::class)->find($reservation_id);

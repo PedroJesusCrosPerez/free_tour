@@ -261,8 +261,8 @@
                                     </tr>
                                 </thead>
                                 <tbody class="table-group-divider">
-                                    {% if programations[0] is not null or programations is not empty %}
                                         {% for programation in programations %}
+                                    {% if programation is not null and programation is not empty %}
                                             <tr data-id="0">
                                                 <td>{{ programation.date_start }} - {{ programation.date_end }}</td>
                                                 <td>{{ programation.time_start }}</td>
@@ -270,8 +270,12 @@
                                                 <td>{{ programation.guide.name }}</td>
                                                 <td><button type="button" class="btn btn-primary btn-sm" onclick="editProgramation(this)">Editar</button> <button type="button" class="btn btn-danger btn-sm" onclick="deleteProgramation(this)">Eliminar</button></td>
                                                 </tr>
-                                        {% endfor %}
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="5">No hay programaciones disponibles</td>
+                                        </tr>
                                     {% endif %}
+                                        {% endfor %}
                                 </tbody>
                                 <tfoot></tfoot>
                             </table>
