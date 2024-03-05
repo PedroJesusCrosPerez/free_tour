@@ -16,22 +16,28 @@ function checkInformation_Description() {
     return is_description;
 }
 
-function checkInformation_FileUploader() {
-    var input = $('div.upload-text');
-    var lblError = $('#upload-image-error');
-    var is_file = ($('div.uploaded-image').length == 1) ? true : false;
-    if (is_file) {
-        input.removeClass("inputBig-error");
-        lblError.removeClass("input-error");
-        lblError.css("display", "none");
-    } else {
-        input.addClass("inputBig-error");
-        lblError.addClass("input-error");
-        lblError.css("display", "block");
+if (typeof ayuda === "function") {
+    function checkInformation_FileUploader() {
+        return true;
     }
-    // console.log(" ==> " + is_file); // Debugging
-
-    return is_file;
+} else {
+    function checkInformation_FileUploader() {
+        var input = $('div.upload-text');
+        var lblError = $('#upload-image-error');
+        var is_file = ($('div.uploaded-image').length == 1) ? true : false;
+        if (is_file) {
+            input.removeClass("inputBig-error");
+            lblError.removeClass("input-error");
+            lblError.css("display", "none");
+        } else {
+            input.addClass("inputBig-error");
+            lblError.addClass("input-error");
+            lblError.css("display", "block");
+        }
+        // console.log(" ==> " + is_file); // Debugging
+    
+        return is_file;
+    }
 }
 
 function checkInformation_Map() {

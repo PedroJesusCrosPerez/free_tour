@@ -97,7 +97,7 @@
                         {# Tour #}
                         <div class="row product-item bg-light mb-4">
                             <div class="col-6 product-img position-relative overflow-hidden">
-                                <img class="img-fluid w-100" src="/images/route/b08e79c2c3419079dff152066193bea3.jpg" alt="imágen de ruta">
+                                <img class="img-fluid w-100" src="{{ reservation.getRoutePhoto() }}" alt="imágen de ruta">
                             </div>
                             <div class="col-6 text-center py-4">
                                 <p class="h4 text-decoration-none text-truncate">{{ reservation.getTour().getRoute() }}</p>

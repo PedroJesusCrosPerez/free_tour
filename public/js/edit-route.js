@@ -113,7 +113,7 @@ function uploadRouteData() {
             // uploadProgramation(response);
 
             changeBtnsToEdit();
-            
+
             // Verificamos si la función existe después de un retraso de 5 segundos
             setTimeout(function() {
                 if (typeof ayuda === "function") {
@@ -154,7 +154,15 @@ function ayuda() {
     });
 }
 
+function uploadImageReset() {
+    $("div[name='upload-image']").on("change", function() {
+        console.log("Cambio de imagen");
+    })
+}
 
+function checkInformation_FileUploader() {
+    return true;
+}
 
 
 // function updateRouteById() {

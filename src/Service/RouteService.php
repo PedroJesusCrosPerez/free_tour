@@ -118,7 +118,9 @@ class RouteService
         $route->setDatetimeStart(\DateTime::createFromFormat('d/m/Y H:i', $datetimeStart));
         $route->setDatetimeEnd(\DateTime::createFromFormat('d/m/Y H:i', $datetimeEnd));
         $route->setCapacity($capacity);
-        $route->setProgramation(json_encode($programation));
+        if (is_array($programation) && !empty($programation)) {
+            $route->setProgramation(json_encode($programation));
+        }
         
         // Insert en la tabla "route_items"
         foreach ($selected_items as $itemId) {

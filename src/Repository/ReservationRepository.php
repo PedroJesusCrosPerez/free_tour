@@ -27,10 +27,35 @@ class ReservationRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('r')
             ->andWhere('r.client = :client')
             ->setParameter('client', $client_id)
+            ->andWhere('r.assistants IS NOT null') // ¿esta línea es correcta?
             ->orderBy('r.datetime', 'DESC')
             ->getQuery()
-            ->getResult();
+            ->getResult()
+        ;
     }
+
+    public function findAllWithRatingsByClient($client_id)
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.client = :client_id')
+            ->andWhere('r.assistants IS NOT NULL')
+            ->setParameter('client_id', $client_id)
+            ->andWhere(
+                $this->_em->getExpressionBuilder()->notIn(
+                    'r.id',
+                    $this->_em->createQueryBuilder()
+                        ->select('IDENTITY(rat.reservation)')
+                        ->from('App\Entity\Ratings', 'rat')
+                        ->getDQL()
+                )
+            )
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    
+    
+
 
 
     

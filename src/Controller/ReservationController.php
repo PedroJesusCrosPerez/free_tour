@@ -50,7 +50,8 @@ class ReservationController extends AbstractController
 
         // if ($user instanceof User && $user->getRoles() == ["ROLE_GUIDE"]) {
             $client_id = $user->getId();
-            $reservations = $this->entityManager->getRepository(Reservation::class)->findAllByClient_id($client_id);
+            // $reservations = $this->entityManager->getRepository(Reservation::class)->findAllByClient_id($client_id);
+            $reservations = $this->entityManager->getRepository(Reservation::class)->findAllWithRatingsByClient($client_id);
             
             // CREATE FORM
             return $this->render('role/client/reservation-list.html.twig', [

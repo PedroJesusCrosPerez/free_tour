@@ -153,6 +153,11 @@ class Reservation
     // }
 
     // My methods
+    public function getRoutePhoto(): string
+    {
+        return $this->getTour()->getRoute()->getPhoto();
+    }
+
     public function getDate(): string
     {
         return $this->getDatetime()->format("d/m/Y");
