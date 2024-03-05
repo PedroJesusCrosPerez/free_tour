@@ -18,6 +18,7 @@ class LoginController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
+        echo $error;
         return $this->render('login/_login.html.twig', [
             'last_username' => $lastUsername,
             'error'         => $error,
@@ -34,13 +35,30 @@ class LoginController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        // return $this->render('login/index.html.twig', [
-            return $this->render('login/default.html.twig', [
-        // return $this->render('PRUEBAS/prueba_login_modal.html.twig', [
+        return $this->render('login/_login.html.twig', [
+        // return $this->render('login/default.html.twig', [
             'last_username' => $lastUsername,
             'error'         => $error,
         ]);
     }
+
+    
+    // #[Route('/logindefault', name: 'action-login')]
+    // public function default(AuthenticationUtils $authenticationUtils): Response
+    // {
+    //     // get the login error if there is one
+    //     $error = $authenticationUtils->getLastAuthenticationError();
+        
+    //     // last username entered by the user
+    //     $lastUsername = $authenticationUtils->getLastUsername();
+
+    //     // return $this->render('login/index.html.twig', [
+    //         return $this->render('login/default.html.twig', [
+    //     // return $this->render('PRUEBAS/prueba_login_modal.html.twig', [
+    //         'last_username' => $lastUsername,
+    //         'error'         => $error,
+    //     ]);
+    // }
 
     // TODO este código es para redirigir al usuario según su rol
     // #[Route("/after-login", name:"app_after_login")]

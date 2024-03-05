@@ -3,10 +3,8 @@
 
 namespace App\Service;
 
-use App\Event\MyCustomEvent;
 use App\Event\ReservationEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use App\Event\UserCreatedEvent;
 
 class DispatcherEvents
 {
@@ -15,6 +13,12 @@ class DispatcherEvents
     public function __construct(EventDispatcherInterface $dispatcher)
     {
         $this->dispatcher = $dispatcher;
+    }
+
+    public function dispatch($event): void
+    {
+        // Disparar el evento
+        $this->dispatcher->dispatch($event);
     }
 
     public function dispatchReservation($data)

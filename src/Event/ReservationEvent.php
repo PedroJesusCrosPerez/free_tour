@@ -1,5 +1,5 @@
 <?php
-// src/Event/MyCustomEvent.php
+// src/Event/ReservationEvent.php
 
 namespace App\Event;
 
@@ -19,5 +19,11 @@ class ReservationEvent extends Event
     public function getData(): array
     {
         return $this->data;
+    }
+
+    public function validate(): bool
+    {
+        dd("HOLA SOY UN EVENTO");
+        return true;
     }
 }

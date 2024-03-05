@@ -39,6 +39,10 @@ services:
     App\Service\PdfService:
         arguments:
             $twig: '@twig'
+
+    App\Service\DispatcherEvents:
+        arguments:
+            $dispatcher: '@event_dispatcher'
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
