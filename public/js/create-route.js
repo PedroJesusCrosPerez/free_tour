@@ -334,12 +334,18 @@ $(function () {
             daysOfWeek: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'], // Abreviaturas de los días de la semana en español
             monthNames: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'], // Nombres de los meses en español
             firstDay: 1 // Lunes es el primer día de la semana en España
+        },
+        // TODO AÑADIDO EN ÚLTIMA HORA
+        timePicker: true,
+        timePicker24Hour: true,
+        timePickerIncrement: 5,
+    }, 
+        function(start, end, label) {
+            // console.log("New date range selected: " + start.format('DD/MM/YYYY') + " to " + end.format('DD/MM/YYYY') + " (predefined range: " + label + ")");
+            datetime_start = start.format('DD/MM/YYYY HH:mm');
+            datetime_end = end.format('DD/MM/YYYY HH:mm');
         }
-    }, function(start, end, label) {
-        // console.log("New date range selected: " + start.format('DD/MM/YYYY') + " to " + end.format('DD/MM/YYYY') + " (predefined range: " + label + ")");
-        datetime_start = start.format('DD/MM/YYYY HH:mm');
-        datetime_end = end.format('DD/MM/YYYY HH:mm');
-    });
+    );
 
     // Initialize timepicker
     $('input[name="timepicker"]').timepicker({
@@ -385,5 +391,11 @@ $(function () {
 
     // Upload src 'items' and 'Guides'
     uploadSrc();
+
+    if (typeof uploadRouteData === "function") {
+        uploadRouteData();
+    } else {
+        console.log("La función uploadRouteData no existe.");
+    }
 
 });

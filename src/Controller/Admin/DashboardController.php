@@ -8,6 +8,7 @@ use App\Entity\Province;
 use App\Entity\Ratings;
 use App\Entity\Report;
 use App\Entity\Reservation;
+use App\Entity\Route as EntityRoute;
 use App\Entity\Tour;
 use App\Entity\User;
 use App\Repository\ItemRepository;
@@ -111,8 +112,12 @@ class DashboardController extends AbstractDashboardController
     public function editarRuta(EntityManagerInterface $entityManager, Request $request, UserRepository $userRepository/*, $id*/): Response
     {
         $id = $request->query->get('id');
+        $route = $entityManager->getRepository(EntityRoute::class)->find($id);
+        // dd(json_decode($route->getProgramation()));
         return $this->render('route/edit.html.twig', [
             'id' => $id,
+            'route' => $route,
+            'programations' => json_decode($route->getProgramation()),
             'localities' => $entityManager->getRepository(Locality::class)->findAll(),
             'guides' => $entityManager->getRepository(User::class)->findByRoles(['ROLE_GUIDE'])
         ]);

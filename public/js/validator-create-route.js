@@ -87,8 +87,6 @@ $(function() {
     let lastActive = "tabs-1";
 
     // Manejar el evento de cambio de pestaña
-    /*
-    
     $("#tabs>ul>li").on("click", function() {
         // console.log($(this))
         // console.log($(this).parent())
@@ -156,8 +154,6 @@ $(function() {
         }
 
     });
-
-    */
 
 
     // // Manejar el evento de cambio de pestaña

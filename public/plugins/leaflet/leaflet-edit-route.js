@@ -1,5 +1,7 @@
-$(function() {
-    var map = L.map('map-container').setView([37.7692200,-3.7902800], 13);
+function uploadMap(mymarker) {
+    $('input[name="x"]').val(mymarker.x)
+    $('input[name="y"]').val(mymarker.y)
+    var map = L.map('map-container').setView([mymarker.x,mymarker.y], 13);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
     }).addTo(map);
@@ -14,6 +16,8 @@ $(function() {
         marker = L.marker(latlng).addTo(map);
         // console.log("Coordenadas del clic: " + latlng.lat + ", " + latlng.lng);
     });
+    // Este dato viene del AJAX de la API
+    marker = L.marker([mymarker.x,mymarker.y]).addTo(map);
 
     // BTN AÑADIR
     $('#addMarkerBtn').on('click', function() {
@@ -67,4 +71,6 @@ $(function() {
         close: function() {
         },
     });
-});
+    
+    checkInformation_Map();
+};

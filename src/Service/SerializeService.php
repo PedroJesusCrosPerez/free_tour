@@ -31,6 +31,31 @@ class SerializeService
         $this->reportUploadDirDB = $parameterBag->get('reportImgDirDB');
     }
 
+    public function serializeRoute(Route $route, $level=""): array
+    {
+        switch ($level) {
+            case 'Level::BASIC':
+                // Serialize tour to JSON format
+                return [
+                    'id' => $route->getId(),
+                    'name' => $route->getName(),
+                    'description' => $route->getDescription(),
+                    'photo' => $route->getPhoto(),
+                    'coordinates' => $route->getCoordinates(),
+                    'items' => $route->getItemIds(),
+                    'datetime_start' => $route->getDatetimeStartFormated(), //->format('Y-m-d H:i:s'),
+                    'datetime_end' => $route->getDatetimeEndFormated(),
+                    'capacity' => $route->getCapacity(),
+                    'programation' => $route->getProgramation(),
+                ];
+                break;
+            
+            default:
+                return ["result"=>"TO IMPLEMENT"];
+                break;
+        }
+    }
+
     public function serializeArrTour(array $arrTour)//: JsonResponse
     {
         // Serialize tours to JSON format

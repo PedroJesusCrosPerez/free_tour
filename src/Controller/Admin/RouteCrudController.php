@@ -2,10 +2,7 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Item;
 use App\Entity\Route;
-use App\Repository\ItemRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
@@ -13,10 +10,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
@@ -90,7 +85,7 @@ class RouteCrudController extends AbstractCrudController
     public function editRedirect(AdminContext $context){
         $entityInstance = $context->getEntity()->getInstance();
         $id= $entityInstance->getId();
-        // dd($id);
+        
         return $this->redirectToRoute('edit-route',['id' => $id]);
     }
 

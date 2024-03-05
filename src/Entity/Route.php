@@ -251,6 +251,19 @@ class Route
             return $this;
         }
 
+    // Items id
+        /**
+         * @return array<int>
+         */
+        public function getItemIds(): array
+        {
+            $itemIds = [];
+            foreach ($this->item as $item) {
+                $itemIds[] = $item->getId();
+            }
+            return $itemIds;
+        }
+
 
     function getDatetimeStartFormated(): String
     { return $this->getDatetimeStart()->format('d/m/Y H:i'); }

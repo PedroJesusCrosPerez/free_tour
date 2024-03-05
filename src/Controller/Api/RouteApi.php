@@ -6,6 +6,7 @@ namespace App\Controller\Api;
 use App\Entity\Route;
 use App\Repository\RouteRepository;
 use App\Service\RouteService;
+use App\Service\SerializeService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,14 +17,12 @@ use Symfony\Component\Serializer\SerializerInterface;
 #[RouteAnnotation("/api/route", name: "route-")]
 class RouteApi extends AbstractController
 {
-    private RouteRepository $routeRepository;
-    private SerializerInterface $serializer;
-
-    public function __construct(RouteRepository $routeRepository, SerializerInterface $serializer)
-    {
-        $this->routeRepository = $routeRepository;
-        $this->serializer = $serializer;
-    }
+    public function __construct(
+        private RouteRepository $routeRepository, 
+        private RouteService $routeService, 
+        private SerializerInterface $serializer,
+        private SerializeService $serializeService,
+    ){}
 
     #[RouteAnnotation("/findAll", name: "findAll", methods: ["GET"])]
     public function findAll(): Response
@@ -44,20 +43,16 @@ class RouteApi extends AbstractController
         return new Response($data, Response::HTTP_OK, ['Content-Type' => 'application/json']);
     }
 
-    // #[RouteAnnotation("/insert", name: "insert", methods: ["POST"])]
-    // public function insert(Request $request, RouteService $routeService): JsonResponse
-    // {
-    //     // Obtener los datos en formato JSON
-    //     $data = json_decode($request->getContent(), true);
-
-    //     // TODO validar y procesar los datos recibidos antes de insertar la nueva entidad Route
-
-    //     // Llamar al servicio 'route_service' que inserta los datos y devuelve el ID de la nueva entidad creada
-    //     $newEntityId = $routeService->insertNewEntity($data, $request);
-
-    //     // Devuelve una respuesta JSON con el ID de la nueva entidad creada y el código de estado HTTP 201 (Created)
-    //     return new JsonResponse(['id' => $newEntityId], JsonResponse::HTTP_CREATED);
-    // }
+    #[RouteAnnotation("/{id}", name: "id", methods: ["GET"])]
+    public function id($id): JsonResponse
+    {
+        $route = $this->routeRepository->find($id);
+        if (!$route) {
+            return new Response(null, Response::HTTP_NOT_FOUND);
+        }
+        $data = $this->serializeService->serializeRoute($route, "Level::BASIC");
+        return new JsonResponse($data, Response::HTTP_OK, ['Content-Type' => 'application/json']);
+    }
 
     #[RouteAnnotation("/insert", name: "insert", methods: ["POST"])]
     public function insert(Request $request, RouteService $routeService): Response
@@ -67,6 +62,8 @@ class RouteApi extends AbstractController
 
         // Devolver una respuesta adecuada
         return new JsonResponse(['id' => $newEntityId], JsonResponse::HTTP_CREATED);
+        // TODO por si no funciona crear ruta
+        return $this->redirect('http://localhost:8000/admin?crudAction=index&crudControllerFqcn=App%5CController%5CAdmin%5CRouteCrudController');
     }
 
     #[RouteAnnotation("/insertAndGenerateTours", name: "insertAndGenerateTours", methods: ["POST"])]
@@ -83,8 +80,18 @@ class RouteApi extends AbstractController
         return $this->redirect('http://localhost:8000/admin?crudAction=index&crudControllerFqcn=App%5CController%5CAdmin%5CRouteCrudController');
     }
 
-    #[RouteAnnotation("/update/{id}", name: "update", methods: ["PUT"])]
-    public function update(Request $request, $id): Response
+    #[RouteAnnotation("/update", name: "update", methods: ["POST"])]
+    public function update(Request $request): Response
+    {
+        if ($this->routeService->update($request)) 
+        {
+            return new Response(null, Response::HTTP_NOT_FOUND);
+        }
+        return $this->redirect('http://localhost:8000/admin?crudAction=index&crudControllerFqcn=App%5CController%5CAdmin%5CRouteCrudController');
+    }
+
+    #[RouteAnnotation("/update/{id}", name: "updateById", methods: ["PUT"])]
+    public function updateById(Request $request, $id): Response
     {
         $route = $this->routeRepository->find($id);
         if (!$route) {
@@ -107,7 +114,7 @@ class RouteApi extends AbstractController
         return new Response(null, Response::HTTP_OK);
     }
 
-    #[RouteAnnotation("/existsByLocality/{id}", name: "update", methods: ["GET"])]
+    #[RouteAnnotation("/existsByLocality/{id}", name: "updateByLocality", methods: ["GET"])]
     public function existsByLocality(Request $request, $id): Response
     {
         $route = $this->routeRepository->findByLocality($id);

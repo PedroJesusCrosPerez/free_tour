@@ -78,6 +78,8 @@ class TourService
             // dump("Cantidad total de días seleccionados: " . $totalCount);
 
         }
+        
+        return true;
     }
 
 }

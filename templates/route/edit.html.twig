@@ -2,9 +2,9 @@
 {% extends '@EasyAdmin/page/content.html.twig' %}
 {# {% extends 'views/main.html.twig' %} #}
 
-{% block title %}Crear ruta{% endblock %}
+{% block title %}Editar ruta{% endblock %}
 
-{% block content_title %}Editar ruta => {{ id }}{% endblock %}
+{% block content_title %}{{ route.name }}{% endblock %}
 
 {% block headsrcplugins %}
     {# DEPENDENCES - jquery #}
@@ -12,7 +12,7 @@
     <script src="{{ asset('jquery/jquery-ui-1.13.2/jquery-ui.min.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('jquery/jquery-ui-1.13.2/jquery-ui.min.css') }}">
 
-    <script> 
+    <script>
         $(function() {
             var btnSave = $("<button>");
             btnSave.html("Guardar");
@@ -25,7 +25,8 @@
 
 
     <script src="{{ asset('js/_upload-data-create-route.js') }}"></script>
-    <script src="{{ asset('js/_add-create-route.js') }}"></script>
+    {# <script src="{{ asset('js/_add-create-route.js') }}"></script> #}
+    <script src="{{ asset('js/_add-edit-route.js') }}"></script>
     <!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
     <!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>> PLUGINS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
     <!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
@@ -40,7 +41,7 @@
     <!-- Date range -->
     {% include 'plugins/date-range.html.twig' %}
     <!-- Leaflet -->
-    {% include 'plugins/leaflet.html.twig' %}
+    {% include 'plugins/leaflet-edit-route.html.twig' %}
     <!-- Time picker -->
     {% include 'plugins/timepicker.html.twig' %}
     <!-- <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< -->
@@ -55,7 +56,10 @@
     <!-- #################################################################### -->
     <!-- ####################### RECOGIDA DE DATOS ########################## -->
     <!-- #################################################################### -->
+    <script src="{{ asset('js/_functions-edit-route_tour.js') }}"></script>
     <script src="{{ asset('js/create-route.js') }}"></script>
+    <script src="{{ asset('js/edit-route.js') }}"></script>
+    {# <script src="{{ asset('js/edit-route.js') }}"></script> #}
 
     <!-- ########################### VALIDATOR ############################## -->
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
@@ -71,7 +75,7 @@
     <!-- ##################################################################################### -->
     <!-- ##################################################################################### -->
     <form action="#" method="post" id="create-route">
-
+        <input type="hidden" name="id" id="id" value="{{ id }}">
         <button class="btn btn-secondary" id="btnSaveAndTours" type="submit">Guardar y generar tours</button>
 
         <div id="tabs">
@@ -256,7 +260,17 @@
                                         <th>Guía</th>
                                     </tr>
                                 </thead>
-                                <tbody class="table-group-divider"></tbody>
+                                <tbody class="table-group-divider">
+                                    {% for programation in programations %}
+                                        <tr data-id="0">
+                                            <td>{{ programation.date_start }} - {{ programation.date_end }}</td>
+                                            <td>{{ programation.time_start }}</td>
+                                            <td>{{ programation.patternf|join(', ') }}</td>
+                                            <td>{{ programation.guide.name }}</td>
+                                            <td><button type="button" class="btn btn-primary btn-sm" onclick="editProgramation(this)">Editar</button> <button type="button" class="btn btn-danger btn-sm" onclick="deleteProgramation(this)">Eliminar</button></td>
+                                            </tr>
+                                    {% endfor %}
+                                </tbody>
                                 <tfoot></tfoot>
                             </table>
                         </div>
