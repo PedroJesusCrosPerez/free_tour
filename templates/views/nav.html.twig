@@ -2,9 +2,15 @@
 	<link rel="stylesheet" href="http://localhost:8000/bundles/easyadmin/app.fa78b25b.css">
 	<link rel="stylesheet" href="{{ asset('css/navStyle.css') }}">
 
-    {% if app.request.attributes.get('_route') != 'home' %}
+    {# {% if 
+		app.request.attributes.get('_route') != '' or
+		app.request.attributes.get('_route') != '/' or
+		app.request.attributes.get('_route') != 'home' or
+		app.request.attributes.get('_route') != 'login' or
+		app.request.attributes.get('_route') != 'register'
+	%}
 		<style> nav { position: relative !important; background-color: #6998AB; } </style>
-	{% endif %}
+	{% endif %} #}
 
 {% endblock %}
 
@@ -224,13 +230,9 @@
 					{# <li><a href="about.html">Sobre nosotros</a></li> #}
 					{# <li><a href="contact.html">Contactanos</a></li> #}
 					<li><a href="{{ path('route-list') }}" id="searchRoutes">Bucar rutas</a></li>
-					<li class="has-children">
-						{% if app.user %}
+					{% if app.user %}
+						<li class="has-children">
 							<a href="#">Bienvenido, {{ app.user.name }}</a>
-						{% else %}
-							<a href="#">Usuario</a>
-						{% endif %}
-						{% if app.user %}
 							<ul class="dropdown">
 								<hr>
 								<li><a href="#">{{ app.user.email }}</a></li>
@@ -238,37 +240,24 @@
 								{# <li><a href="elements.html">Ajustes</a></li> #}
 								{# ROLE ADMIN #}
 								{% if is_granted('ROLE_ADMIN') %}
-									<li><a href="{{ path('admin') }}">Panel de administrador</a></li>
+									<li><a href="{{ path('admin') }}"><i class="fa-solid fa-screwdriver-wrench"></i> Panel de administrador</a></li>
 								{% endif %}
 								{# ROLE GUIDE #}
 								{% if is_granted('ROLE_GUIDE') %}
-									<li><a href="{{ path('user-guide-calendar') }}"><i class="fa-regular fa-calendar"></i> Mis rutas</a></li>
+									<li><a href="{{ path('user-guide-calendar') }}"><i class="fa-regular fa-calendar"></i> Mis tours</a></li>
 									<li><a href="{{ path('report-list') }}"><i class="fa-solid fa-list-check"></i> Reportar</a></li>
 								{% endif %}
 								{# ROLE CLIENT #}
 								{% if is_granted('ROLE_CLIENT') %}
 									<li><a href="{{ path('my-reservation-list') }}"><i class="fa-solid fa-receipt"></i> Mis reservas</a></li>
 								{% endif %}
-								<li><a href="{{ path('action-logout') }}">Cerrar sesión</a></li>
-							</ul>
-						{% else %}
-							<ul class="dropdown">
-								{# <li><a id="openLoginForm" href="#iniciar_sesión">Iniciar sesión</a></li> #}
-								{# <li><button id="loginBtn">Iniciar Sesión</button></li>
 								<hr>
-								<li><a href="#crear-cuenta">Crear cuenta</a></li> #}
-								<li><a href="{{ path('form-login') }}">Acceder</a></li>
-								{# <li class="has-children">
-									<a href="#">Menu Two</a>
-									<ul class="dropdown">
-										<li><a href="#">Sub Menu One</a></li>
-										<li><a href="#">Sub Menu Two</a></li>
-										<li><a href="#">Sub Menu Three</a></li>
-									</ul>
-								</li> #}
+								<li><a href="{{ path('action-logout') }}" style="color: red;"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</a></li>
 							</ul>
-						{% endif %}
-					</li>
+						</li>
+					{% else %}
+							<li><a href="{{ path('form-login') }}">Acceder</a></li>
+					{% endif %}
 				</ul>
 
 				<a href="#" class="burger ml-auto float-right site-menu-toggle js-menu-toggle d-inline-block d-lg-none light" data-toggle="collapse" data-target="#main-navbar">

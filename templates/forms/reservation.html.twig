@@ -6,6 +6,9 @@
     {% include 'templates-dependences/guruwalk.html.twig' %}
         <!-- Leaflet Map -->
     {% include 'plugins/leaflet-reservation.html.twig' %}
+    <style>
+    nav {position: relative !important;}
+    </style>
 {% endblock %}
 
 {% block main %}
@@ -236,7 +239,7 @@
             <div class="tour-container custom-container" data-controller="add-place-suggested-places">
                 <div class="row justify-content-between mb-5">
                     <div class="col-12 col-lg-8 position-relative">
-                        <div class="tour-container-content">
+                        <div class="tour-container-content" style="border-bottom-right-radius: 15px; border-bottom-left-radius: 15px;">
                             <div class="d-flex justify-content-between align-items-center mb-2">
                                 <div class="tour-badges d-flex align-items-center">
                                     <div class="tour-badge tour-badge-category">
@@ -342,7 +345,7 @@
                                 </div> #}
                             </div>
 
-                            <div class="guru-info-card">
+                            {# <div class="guru-info-card">
                                 <div class="d-flex justify-content-between align-items-center mb-3">
                                     <div>
                                         <div class="guru-name">
@@ -394,12 +397,12 @@
                                     </div>
                                 </div>
 
-                            </div>
+                            </div> #}
 
-                            <div class="d-block d-lg-none">
+                            {# <div class="d-block d-lg-none">
 
-                            </div>
-                            <div class="section-content" data-section="tour_highlights">
+                            </div> #}
+                            {# <div class="section-content" data-section="tour_highlights">
                                 <ul class="tour-highlights p-0">
                                     <li class="tour-highlights-item">
                                         <div class="tour-card-feature-icon ms-0 me-3">
@@ -421,9 +424,11 @@
                                         </div>
                                     </li>
                                 </ul>
-                            </div>
+                            </div> #}
 
-                            <div class="section-content" data-controller="expandable-container"
+                            <hr class="p-0 m-0">
+
+                            <div class="section-content pt-3" data-controller="expandable-container"
                                 data-expandable-container-container-height-value="200" data-section="tour_about">
                                 <h2 class="section-title">Descripción del tour</h2>
                                 <div class="masked-content" data-expandable-container-target="expandableContent" style="max-height: 200px;">
@@ -448,9 +453,12 @@
                                             oportuno valorando así su trabajo.</strong></p>
                                     <p>⚠️<strong>NO SE ADMITEN GRUPOS DE MÁS DE 10 PERSONAS, AUNQUE SE REALICEN RESERVAS CON
                                             DISTINTO NOMBRE. Si sois un grupo grande podéis contactar con nosotros y os
-                                            ofreceremos otra opción personalizada.<br><br>ℹ️ Este recorrido es el mismo que
-                                            el de nuestro tour "La Roma
-                                            Nocturna".<br>___________________________________________________________</strong>
+                                            ofreceremos otra opción personalizada.</strong><br>
+
+                                        <p>
+                                        {{ route.description|raw }}
+                                        </p>
+                                            <strong>___________________________________________________________</strong>
                                     </p>
 
                                     {# DIV necesario para la descipción, pero bugeado por ahora #}
@@ -2786,32 +2794,6 @@
                             </div>
 
                         </div>
-                        <div class="tour-container-bottom-shadow"></div>
-                        <div class="tour-container-breadcrumbs d-flex align-items-center text-secondary-light"
-                            data-add-place-suggested-places-target="breadcrumbPlace">
-                            <div class="d-flex align-items-baseline">
-                                <a class="tour-container-breadcrumbs-link" href="/es"><span>Free tours</span>
-                                </a><span class="chevron-icon mx-2"><svg xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 320 512">
-                                        <!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-                                        <path fill="currentColor"
-                                            d="M96 480c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L242.8 256L73.38 86.63c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l192 192c12.5 12.5 12.5 32.75 0 45.25l-192 192C112.4 476.9 104.2 480 96 480z">
-                                        </path>
-                                    </svg></span>
-                            </div>
-                            <div class="d-flex align-items-baseline">
-                                <a class="tour-container-breadcrumbs-link" href="/es/c/italia">Italia
-                                </a><span class="chevron-icon mx-2"><svg xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 320 512">
-                                        <!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-                                        <path fill="currentColor"
-                                            d="M96 480c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L242.8 256L73.38 86.63c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l192 192c12.5 12.5 12.5 32.75 0 45.25l-192 192C112.4 476.9 104.2 480 96 480z">
-                                        </path>
-                                    </svg></span>
-                            </div>
-                            <a class="tour-container-breadcrumbs-link" href="/es/roma">Free Tours en Roma
-                            </a>
-                        </div>
                         <script type="application/ld+json">
                             {
                                 "@context": "https://schema.org",
@@ -2858,7 +2840,7 @@
                                     </div>
                                     <div class='datepicker'></div>
                                     {# <div class="d-flex justify-content-between align-items-center mt-2"> #}
-                        <form action="/api/reservation/insert" method="POST" class="d-flex justify-content-between align-items-center mt-2">             
+                        <form action="/api/reservation/insert" method="POST" class="d-flex justify-content-between align-items-center mt-2" style="flex-wrap:wrap;">             
                                             <select style="width:60%;" name="tour_id" class="form-select" id="tour">
                                             <option value="0">Horas disponibles</option>
                                             {% for tour in tours %}
@@ -2893,7 +2875,7 @@
                                     </div>
 
                                         <input name="route_id" type="text" id="route_id" value="{{route.id}}" hidden>
-                                        <button type="submit" class="btn btn-primary" id="btnSubmit">Reservar</button>
+                                        <button type="submit" class="btn btn-primary w-100" id="btnSubmit">Reservar</button>
                                         {# <input type="submit" name="route_id" value="Reservar"> #}
                         </form>
 
@@ -3030,7 +3012,7 @@
                                     </div>
                                     #}
                                 </div>
-                                <div class="calendar-week-bottom-wrapper" data-calendar-week-target="bottomWrapper">
+                                {# <div class="calendar-week-bottom-wrapper" data-calendar-week-target="bottomWrapper">
                                     <div class="day-container" data-calendar-week-target="dayContainer">
                                         <div class="events-container"
                                             data-action="scroll->calendar-week#displayShowMoreEvents"
@@ -3298,7 +3280,7 @@
                                             Ver más
                                         </span>
                                     </div>
-                                </div>
+                                </div> #}
                             </div>
 
                             <div class="admin-tools my-4">
@@ -3808,10 +3790,10 @@
                     data-controller="add-place-images" data-section="more_author_tours">
                     <div class="d-flex align-items-center justify-content-between mb-4 px-4">
                         <h2 class="title-section mb-0">
-                            Otros tours del guru
+                            Otros tours de PedroFreeTours
                         </h2>
                     </div>
-                    <div class="scrollable-container scrollable-container-gradient" data-controller="scrollable-container"
+                    <div style="background-color: white; border-radius: 20px;" class="scrollable-container scrollable-container-gradient" data-controller="scrollable-container"
                         data-scrollable-container-navigation-arrows-value=""
                         data-scrollable-container-target="scrollableContainer" id="scrollable-container">
                         <div class="scrollable-container-inner d-flex align-items-center p-4"
@@ -3870,39 +3852,6 @@
                                         <div class="place-tour-title mb-3">
                                             La Roma Antigua y El Barrio Judío
                                         </div>
-                                        <div class="d-flex text-secondary-light align-items-center">
-                                            <span class="fa-history"><svg xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 512 512">
-                                                    <!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) -->
-                                                    <path fill="currentColor"
-                                                        d="M504 255.532c.252 136.64-111.182 248.372-247.822 248.468-64.014.045-122.373-24.163-166.394-63.942-5.097-4.606-5.3-12.543-.443-17.4l16.96-16.96c4.529-4.529 11.776-4.659 16.555-.395C158.208 436.843 204.848 456 256 456c110.549 0 200-89.468 200-200 0-110.549-89.468-200-200-200-55.52 0-105.708 22.574-141.923 59.043l49.091 48.413c7.641 7.535 2.305 20.544-8.426 20.544H26.412c-6.627 0-12-5.373-12-12V45.443c0-10.651 12.843-16.023 20.426-8.544l45.097 44.474C124.866 36.067 187.15 8 256 8c136.811 0 247.747 110.781 248 247.532zm-167.058 90.173l14.116-19.409c3.898-5.36 2.713-12.865-2.647-16.763L280 259.778V116c0-6.627-5.373-12-12-12h-24c-6.627 0-12 5.373-12 12v168.222l88.179 64.13c5.36 3.897 12.865 2.712 16.763-2.647z">
-                                                    </path>
-                                                </svg></span>
-                                            <span>
-                                                2 horas
-                                            </span>
-                                        </div>
-                                        <hr class="separator-line">
-                                        <div class="place-tour-guru">
-                                            <div class="place-tour-guru-content">
-                                                <div class="place-tour-guru-image"
-                                                    data-add-place-images-target="tourCardGuruImage"
-                                                    style="background-image: url(&quot;https://media.guruwalk.com/nt6ve8ozctq2z3woh7p1fybug0rn&quot;);">
-                                                </div>
-                                                <span class="me-1 bold">
-                                                    Guru:
-                                                </span>
-                                                <span class="place-tour-guru-name-pro">
-                                                    Recorriendo Roma
-                                                </span>
-                                                <span class="badge banner-pro-user ms-1">
-                                                    PRO
-                                                </span>
-                                            </div>
-                                            <div class="feature-items-content">
-                                            </div>
-                                        </div>
-
                                     </div>
                                 </div>
                             </a><a class="place-tour-card-regular-link link-tour" href="/es/walks/38708-la-roma-nocturna">
@@ -3954,37 +3903,6 @@
                                         <div class="place-tour-title mb-3">
                                             La Roma Nocturna
                                         </div>
-                                        <div class="d-flex text-secondary-light align-items-center">
-                                            <span class="fa-history"><svg xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 512 512">
-                                                    <!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) -->
-                                                    <path fill="currentColor"
-                                                        d="M504 255.532c.252 136.64-111.182 248.372-247.822 248.468-64.014.045-122.373-24.163-166.394-63.942-5.097-4.606-5.3-12.543-.443-17.4l16.96-16.96c4.529-4.529 11.776-4.659 16.555-.395C158.208 436.843 204.848 456 256 456c110.549 0 200-89.468 200-200 0-110.549-89.468-200-200-200-55.52 0-105.708 22.574-141.923 59.043l49.091 48.413c7.641 7.535 2.305 20.544-8.426 20.544H26.412c-6.627 0-12-5.373-12-12V45.443c0-10.651 12.843-16.023 20.426-8.544l45.097 44.474C124.866 36.067 187.15 8 256 8c136.811 0 247.747 110.781 248 247.532zm-167.058 90.173l14.116-19.409c3.898-5.36 2.713-12.865-2.647-16.763L280 259.778V116c0-6.627-5.373-12-12-12h-24c-6.627 0-12 5.373-12 12v168.222l88.179 64.13c5.36 3.897 12.865 2.712 16.763-2.647z">
-                                                    </path>
-                                                </svg></span>
-                                            <span>
-                                                2 horas
-                                            </span>
-                                        </div>
-                                        <hr class="separator-line">
-                                        <div class="place-tour-guru">
-                                            <div class="place-tour-guru-content">
-                                                <div class="place-tour-guru-image"
-                                                    data-add-place-images-target="tourCardGuruImage"></div>
-                                                <span class="me-1 bold">
-                                                    Guru:
-                                                </span>
-                                                <span class="place-tour-guru-name-pro">
-                                                    Recorriendo Roma
-                                                </span>
-                                                <span class="badge banner-pro-user ms-1">
-                                                    PRO
-                                                </span>
-                                            </div>
-                                            <div class="feature-items-content">
-                                            </div>
-                                        </div>
-
                                     </div>
                                 </div>
                             </a><a class="place-tour-card-regular-link link-tour" href="/es/walks/40362-la-roma-imperial">
@@ -4036,37 +3954,6 @@
                                         <div class="place-tour-title mb-3">
                                             La Roma Imperial
                                         </div>
-                                        <div class="d-flex text-secondary-light align-items-center">
-                                            <span class="fa-history"><svg xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 512 512">
-                                                    <!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) -->
-                                                    <path fill="currentColor"
-                                                        d="M504 255.532c.252 136.64-111.182 248.372-247.822 248.468-64.014.045-122.373-24.163-166.394-63.942-5.097-4.606-5.3-12.543-.443-17.4l16.96-16.96c4.529-4.529 11.776-4.659 16.555-.395C158.208 436.843 204.848 456 256 456c110.549 0 200-89.468 200-200 0-110.549-89.468-200-200-200-55.52 0-105.708 22.574-141.923 59.043l49.091 48.413c7.641 7.535 2.305 20.544-8.426 20.544H26.412c-6.627 0-12-5.373-12-12V45.443c0-10.651 12.843-16.023 20.426-8.544l45.097 44.474C124.866 36.067 187.15 8 256 8c136.811 0 247.747 110.781 248 247.532zm-167.058 90.173l14.116-19.409c3.898-5.36 2.713-12.865-2.647-16.763L280 259.778V116c0-6.627-5.373-12-12-12h-24c-6.627 0-12 5.373-12 12v168.222l88.179 64.13c5.36 3.897 12.865 2.712 16.763-2.647z">
-                                                    </path>
-                                                </svg></span>
-                                            <span>
-                                                2 horas
-                                            </span>
-                                        </div>
-                                        <hr class="separator-line">
-                                        <div class="place-tour-guru">
-                                            <div class="place-tour-guru-content">
-                                                <div class="place-tour-guru-image"
-                                                    data-add-place-images-target="tourCardGuruImage"></div>
-                                                <span class="me-1 bold">
-                                                    Guru:
-                                                </span>
-                                                <span class="place-tour-guru-name-pro">
-                                                    Recorriendo Roma
-                                                </span>
-                                                <span class="badge banner-pro-user ms-1">
-                                                    PRO
-                                                </span>
-                                            </div>
-                                            <div class="feature-items-content">
-                                            </div>
-                                        </div>
-
                                     </div>
                                 </div>
                             </a><a class="place-tour-card-regular-link link-tour"
@@ -4119,37 +4006,6 @@
                                         <div class="place-tour-title mb-3">
                                             Barrio Bohemio Trastevere
                                         </div>
-                                        <div class="d-flex text-secondary-light align-items-center">
-                                            <span class="fa-history"><svg xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 512 512">
-                                                    <!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) -->
-                                                    <path fill="currentColor"
-                                                        d="M504 255.532c.252 136.64-111.182 248.372-247.822 248.468-64.014.045-122.373-24.163-166.394-63.942-5.097-4.606-5.3-12.543-.443-17.4l16.96-16.96c4.529-4.529 11.776-4.659 16.555-.395C158.208 436.843 204.848 456 256 456c110.549 0 200-89.468 200-200 0-110.549-89.468-200-200-200-55.52 0-105.708 22.574-141.923 59.043l49.091 48.413c7.641 7.535 2.305 20.544-8.426 20.544H26.412c-6.627 0-12-5.373-12-12V45.443c0-10.651 12.843-16.023 20.426-8.544l45.097 44.474C124.866 36.067 187.15 8 256 8c136.811 0 247.747 110.781 248 247.532zm-167.058 90.173l14.116-19.409c3.898-5.36 2.713-12.865-2.647-16.763L280 259.778V116c0-6.627-5.373-12-12-12h-24c-6.627 0-12 5.373-12 12v168.222l88.179 64.13c5.36 3.897 12.865 2.712 16.763-2.647z">
-                                                    </path>
-                                                </svg></span>
-                                            <span>
-                                                2 horas
-                                            </span>
-                                        </div>
-                                        <hr class="separator-line">
-                                        <div class="place-tour-guru">
-                                            <div class="place-tour-guru-content">
-                                                <div class="place-tour-guru-image"
-                                                    data-add-place-images-target="tourCardGuruImage"></div>
-                                                <span class="me-1 bold">
-                                                    Guru:
-                                                </span>
-                                                <span class="place-tour-guru-name-pro">
-                                                    Recorriendo Roma
-                                                </span>
-                                                <span class="badge banner-pro-user ms-1">
-                                                    PRO
-                                                </span>
-                                            </div>
-                                            <div class="feature-items-content">
-                                            </div>
-                                        </div>
-
                                     </div>
                                 </div>
                             </a><a class="place-tour-card-regular-link link-tour"
@@ -4190,37 +4046,6 @@
                                         <div class="place-tour-title mb-3">
                                             Free tour nocturno Roma Imperial
                                         </div>
-                                        <div class="d-flex text-secondary-light align-items-center">
-                                            <span class="fa-history"><svg xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 512 512">
-                                                    <!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) -->
-                                                    <path fill="currentColor"
-                                                        d="M504 255.532c.252 136.64-111.182 248.372-247.822 248.468-64.014.045-122.373-24.163-166.394-63.942-5.097-4.606-5.3-12.543-.443-17.4l16.96-16.96c4.529-4.529 11.776-4.659 16.555-.395C158.208 436.843 204.848 456 256 456c110.549 0 200-89.468 200-200 0-110.549-89.468-200-200-200-55.52 0-105.708 22.574-141.923 59.043l49.091 48.413c7.641 7.535 2.305 20.544-8.426 20.544H26.412c-6.627 0-12-5.373-12-12V45.443c0-10.651 12.843-16.023 20.426-8.544l45.097 44.474C124.866 36.067 187.15 8 256 8c136.811 0 247.747 110.781 248 247.532zm-167.058 90.173l14.116-19.409c3.898-5.36 2.713-12.865-2.647-16.763L280 259.778V116c0-6.627-5.373-12-12-12h-24c-6.627 0-12 5.373-12 12v168.222l88.179 64.13c5.36 3.897 12.865 2.712 16.763-2.647z">
-                                                    </path>
-                                                </svg></span>
-                                            <span>
-                                                2 horas
-                                            </span>
-                                        </div>
-                                        <hr class="separator-line">
-                                        <div class="place-tour-guru">
-                                            <div class="place-tour-guru-content">
-                                                <div class="place-tour-guru-image"
-                                                    data-add-place-images-target="tourCardGuruImage"></div>
-                                                <span class="me-1 bold">
-                                                    Guru:
-                                                </span>
-                                                <span class="place-tour-guru-name-pro">
-                                                    Recorriendo Roma
-                                                </span>
-                                                <span class="badge banner-pro-user ms-1">
-                                                    PRO
-                                                </span>
-                                            </div>
-                                            <div class="feature-items-content">
-                                            </div>
-                                        </div>
-
                                     </div>
                                 </div>
                             </a>
@@ -4251,12 +4076,13 @@
 
                 <div class="section-content">
                     <h2 class="section-title px-4">
-                        Otras ciudades después de visitar Roma
+                        Ciudades más populares
                     </h2>
                     <div class="scrollable-container scrollable-container-gradient" data-controller="scrollable-container"
                         data-scrollable-container-navigation-arrows-value=""
                         data-scrollable-container-target="scrollableContainer" id="scrollable-container">
                         <div class="scrollable-container-inner d-flex align-items-center p-4"
+                        style="background-color: white;"
                             data-action="scroll->scrollable-container#mouseScroll"
                             data-add-tour-images-target="observableContainer"
                             data-scrollable-container-target="scrollableContent">
@@ -4330,13 +4156,6 @@
                                         d="M96 480c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L242.8 256L73.38 86.63c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l192 192c12.5 12.5 12.5 32.75 0 45.25l-192 192C112.4 476.9 104.2 480 96 480z">
                                     </path>
                                 </svg></span>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="section-content px-4">
-                    <div data-section="categories">
-                        <div class="mt-3 pb-1">
                         </div>
                     </div>
 
@@ -8124,418 +7943,6 @@
         </script>
 
 
-        <div id="footer">
-            <div class="page-container">
-                <div class="page-container-responsive">
-                    <footer role="contentinfo">
-                        <div class="container-fluid">
-                            <div>
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <p class="component-footer-title">
-                                            Gurus
-                                        </p>
-                                        <ul class="list-layout-components mt-3">
-                                            <li class="mb-3">
-                                                <form target="_blank" class="button_to_inline" method="get"
-                                                    action="https://support.guruwalk.com/portal/es/kb/soporte-para-gurus">
-                                                    <button class="anchor component-footer" type="submit">Centro de ayuda
-                                                        para guías
-                                                    </button></form>
-                                            </li>
-                                            <li class="mb-3">
-                                                <form target="_blank" class="button_to_inline" method="get"
-                                                    action="/es/work-free-tour-guide"><button
-                                                        class="anchor component-footer" type="submit">Trabaja como guía
-                                                        turístico
-                                                    </button></form>
-                                            </li>
-                                            <li class="mb-3">
-                                                <form target="_blank" class="button_to_inline" method="get"
-                                                    action="https://support.guruwalk.com/portal/es/kb/articles/por-qu%C3%A9-ofrecer-de-free-tours-y-experiencias-de-libre-pago-es-tan-popular">
-                                                    <button class="anchor component-footer" type="submit">El boom de los
-                                                        Free Walking Tours
-                                                    </button></form>
-                                            </li>
-                                            <li class="mb-3">
-                                                <form target="_blank" class="button_to_inline" method="get"
-                                                    action="/es/tips_for_new_guides"><button class="anchor component-footer"
-                                                        type="submit">Consejos útiles para guías nuevos
-                                                    </button></form>
-                                            </li>
-                                            <li class="mb-3">
-                                                <form target="_blank" class="button_to_inline" method="get"
-                                                    action="https://www.facebook.com/groups/freewalkingtourguides"><button
-                                                        class="anchor component-footer" type="submit">Grupo de Facebook
-                                                    </button></form>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-3 d-block d-md-none">
-                                        <div class="container-separator">
-                                            <div class="separator"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <p class="component-footer-title">
-                                            Walkers
-                                        </p>
-                                        <ul class="list-layout-components mt-3">
-                                            <li class="mb-3">
-                                                <form target="_blank" class="button_to_inline" method="get"
-                                                    action="https://support.guruwalk.com/portal/es/kb/soporte-para-viajeros">
-                                                    <button class="anchor component-footer" type="submit">Centro de ayuda
-                                                        para viajeros
-                                                    </button></form>
-                                            </li>
-                                            <li class="mb-3">
-                                                <form class="button_to_inline" method="get"
-                                                    action="https://www.guruwalk.com/es/free-tours"><button
-                                                        class="anchor component-footer" type="submit">Mapa del sitio
-                                                    </button></form>
-                                            </li>
-                                            <li class="mb-3">
-                                                <form target="_blank" class="button_to_inline " method="get"
-                                                    action="https://www.guruwalk.com/blog/free-tour-precio-legal/"><button
-                                                        class="anchor component-footer" type="submit">Free walking tour:
-                                                        concepto, legalidad y consejos
-                                                    </button></form>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-3 d-block d-md-none">
-                                        <div class="container-separator">
-                                            <div class="separator"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 mb-2">
-                                        <p class="component-footer-title">
-                                            GuruWalk
-                                        </p>
-                                        <ul class="list-layout-components mt-3">
-                                            <li class="mb-3">
-                                                <form target="_blank" class="button_to_inline" method="get"
-                                                    action="https://guruwalk.typeform.com/contactanos"><button
-                                                        class="anchor component-footer" type="submit">Contacta con GuruWalk
-                                                    </button></form>
-                                            </li>
-                                            <li class="mb-3">
-                                                <form target="_blank" class="button_to_inline" method="get"
-                                                    action="https://support.guruwalk.com/portal/es/kb/articles/qu%C3%A9-es-guruwalk">
-                                                    <button class="anchor component-footer" type="submit">Sobre GuruWalk
-                                                    </button></form>
-                                            </li>
-                                            <li class="mb-3">
-                                                <form target="_blank" class="button_to_inline" method="get"
-                                                    action="https://prensa.guruwalk.com/"><button
-                                                        class="anchor component-footer" type="submit">Prensa
-                                                    </button></form>
-                                            </li>
-                                            <li class="mb-3">
-                                                <form target="_blank" class="button_to_inline" method="get"
-                                                    action="https://www.guruwalk.com/contents/landings/trabaja-con-nosotros/">
-                                                    <button class="anchor component-footer" type="submit">Trabaja con
-                                                        nosotros
-                                                    </button></form>
-                                            </li>
-                                            <li class="mb-3">
-                                                <form target="_blank" class="button_to_inline" method="get"
-                                                    action="/es/afiliados"><button class="anchor component-footer"
-                                                        type="submit">Programa de afiliados y alojamientos turísticos
-                                                    </button></form>
-                                            </li>
-                                            <li class="mb-3">
-                                                <form target="_blank" class="button_to_inline" method="get"
-                                                    action="https://www.guruwalk.com/blog/es/"><button
-                                                        class="anchor component-footer" type="submit">Blog
-                                                    </button></form>
-                                            </li>
-                                            <li class="mb-3">
-                                                <form target="_blank" class="button_to_inline" method="get"
-                                                    action="https://discover.guruwalk.com/"><button
-                                                        class="anchor component-footer" type="submit">Discover GuruWalk
-                                                    </button></form>
-                                            </li>
-                                            <li class="mb-3">
-                                                <form target="_blank" class="button_to_inline" method="get"
-                                                    action="https://support.guruwalk.com/portal/es/kb/articles/cofinanciado-con-fondos-europeos">
-                                                    <button class="anchor component-footer" type="submit">Cofinanciado con
-                                                        fondos europeos
-                                                    </button></form>
-                                            </li>
-                                            <li class="mb-3">
-                                                <a target="_blank" class="anchor component-footer"
-                                                    form_class="button_to_inline" href="https://gurusup.com">GuruSup
-                                                </a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-3 mb-2">
-                                        <div class="locale-selector-container with-text m-0">
-                                            <div class="btn-group locale-selector" role="group">
-                                                <button aria-expanded="false" aria-haspopup="true"
-                                                    class="btn btn-default dropdown-toggle listing-dropdown-languages"
-                                                    data-bs-toggle="dropdown" data-locale="es" type="button">
-                                                    <img class="flag " loading="lazy" alt="Español"
-                                                        src="https://assets.guruwalk.com/assets/flags/flag_es-8ac05307e9836a481a32e9d2bcfa3ca22f820a0958db1e9f778aa19f1326646d.png"
-                                                        width="24" height="18">
-                                                    <span class="text">
-                                                        Español
-                                                    </span>
-                                                    <span class="caret"></span>
-                                                </button>
-                                                <ul aria-labelledby="languageSelector" class="dropdown-menu">
-                                                    <a class="root-language-link" onclick="avoidLocaleRedirection()"
-                                                        href="/walks/31777-the-unmissable-rome">
-                                                        <li class="lang-option">
-                                                            <span class="text-muted">
-                                                                <img class="flag " loading="lazy" alt="Inglés"
-                                                                    src="https://assets.guruwalk.com/assets/flags/flag_en-4d29ac0d2cc8654c8e87bfbc5a0b8d93754a9d2106a0e83cb7db097009bd9418.png"
-                                                                    width="24" height="18">
-                                                                <span class="text">
-                                                                    English
-                                                                </span>
-                                                            </span>
-                                                        </li>
-                                                    </a><a class="" onclick="" href="/it/walks/31777-l-imperdibile-roma">
-                                                        <li class="lang-option">
-                                                            <span class="text-muted">
-                                                                <img class="flag " loading="lazy" alt="Italiano"
-                                                                    src="https://assets.guruwalk.com/assets/flags/flag_it-95174041bf02a1c6fbe49e9be31b2a5b65f7db87cfc6b66dcf468254721a5dab.png"
-                                                                    width="24" height="18">
-                                                                <span class="text">
-                                                                    Italiano
-                                                                </span>
-                                                            </span>
-                                                        </li>
-                                                    </a><a class="" onclick="" href="/de/walks/31777-das-unumgangliche-rom">
-                                                        <li class="lang-option">
-                                                            <span class="text-muted">
-                                                                <img class="flag " loading="lazy" alt="Alemán"
-                                                                    src="https://assets.guruwalk.com/assets/flags/flag_de-dc4105b8f953f59afc088f10113e9de183e012d26fc90c9a750bee8069d64763.png"
-                                                                    width="24" height="18">
-                                                                <span class="text">
-                                                                    Deutsch
-                                                                </span>
-                                                            </span>
-                                                        </li>
-                                                    </a></ul>
-                                            </div>
-                                        </div>
-                                        <script>
-                                            function avoidLocaleRedirection() {
-                                                docCookies.setItem('avoid_locale_redirection', 1,
-                                                    'Fri, 31 Dec 9999 23:59:59 GMT', '/');
-                                            }
-                                        </script>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="container-fluid container-separator">
-                            <div class="separator"></div>
-                        </div>
-                        <div class="container-fluid d-none d-lg-block">
-                            <div class="d-flex align-items-center">
-                                <div class="me-3">
-                                    <img loading="lazy" title="version: 2.0.348" src="https://assets.guruwalk.com/assets/logo-footer-06b9bce39c414a841f9160046148c2d78728e782917aa4f956b19065fbdc6c98.png"
-                                        width="25" height="25">
-                                </div>
-                                <span class="component-footer">
-                                    © GuruWalk SL
-                                </span>
-                                <div class="ms-auto d-flex align-items-center">
-                                    <form target="_blank" class="button_to_inline mx-2 my-0" method="get"
-                                        action="/es/terms/legal_notice"><button class="anchor component-footer"
-                                            type="submit">Aviso legal
-                                        </button></form><span class="component-footer">
-                                        ·
-                                    </span>
-                                    <form target="_blank" class="button_to_inline mx-2 my-0" method="get"
-                                        action="/es/terms/terms_policy"><button class="anchor component-footer"
-                                            type="submit">Términos
-                                        </button></form><span class="component-footer">
-                                        ·
-                                    </span>
-                                    <form target="_blank" class="button_to_inline mx-2 my-0" method="get"
-                                        action="/es/terms/privacy_policy"><button class="anchor component-footer"
-                                            type="submit">Privacidad
-                                        </button></form><span class="component-footer">
-                                        ·
-                                    </span>
-                                    <form target="_blank" class="button_to_inline mx-2 my-0" method="get"
-                                        action="/es/terms/cookie_policy"><button class="anchor component-footer"
-                                            type="submit">Cookies
-                                        </button></form>
-                                    <form target="_blank" class="button_to_inline ms-4 me-2 my-0" method="get"
-                                        action="https://www.facebook.com/guruwalk/"><button aria-label="Facebook"
-                                            class="anchor component-footer" type="submit"><svg
-                                                class="svg-inline--fa fa-facebook-f fa-w-10" aria-hidden="true"
-                                                focusable="false" data-prefix="fab" data-icon="facebook-f" role="img"
-                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg="">
-                                                <path fill="currentColor"
-                                                    d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z">
-                                                </path>
-                                            </svg><!-- <i class="fab fa-facebook-f"></i> Font Awesome fontawesome.com -->
-                                        </button></form>
-                                    <form target="_blank" class="button_to_inline ms-4 me-2 my-0" method="get"
-                                        action="https://www.instagram.com/guruwalk.es"><button aria-label="Instagram"
-                                            class="anchor component-footer" type="submit"><svg
-                                                class="svg-inline--fa fa-instagram fa-w-14" aria-hidden="true"
-                                                focusable="false" data-prefix="fab" data-icon="instagram" role="img"
-                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg="">
-                                                <path fill="currentColor"
-                                                    d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z">
-                                                </path>
-                                            </svg><!-- <i class="fab fa-instagram"></i> Font Awesome fontawesome.com -->
-                                        </button></form>
-                                    <form target="_blank" class="button_to_inline ms-4 me-2 my-0" method="get"
-                                        action="https://www.tiktok.com/@guruwalk"><button aria-label="TikTok"
-                                            class="anchor component-footer" type="submit"><svg
-                                                class="svg-inline--fa fa-tiktok fa-w-14" aria-hidden="true"
-                                                focusable="false" data-prefix="fab" data-icon="tiktok" role="img"
-                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg="">
-                                                <path fill="currentColor"
-                                                    d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z">
-                                                </path>
-                                            </svg><!-- <i class="fab fa-tiktok"></i> Font Awesome fontawesome.com -->
-                                        </button></form>
-                                    <form target="_blank" class="button_to_inline ms-4 me-2 my-0" method="get"
-                                        action="https://twitter.com/guruwalk"><button aria-label="Twitter"
-                                            class="anchor component-footer" type="submit"><svg
-                                                class="svg-inline--fa fa-twitter fa-w-16" aria-hidden="true"
-                                                focusable="false" data-prefix="fab" data-icon="twitter" role="img"
-                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="">
-                                                <path fill="currentColor"
-                                                    d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z">
-                                                </path>
-                                            </svg><!-- <i class="fab fa-twitter"></i> Font Awesome fontawesome.com -->
-                                        </button></form>
-                                    <form target="_blank" class="button_to_inline ms-4 my-0" method="get"
-                                        action="https://www.youtube.com/channel/UCCe5x6fnK9CQVHjnS8Kj18g"><button
-                                            aria-label="Youtube" class="anchor component-footer" type="submit"><svg
-                                                class="svg-inline--fa fa-youtube fa-w-18" aria-hidden="true"
-                                                focusable="false" data-prefix="fab" data-icon="youtube" role="img"
-                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" data-fa-i2svg="">
-                                                <path fill="currentColor"
-                                                    d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z">
-                                                </path>
-                                            </svg><!-- <i class="fab fa-youtube"></i> Font Awesome fontawesome.com -->
-                                        </button></form>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="container-fluid d-block d-lg-none mb-4">
-                            <div class="row gw-items">
-                                <div class="col-12 d-flex align-items-center justify-content-center">
-                                    <div class="d-flex align-items-center">
-                                        <img loading="lazy" class="logo-footer" title="version: 2.0.348" src="https://assets.guruwalk.com/assets/logo-footer-06b9bce39c414a841f9160046148c2d78728e782917aa4f956b19065fbdc6c98.png"
-                                            width="25" height="25">
-                                        <span class="component-footer">
-                                            © GuruWalk SL
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row gw-items">
-                                <div class="col-12 d-flex align-items-center justify-content-center">
-                                    <form target="_blank" class="button_to_inline my-0 ms-3 me-2" method="get"
-                                        action="https://www.facebook.com/guruwalk/"><button aria-label="Facebook"
-                                            class="anchor component-footer" type="submit"><svg aria-hidden="true"
-                                                class="svg-inline--fa fa-facebook-f fa-w-10" focusable="false"
-                                                data-prefix="fab" data-icon="facebook-f" role="img"
-                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg="">
-                                                <path fill="currentColor"
-                                                    d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z">
-                                                </path>
-                                            </svg>
-                                            <!-- <i aria-hidden="true" class="fab fa-facebook-f"></i> Font Awesome fontawesome.com -->
-                                        </button></form>
-                                    <form target="_blank" class="button_to_inline my-0 ms-3 me-2" method="get"
-                                        action="https://www.instagram.com/guruwalk.es"><button aria-label="Istagram"
-                                            class="anchor component-footer" type="submit"><svg aria-hidden="true"
-                                                class="svg-inline--fa fa-instagram fa-w-14" focusable="false"
-                                                data-prefix="fab" data-icon="instagram" role="img"
-                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg="">
-                                                <path fill="currentColor"
-                                                    d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z">
-                                                </path>
-                                            </svg>
-                                            <!-- <i aria-hidden="true" class="fab fa-instagram"></i> Font Awesome fontawesome.com -->
-                                        </button></form>
-                                    <form target="_blank" class="button_to_inline my-0 ms-3 me-2" method="get"
-                                        action="https://www.tiktok.com/@guruwalk"><button aria-label="TikTok"
-                                            class="anchor component-footer" type="submit"><svg aria-hidden="true"
-                                                class="svg-inline--fa fa-tiktok fa-w-14" focusable="false" data-prefix="fab"
-                                                data-icon="tiktok" role="img" xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 448 512" data-fa-i2svg="">
-                                                <path fill="currentColor"
-                                                    d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z">
-                                                </path>
-                                            </svg>
-                                            <!-- <i aria-hidden="true" class="fab fa-tiktok"></i> Font Awesome fontawesome.com -->
-                                        </button></form>
-                                    <form target="_blank" class="button_to_inline my-0 ms-3 me-2" method="get"
-                                        action="https://twitter.com/guruwalk"><button aria-label="Twitter"
-                                            class="anchor component-footer" type="submit"><svg aria-hidden="true"
-                                                class="svg-inline--fa fa-twitter fa-w-16" focusable="false"
-                                                data-prefix="fab" data-icon="twitter" role="img"
-                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="">
-                                                <path fill="currentColor"
-                                                    d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z">
-                                                </path>
-                                            </svg>
-                                            <!-- <i aria-hidden="true" class="fab fa-twitter"></i> Font Awesome fontawesome.com -->
-                                        </button></form>
-                                    <form target="_blank" class="button_to_inline m-0 my-0 ms-3 me-2" method="get"
-                                        action="https://www.youtube.com/channel/UCCe5x6fnK9CQVHjnS8Kj18g"><button
-                                            aria-label="Youtube" class="anchor component-footer" type="submit"><svg
-                                                aria-hidden="true" class="svg-inline--fa fa-youtube fa-w-18"
-                                                focusable="false" data-prefix="fab" data-icon="youtube" role="img"
-                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" data-fa-i2svg="">
-                                                <path fill="currentColor"
-                                                    d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z">
-                                                </path>
-                                            </svg>
-                                            <!-- <i aria-hidden="true" class="fab fa-youtube"></i> Font Awesome fontawesome.com -->
-                                        </button></form>
-                                </div>
-                            </div>
-                            <div class="row text-center">
-                                <div class="col-12 d-flex align-items-center justify-content-center">
-                                    <form target="_blank" class="button_to_inline mx-2 my-0" method="get"
-                                        action="/es/terms/legal_notice"><button class="anchor component-footer"
-                                            type="submit">Aviso legal
-                                        </button></form><span class="component-footer">
-                                        ·
-                                    </span>
-                                    <form target="_blank" class="button_to_inline mx-2 my-0" method="get"
-                                        action="/terms/privacy_policy"><button class="anchor component-footer"
-                                            type="submit">Privacidad
-                                        </button></form><span class="component-footer">
-                                        ·
-                                    </span>
-                                    <form target="_blank" class="button_to_inline mx-2 my-0" method="get"
-                                        action="/terms/privacy_policy"><button class="anchor component-footer"
-                                            type="submit">Términos
-                                        </button></form><span class="component-footer">
-                                        ·
-                                    </span>
-                                    <form target="_blank" class="button_to_inline mx-2 my-0" method="get"
-                                        action="/terms/privacy_policy"><button class="anchor component-footer"
-                                            type="submit">Cookies
-                                        </button></form>
-                                </div>
-                            </div>
-                            <br>
-                            <br>
-                        </div>
-
-                    </footer>
-                </div>
-            </div>
-        </div>
 
         <div class="bottom-bar d-lg-none d-none">
             <div class="bottom-bar-section ">

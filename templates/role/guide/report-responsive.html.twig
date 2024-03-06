@@ -1,0 +1,188 @@
+{% extends 'views/main.html.twig' %}
+
+{% block pagescripts %}
+    <!-- Page scripts -->
+    <script src="{{ asset('js/reportScript.js') }}"></script>
+{% endblock %}
+
+{% block pagestylesheets %}
+    <!-- Page style sheet -->
+    <link href="{{ asset('css/reportStyle-responsive.css') }}" rel="stylesheet">
+        <style>
+        nav {
+            position: relative !important;
+        }
+        #tour-list {
+            overflow-y: auto;
+            max-height: 78vh;
+            border-top: 1px solid;
+        }
+        .tour {
+            >div {
+                border-radius: 20px;
+            }
+            img {
+                border-top-left-radius: 10px;
+                border-bottom-left-radius: 10px;
+            }
+
+            .route, .guide {
+                /*background-color: lightgray;*/
+                background-color: #7c7c7c;
+            }
+            .route.img, .guide.img {
+                border-top-left-radius: 10px;
+                border-bottom-left-radius: 10px;
+            }
+            .route.text, .guide.text {
+                border-top-right-radius: 10px;
+                border-bottom-right-radius: 10px;
+            }
+            
+            p {
+                color: white;
+                font-size: 1em; /* Tamaño base */
+            }
+
+            @media (max-width: 576px) { /* Pantallas pequeñas */
+                p {
+                    font-size: 0.8em; /* Reducción del tamaño para dispositivos pequeños */
+                }
+                div.tour input[type="number"] {
+                    width: 3.2em;
+                }
+                div.row.btnsPlusMinus {
+                    >span.input-group-btn {
+                        width: auto !important;
+                        padding: 0 !important;
+                        margin: 0 !important;
+                    }
+                }
+                .input_number_assistants {
+                    width: auto !important;
+                    padding: 0 !important;
+                    margin: 0 !important;
+
+                    padding-left: 1em !important;
+                }
+                p.h4.text-decoration-none {
+                    font-size: 3.6em;
+                    padding: 0;
+                    margin: 0;
+                    margin-top: .6em;
+                }
+            }
+
+        }
+    </style>
+{% endblock %}
+
+{% block title %}Realizar informe{% endblock %}
+
+{% block main %}
+    <hr>
+    <h1 class="h3 mt-3 text-center text-white">Tours de hoy</h1>
+    {# <hr class="my-4"> #}
+    
+    <div id="tour-list">
+
+    </div>
+
+    <div id="form">
+        <!-- formulario_report.html -->
+        <form action="/api/report/insert" method="post" enctype="multipart/form-data">
+            <div class="row mx-lg-5 px-lg-4 mx-sm-0 px-sm-1">
+                <div class="col-6">
+                    <div class="row">
+                        <label for="image">Imagen grupal:</label>
+                    </div>
+                    <div class="row">
+                        <input type="file" name="image" id="image">
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="row">
+                    <label for="money">Dinero recaudado:</label>
+                    </div>
+                    <div class="row">
+                        <div class="col-10 d-flex justify-content-center">
+                            <input type="text" name="money" id="money"><span style="font-size: 2em;">€</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <label for="observation">Observaciones:</label>
+                    <textarea name="observation" id="observation"></textarea><br>
+                </div>
+
+                <div class="col-12">
+                    <div class="row gap-2" name="assistants" id="reservations">
+                    <!--
+                        {% for reservation in reservations %}
+                            <div class="reservation col-lg-3 col-sm-5" data-id="{{ reservation.id }}">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <img src="/uploads/images/{{ reservation.client.photo }}" alt="client photo for reservation: {{ reservation.id }}">
+                                        <p>{{ reservation.client.fullname }}</p>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <p>{{ reservation.getNumberTickets }}</p>
+                                        {# <input type="number" name="assistants[{{ reservation.id }}]" value="{{ reservation.getNumberTickets() }}"> #}
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" data-increment="1">
+                                                <i class="fa-solid fa-plus"></i>
+                                            </button>
+                                        </span>
+                                        <input name="assistants[{{ reservation.id }}]" type="number" class="form-control input-xs" min="1" max="10" value="{{ reservation.getNumberTickets() }}">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" data-increment="-1">
+                                                <i class="fa-solid fa-minus"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    -->
+                        
+                        {% for reservation in reservations %}
+                            <div name="tour" class="tour col-lg-3 g-4 col-sm-5" data-id="{{ reservation.id }}">
+                                {# Tour #}
+                                <div class="row justify-content-center product-item bg-light mb-4 py-3 px-1">
+                                    {# ROUTE #}
+                                    <div class="route img col-5 product-img d-flex align-items-center position-relative overflow-hidden my-1 px-0 ms-1">
+                                        <img class="img-fluid w-100" src="/uploads/images/{{ reservation.client.photo }}" alt="imágen de ruta">
+                                        <p>{{ reservation.client.fullname }}</p>
+                                    </div>
+                                    <div class="route text col-6 text-center py-4 my-1">
+                                        <div class="row btnsPlusMinus d-flex justify-content-center align-items-center">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" data-increment="1">
+                                                    <i class="fa-solid fa-plus"></i>
+                                                </button>
+                                            </span>
+                                            <input name="assistants[{{ reservation.id }}]" type="number" class="input_number_assistants form-control input-xs" min="1" max="10" value="{{ reservation.getNumberTickets() }}">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" data-increment="-1">
+                                                    <i class="fa-solid fa-minus"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                        <div class="row">
+                                            <p class="h4 text-decoration-none">{{ reservation.getNumberTickets }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+
+            <input type="submit" value="Enviar">
+        </form>
+    </div>
+{% endblock %}

@@ -78,6 +78,12 @@ class RegistrationController extends AbstractController
         ]);
     }
 
+    #[Route('/newregister', name: 'new-action-register')]
+    public function newRegister(): Response
+    {
+        return $this->render('registration/new-register.html.twig');
+    }
+
     #[Route('/verify/email', name: 'app_verify_email')]
     public function verifyUserEmail(Request $request, TranslatorInterface $translator, UserRepository $userRepository): Response
     {

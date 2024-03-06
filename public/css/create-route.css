@@ -91,32 +91,29 @@ div[name="information"] /*,fieldset[name="information"]*//*, fieldset[name="conf
     input[name="name"]  { grid-area: 2 / 1 / 3 / 2; }
     label#name-error    { grid-area: 2 / 1 / 3 / 2; margin-top: 2em; display: none; }
 
-    /* Description TODO 4*/
     label[for="description"]    { grid-area: 4 / 1 / 5 / 5; }
     div.richText                { grid-area: 5 / 1 / 9 / 5; }
     /* textarea[name="description"] { grid-area: 4 / 3 / 8 / 5; } */
     label#description-error     { grid-area: 8 / 1 / 9 / 5; margin-top: 2em; display: none; }
 
-    /* Upload images TODO 3*/
     label[for="upload-image"]   { grid-area: 4 / 5 / 5 / 7; }
     div[name="upload-image"]    { grid-area: 5 / 5 / 9 / 7; }
     label#upload-image-error    { grid-area: 8 / 5 / 9 / 7; margin-top: 2em; display: none; }
 
     /* Mapa */
-    button[name="btnOpenMap"]   { grid-area: 1 / 2 / 4 / 3; }
-    i[name="btnOpenMap"]        { grid-area: 1 / 2 / 4 / 3; border-radius: 20px; padding: 6px;}
-    label#btnOpenMap-error      { grid-area: 3 / 2 / 4 / 3; margin-top: 1em !important; display: none; text-align: center; }
+    button[name="btnOpenMap"]   { grid-area: 1 / 5 / 4 / 6; }
+    i[name="btnOpenMap"]        { grid-area: 1 / 5 / 4 / 6; border-radius: 20px; padding: 6px;}
+    label#btnOpenMap-error      { grid-area: 3 / 5 / 4 / 6; margin-top: 1em !important; display: none; text-align: center; }
     
     /* Capacity */
-    label[for="capacity"]   { grid-area: 1 / 5 / 2 / 6; }
-    input[name="capacity"]  { grid-area: 2 / 5 / 3 / 6; }
-    /* input[name="capacity"] { grid-area: 1 / 4 / 2 / 5; } */
-    label#capacity-error    { grid-area: 2 / 5 / 3 / 6; margin-top: 2em; }
+    label[for="capacity"]   { grid-area: 1 / 4 / 2 / 5; }
+    input[name="capacity"]  { grid-area: 2 / 4 / 3 / 5; }
+    label#capacity-error    { grid-area: 2 / 4 / 3 / 5; margin-top: 2em; }
     
     /* Range dates */
-    label[for="daterange"]  { grid-area: 1 / 3 / 2 / 4; }
-    input[name="daterange"] { grid-area: 2 / 3 / 3 / 5; }
-    label#daterange-error   { grid-area: 2 / 5 / 3 / 6; margin-top: 2em; }
+    label[for="daterange"]  { grid-area: 1 / 2 / 2 / 4; }
+    input[name="daterange"] { grid-area: 2 / 2 / 3 / 4; }
+    label#daterange-error   { grid-area: 2 / 2 / 3 / 4; margin-top: 2em; }
 }
 
 /* Items */

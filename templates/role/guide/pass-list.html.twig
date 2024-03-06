@@ -1,0 +1,32 @@
+{% extends 'views/main.html.twig' %}
+
+{% block pagescripts %}
+    <!-- Page scripts -->
+    {# <script src="{{ asset('js/report-list-tourScript.js') }}"></script> #}
+{% endblock %}
+
+{% block pagestylesheets %}
+    <!-- Page style sheet -->
+    <link href="{{ asset('css/report-list-tourStyle.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}Lista de tours{% endblock %}
+
+{% block main %}
+    <hr>
+    <h1 class="h3 mt-3 text-center text-white">Tours de hoy</h1>
+    {# <hr class="my-4"> #}
+    
+    <div id="tour-list">
+    
+        <p>Tours:</p>
+        <ul name="tours" id="tours">
+            {% for tour in tours %}
+                <li data-id="{{tour.id}}">
+                    <a href="/report/do/{{ tour.id }}">{{ tour.route.name }} a las {{tour.getDatetimeFormated}}</a>
+                </li>
+            {% endfor %}
+        </ul><br>
+    
+    </div>
+{% endblock %}

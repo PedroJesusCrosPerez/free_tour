@@ -8,25 +8,100 @@
 {% block pagestylesheets %}
     <!-- Page style sheet -->
     <link href="{{ asset('css/report-list-tourStyle.css') }}" rel="stylesheet">
+    <style>
+        nav {
+            position: relative !important;
+        }
+        #tour-list {
+            overflow-y: auto;
+            max-height: 78vh;
+            border-top: 1px solid;
+        }
+        .tour {
+            >a>div {
+                border-radius: 20px;
+            }
+            img {
+                border-top-left-radius: 10px;
+                border-bottom-left-radius: 10px;
+            }
+
+            .route, .guide {
+                /*background-color: lightgray;*/
+                background-color: #7c7c7c;
+            }
+            .route.img, .guide.img {
+                border-top-left-radius: 10px;
+                border-bottom-left-radius: 10px;
+            }
+            .route.text, .guide.text {
+                border-top-right-radius: 10px;
+                border-bottom-right-radius: 10px;
+            }
+            
+            p {
+                color: white;
+                font-size: 1em; /* Tamaño base */
+            }
+
+            @media (max-width: 576px) { /* Pantallas pequeñas */
+                p {
+                    font-size: 0.8em; /* Reducción del tamaño para dispositivos pequeños */
+                }
+            }
+
+        }
+
+        .tour:hover {
+            cursor: pointer;
+            opacity: .7;
+        }
+    </style>
 {% endblock %}
 
 {% block title %}Lista de tours{% endblock %}
 
 {% block main %}
-    <hr>
+<hr class="p-0 m-0">
     <h1 class="h3 mt-3 text-center text-white">Tours de hoy</h1>
     {# <hr class="my-4"> #}
     
-    <div id="tour-list">
+    <div id="tour-list" class="row gap-2 justify-content-around mx-4">
     
-        <p>Tours:</p>
+        {# <p>Tours:</p>
         <ul name="tours" id="tours">
             {% for tour in tours %}
                 <li data-id="{{tour.id}}">
                     <a href="/report/do/{{ tour.id }}">{{ tour.route.name }} a las {{tour.getDatetimeFormated}}</a>
                 </li>
             {% endfor %}
-        </ul><br>
+        </ul><br> #}
+
+        {% for tour in tours %}
+            <div name="tour" class="tour col-lg-3 g-4 col-sm-5" data-id="{{ tour.id }}">
+                <a href="/report/do/{{ tour.id }}">
+                {# Tour #}
+                <div class="row justify-content-center product-item bg-light mb-4 py-3 px-1">
+                    {# ROUTE #}
+                    <div class="route img col-5 product-img d-flex align-items-center position-relative overflow-hidden my-1 px-0 ms-1">
+                        <img class="img-fluid w-100" src="{{ tour.route.photo }}" alt="imágen de ruta">
+                    </div>
+                    <div class="route text col-6 text-center py-4 my-1">
+                        {# <p class="h4 text-decoration-none text-truncate">{{ reservation.getTour().getRoute() }}</p> #}
+                        <p class="h4 text-decoration-none">{{ tour.route.name }}<br>{{tour.getDatetimeFormated}}</p>
+                    </div>
+
+                    {# GUIDE #}
+                    {# <div class="guide img col-5 product-img position-relative overflow-hidden my-1 px-0 ms-1">
+                        <img class="img-fluid w-100" src="/uploads/images/{{ tour.guide.photo }}" alt="imágen de guía">
+                    </div>
+                    <div class="guide text col-6 text-center py-4 my-1">
+                        <p class="h4 text-decoration-none">{{ tour.guide.getFormalName() }}</p>
+                    </div> #}
+                </div>
+                </a>
+            </div>
+        {% endfor %}
     
     </div>
 {% endblock %}

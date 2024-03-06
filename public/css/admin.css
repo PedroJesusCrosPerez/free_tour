@@ -70,6 +70,8 @@ section#main {
     color: var(--button-secondary-focus-color);
 }
 :root {
+    --dropdown-settings-active-item-bg: #87b0c0 !important; /* Selected mode (light.active/dark) */
+    --dropdown-link-hover-bg: #9dbcc9 !important;
     --body-bg: #6998AB !important; /* body background */
 
     /* FORM */
@@ -103,9 +105,12 @@ section#main {
     --form-switch-border-color: #13293a !important; /* Border checkbox */
 
         /* Table */
-    --table-hover-cell-bg: #97c3d5 !important; /* table tbody>tr:hover */
+    --table-hover-cell-bg: #6f98a8 !important; /* table tbody>tr:hover */
     --link-color: rgba(255, 255, 255, 0.8) !important; /* a from email */
     --link-hover-color: rgb(221, 232, 255) !important; /* a:hover from email */
+
+    --dropdown-toggle-bg: #7fa4b3 !important;
+    --dropdown-bg: #7fa4b3 !important;
 
 
     
@@ -115,4 +120,40 @@ tr:hover {
     dropdown dropdown-actions {
         background-color: #e8f9ff !important;
     }
+}
+
+.datagrid .ea-lightbox-thumbnail img {
+    background: #578597 !important;
+}
+
+
+/* ################################################################ */
+/* ################################################################ */
+/* ######################### CREATE ROUTE ######################### */
+/* ################################################################ */
+/* ################################################################ */
+form#create-route>div {
+    background-color: #85a5b3;
+
+    ul:first-of-type {
+        background-color: #5b7d8b;
+
+        li.ui-tabs-tab.ui-corner-top.ui-state-default.ui-tab {
+            background-color: #6c8d9b;
+            border-color: #506872;
+        }
+
+        li.ui-tabs-tab.ui-corner-top.ui-state-default.ui-tab.ui-tabs-active.ui-state-active {
+            background-color: #218ca7;
+            border-color: #407288;
+        }
+    }
+}
+
+div.ui-dialog-titlebar.ui-corner-all.ui-widget-header.ui-helper-clearfix.ui-draggable-handle {
+    background-color: #5b7d8b;
+}
+#mapModal {
+    background-color: #6c8d9b;
+    border-color: #506872;
 }

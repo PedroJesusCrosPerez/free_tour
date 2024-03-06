@@ -1,0 +1,55 @@
+#form {
+    width: 100%; /* Ajusta el ancho del formulario según tus necesidades */
+    margin: 0 auto; /* Centra el formulario horizontalmente en la página */
+    padding: 20px; /* Agrega un espacio alrededor del formulario */
+
+    >form>div.row {
+        border: 1px solid #ccc; /* Agrega un borde alrededor del formulario */
+        border-radius: 5px; /* Agrega esquinas redondeadas al formulario */
+    }
+  }
+  
+  label {
+    display: block; /* Hace que las etiquetas estén en una línea separada */
+    margin-bottom: 5px; /* Agrega espacio entre las etiquetas y los campos de entrada */
+  }
+  
+  input[type="text"],
+  input[type="file"],
+  textarea {
+    width: 100%; /* Ajusta el ancho de los campos de entrada y área de texto al 100% del contenedor */
+    padding: 10px; /* Agrega espacio dentro de los campos de entrada y área de texto */
+    margin-bottom: 10px; /* Agrega espacio entre los campos de entrada y área de texto */
+    border: 1px solid #ccc; /* Agrega un borde alrededor de los campos de entrada y área de texto */
+    border-radius: 5px; /* Agrega esquinas redondeadas a los campos de entrada y área de texto */
+  }
+
+  /* label[for="money"], input#money, 
+  label[for="image"], input#image 
+  { width: 40%; } */
+  
+  textarea {
+    resize: vertical; /* Permite que el área de texto se redimensione verticalmente */
+  }
+  
+  span {
+    margin-left: 5px; /* Agrega espacio entre el campo de entrada de dinero y el símbolo de euro */
+  }
+  
+  .reservation {
+    display: flex; /* Usa el modelo de caja flex para alinear elementos internos */
+    align-items: center; /* Alinea verticalmente los elementos dentro de la reserva */
+    margin-bottom: 10px; /* Agrega espacio entre cada reserva */
+
+    input {
+        width: 3.2em !important;
+    }
+  }
+  
+  .reservation img {
+    width: 50px; /* Define el ancho de la imagen del cliente */
+    height: 50px; /* Define la altura de la imagen del cliente */
+    border-radius: 50%; /* Hace que la imagen del cliente tenga forma de círculo */
+    margin-right: 10px; /* Agrega espacio entre la imagen del cliente y el texto */
+  }
+  

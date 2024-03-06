@@ -96,10 +96,10 @@
                     <div name="reservation" class="col-lg-12 col-sm-6 pb-1" data-id="{{ reservation.id }}">
                         {# Tour #}
                         <div class="row product-item bg-light mb-4">
-                            <div class="col-6 product-img position-relative overflow-hidden">
+                            <div class="col-lg-6 col-sm-12 product-img position-relative overflow-hidden">
                                 <img class="img-fluid w-100" src="{{ reservation.getRoutePhoto() }}" alt="imágen de ruta">
                             </div>
-                            <div class="col-6 text-center py-4">
+                            <div class="col-lg-6 col-sm-12 text-center py-4">
                                 <p class="h4 text-decoration-none text-truncate">{{ reservation.getTour().getRoute() }}</p>
                                 <p class="h4 text-decoration-none">Día {{ reservation.getDate() }} a las {{ reservation.getTime() }}</p>
 
@@ -119,10 +119,10 @@
                         </div>
                         {# Guide #}
                         <div class="row product-item bg-light mb-4">
-                            <div class="col-6 product-img position-relative overflow-hidden">
+                            <div class="col-lg-6 col-sm-12 product-img position-relative overflow-hidden">
                                 <img class="img-fluid w-100" src="/uploads/images/{{ reservation.getTour().getGuide().getPhoto() }}" alt="imágen de guía">
                             </div>
-                            <div class="col-6 text-center py-4">
+                            <div class="col-lg-6 col-sm-12 text-center py-4">
                                 <p class="h4 text-decoration-none text-truncate">{{ reservation.getTour().getGuide() }}</p>
 
                                 <fieldset class="rating">

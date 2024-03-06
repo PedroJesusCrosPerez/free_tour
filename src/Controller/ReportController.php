@@ -50,6 +50,18 @@ class ReportController extends AbstractController
         ]);
     }
     
+    
+    #[Route('/do/responsive', name: 'do', methods: ['GET'])]
+    public function doResponsive(): Response
+    {
+        $tour = $this->entityManagerInterface->getRepository(Tour::class)->find(30);
+        $reservations = $tour->getReservations();
+
+        return $this->render('role/guide/report-responsive.html.twig', [
+            'reservations' => $reservations,
+        ]);
+    }
+    
     #[Route('/send', name: 'send', methods: ['GET'])]
     public function send(Request $request): Response
     {

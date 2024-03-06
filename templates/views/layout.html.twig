@@ -65,6 +65,26 @@
         </script>
         <script src="{{ asset('js/template/custom.js') }}"></script>
     {# {% endif %} #}
+
+    <script>
+        $(function() {
+            // Crear el snackbar
+            var snackbar = $("<div id='snackbar'>No existen rutas que mostrar</div>");
+            
+            // Agregar el snackbar al body del documento
+            $("body").append(snackbar);
+            
+            // Detectar la pulsación de la tecla 'p'
+            $(document).keydown(function(event) {
+                if (event.key === "p") {
+                // Mostrar el snackbar
+                snackbar.addClass("show");
+                // Ocultar el snackbar después de 3 segundos
+                setTimeout(function(){ snackbar.removeClass("show"); }, 3000);
+                }
+            });
+        });
+    </script>
 {% endblock %}
 
 {% block headnavstylesheets %}{% endblock %}
@@ -87,8 +107,8 @@
     {% endblock %}
 
     {# {% if app.request.attributes.get('_route') == 'home' %} #}
-		{% block footer %}
+		{# {% block footer %}
             {% include 'views/footer.html.twig' %}
-        {% endblock %}
+        {% endblock %} #}
 	{# {% endif %} #}
 {% endblock %}

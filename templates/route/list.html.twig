@@ -142,6 +142,14 @@
         .startSelected {
             color: #FFED85;
         }
+
+        
+        /* RESPONSIVE */
+        {# @media (min-width: 576px) {
+            div[name="filtersAndControls"] {
+                flex-direction: column;
+            }
+        } #}
     </style>
 {% endblock %}
 
@@ -160,7 +168,7 @@
 
     <!-- Breadcrumb Start -->
     <div class="container-fluid">
-        <div class="row px-xl-5">
+        <div class="row px-xl-5 mt-3">
             <div class="col-12">
                 <nav class="breadcrumb bg-light mb-30 backgroudColor6998AB" >
                     <a class="breadcrumb-item text-dark" href="#">Inicio</a>
@@ -176,7 +184,8 @@
     <!-- Shop Start -->
     <div class="container-fluid">
         <div class="row px-xl-5">
-            <!-- Shop Sidebar Start -->
+            {# FILTERS #}
+            {# <!-- Shop Sidebar Start -->
             <div class="col-lg-3 col-md-4">
                 <!-- Price Start -->
                 <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3 backgroudColor6998AB">Filter by price</span></h5>
@@ -292,20 +301,26 @@
                 </div>
                 <!-- Size End -->
             </div>
-            <!-- Shop Sidebar End -->
+            <!-- Shop Sidebar End --> #}
 
 
             <!-- Shop Product Start -->
-            <div class="col-lg-9 col-md-8">
+            <div class="col-lg-12 col-md-8">
                 <div class="row pb-3">
-                    <div class="col-12 pb-1">
-                        <div class="d-flex align-items-center justify-content-between mb-4">
+                    <div class="col-2 d-lg-block d-sm-none"></div>
+                    <div class="col-10 d-lg-block d-sm-none">
+                        <div name="filtersAndControls" class="d-flex align-items-center justify-content-between mb-4">
                             <div>
                                 <button class="btn btn-sm btn-light" name="actionGrid"><i class="fa fa-th-large"></i></button>
                                 <button class="btn btn-sm btn-light ml-2" name="actionColumn"><i class="fa fa-bars"></i></button>
                             </div>
                             <div class="ml-2">
                                 <div class="btn-group">
+                                    <select name="locality" id="filter_locality" class="btn btn-sm btn-light">
+                                        <option value="0">Selecciona una localidad</option>
+                                    </select>
+                                </div>
+                                {# <div class="btn-group">
                                     <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Sorting</button>
                                     <div class="dropdown-menu dropdown-menu-right">
                                         <a class="dropdown-item" href="#">Latest</a>
@@ -315,35 +330,24 @@
                                     <select name="locality" id="filter_locality">
                                         <option value="0">Selecciona una localidad</option>
                                     </select>
-                                </div>
-                                <div class="btn-group ml-2">
+                                </div> #}
+                                {# <div class="btn-group">
                                     <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Showing</button>
                                     <div class="dropdown-menu dropdown-menu-right">
                                         <a class="dropdown-item" href="#">10</a>
                                         <a class="dropdown-item" href="#">20</a>
                                         <a class="dropdown-item" href="#">30</a>
                                     </div>
-                                </div>
+                                </div> #}
                             </div>
                         </div>
                     </div>
-                                        {# <fieldset class="rating">
-                                            <input type="radio" id="tour_star5"     name="tour_rating" value="5" /><label class="full"      for="tour_star5"        title="Muy Excelente - 5 estrellas"></label>
-                                            <input type="radio" id="tour_star4half" name="tour_rating" value="4.5" /><label class="half"    for="tour_star4half"    title="Excelente - 5 estrellas"></label>
-                                            <input type="radio" id="tour_star4"     name="tour_rating" value="4" /><label class="full"      for="tour_star4"        title="Muy Bien - 4 estrellas"></label>
-                                            <input type="radio" id="tour_star3half" name="tour_rating" value="3.5" /><label class="half"    for="tour_star3half"    title="Bien - 3.5 estrellas"></label>
-                                            <input type="radio" id="tour_star3"     name="tour_rating" value="3" /><label class="full"      for="tour_star3"        title="Neutral - 3 estrellas"></label>
-                                            <input type="radio" id="tour_star2half" name="tour_rating" value="2.5" /><label class="half"    for="tour_star2half"    title="Regular - 2.5 estrellas"></label>
-                                            <input type="radio" id="tour_star2"     name="tour_rating" value="2" /><label class="full"      for="tour_star2"        title="Muy Mal - 2 estrellas"></label>
-                                            <input type="radio" id="tour_star1half" name="tour_rating" value="1.5" /><label class="half"    for="tour_star1half"    title="Muy Mal - 1.5 estrellas"></label>
-                                            <input type="radio" id="tour_star1"     name="tour_rating" value="1" /><label class="full"      for="tour_star1"        title="Horrible - 1 estrella"></label>
-                                            <input type="radio" id="tour_starhalf"  name="tour_rating" value="0.5" /><label class="half"    for="tour_starhalf"     title="Pérdida de tiempo - 0.5 estrella"></label>
-                                        </fieldset> #}
                     <!-- Routes routes ROUTES -->
                     {% for route in routes %}
                         <div class="col-lg-4 col-md-6 col-sm-6 pb-1 route">
                             <div class="product-item bg-light mb-4">
-                                <div class="product-img position-relative overflow-hidden d-flex align-items-lg-center" style="max-height: 16em;">
+                                {# First model of img hover #}
+                                {# <div class="product-img position-relative overflow-hidden d-flex align-items-lg-center" style="max-height: 16em;">
                                     <img class="img-fluid w-100" src="{{ route.photo }}" alt="imágen de ruta">
                                     <div class="product-action">
                                         <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
@@ -351,8 +355,18 @@
                                         <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                                         <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
                                     </div>
+                                </div> #}
+                                <div class="product-img position-relative overflow-hidden d-flex align-items-lg-center" style="max-height: 16em;">
+                                    <img class="img-fluid w-100" src="{{ route.photo }}" alt="imágen de ruta">
+                                    <div class="product-action">
+                                        <a href="/reserve/{{ route.id }}" style="width: 40%;display: flex;flex-wrap: nowrap;align-items: baseline;padding: .6em 0;" class="btn btn-outline-dark btn-square">
+                                            <i class="fa-solid fa-angles-up"></i>
+                                            <p style="margin: 0 1em;">RESERVAR</p>
+                                            <i class="fa-solid fa-angles-up"></i>
+                                        </a>
+                                    </div>
                                 </div>
-                                <div class="text-center py-4">
+                                <div class="text-center py-4">{# ms-4"> #}
                                 
                                     <!-- User autenticated -->
                                     {% if is_granted('ROLE_CLIENT') %}
@@ -365,12 +379,6 @@
                                     </div> #}
 
                                     {# RATINGS #}
-                                        {# <small class="fa-solid fa-star text-primary mr-1"></small>
-                                        <small class="fa-regular fa-star text-primary mr-1"></small>
-                                        <small class="fa-solid fa-star-half text-primary mr-1"></small>
-                                        <small class="fa-regular fa-star-half-stroke mr-1"></small>
-                                        <small class="fa-regular fa-star text-primary mr-1"></small>
-                                        <small>(99)</small> #}
                                     {% if route.getAverageRating() != null %}
                                         {% set average_rating = route.getAverageRating() %}
                                         {% set count_rating = route.getCountRating() %}
@@ -396,8 +404,8 @@
                                             <small>({{ count_rating }}) </small>
                                         </div>
                                     {% else %}
-                                        <div class="d-flex align-items-center justify-content-center mb-1">
-                                            <p>No hay valoraciones</p>
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <p style="margin: 0 !important;">No hay valoraciones</p>
                                         </div>
                                     {% endif %}
 
@@ -753,5 +761,5 @@
 
 
     <!-- Back to Top -->
-    <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+    <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up" style="color: yellow;"></i></a>
 {% endblock %}

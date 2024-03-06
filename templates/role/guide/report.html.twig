@@ -26,31 +26,60 @@
         <form action="/api/report/insert" method="post" enctype="multipart/form-data">
             <input type="hidden" name="tour_id" value="{{ tour_id }}">
 
-            <label for="image">Imagen grupal:</label>
-            <input type="file" name="image" id="image"><br>
-
-            <label for="observation">Observaciones:</label>
-            <textarea name="observation" id="observation"></textarea><br>
-
-            <label for="money">Dinero recaudado:</label>
-            <input type="text" name="money" id="money"><span>€</span><br>
-
-            {# <label for="tour">Tour:</label>
-            <select name="tour" id="tour">
-                <option value="0">Selecciona un tour . . .</option>
-                {% for tour in tours %}
-                    <option value="{{tour.id}}">{{ tour.route.name }} a las {{tour.getDatetimeFormated}}</option>
-                {% endfor %}
-            </select><br> #}
-            <div name="assistants" id="reservations">
-                {% for reservation in reservations %}
-                    <div class="reservation" data-id="{{ reservation.id }}">
-                        <img src="/uploads/images/{{ reservation.client.photo }}" alt="client photo for reservation: {{ reservation.id }}">
-                        <p>{{ reservation.client.fullname }}</p>
-                        <p>{{ reservation.getNumberTickets }}</p>
-                        <input type="number" name="assistants[{{ reservation.id }}]" value="0">
+            <div class="row mx-lg-5 px-lg-4 mx-sm-0 px-sm-1">
+                <div class="col-6">
+                    <div class="row">
+                        <label for="image">Imagen grupal:</label>
                     </div>
-                {% endfor %}
+                    <div class="row">
+                        <input type="file" name="image" id="image">
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="row">
+                    <label for="money">Dinero recaudado:</label>
+                    </div>
+                    <div class="row">
+                        <div class="col-10 d-flex justify-content-center">
+                            <input type="text" name="money" id="money"><span style="font-size: 2em;">€</span>
+                        </div>
+                        {# <div class="col-1">
+                            <span>€</span>
+                        </div> #}
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <label for="observation">Observaciones:</label>
+                    <textarea name="observation" id="observation"></textarea><br>
+                </div>
+
+                {# <label for="tour">Tour:</label>
+                <select name="tour" id="tour">
+                    <option value="0">Selecciona un tour . . .</option>
+                    {% for tour in tours %}
+                        <option value="{{tour.id}}">{{ tour.route.name }} a las {{tour.getDatetimeFormated}}</option>
+                    {% endfor %}
+                </select><br> #}
+                <div class="col-12">
+                    <div class="row gap-2" name="assistants" id="reservations">
+                        {% for reservation in reservations %}
+                            <div class="reservation col-lg-3 col-sm-5" data-id="{{ reservation.id }}">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <img src="/uploads/images/{{ reservation.client.photo }}" alt="client photo for reservation: {{ reservation.id }}">
+                                        <p>{{ reservation.client.fullname }}</p>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <p>{{ reservation.getNumberTickets }}</p>
+                                        <input type="number" name="assistants[{{ reservation.id }}]" value="{{ reservation.getNumberTickets() }}">
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
 
             <input type="submit" value="Enviar">

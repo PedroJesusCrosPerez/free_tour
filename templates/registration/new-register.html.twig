@@ -18,30 +18,51 @@
 
     <link rel="stylesheet" href="{{ asset('css/loginStyle.css') }}">
     <link rel="stylesheet" href="{{ asset('css/util.css') }}">
+    <style>
+        nav {
+            position: relative !important;
+        }
+    </style>
 {% endblock %}
 
-{% block title %}Iniciar sesión{% endblock %}
+{% block title %}Crear cuenta{% endblock %}
 
 {% block main %}
 
     <div class="limiter">
         <div class="container-login100">
             <div class="wrap-login100">
-                <div class="login100-pic js-tilt" data-tilt>
+                <div class="login100-pic js-tilt" data-tilt style="display: flex; align-items: center;">
                     <label for="file-upload" class="custom-file-upload">
-                        <img id="preview" src="{{ asset('login-src/images/img-01.png') }}" alt="IMG">
+                        <img id="preview" src="{{ asset('login-src/images/img-02.png') }}" alt="IMG" style="margin-bottom: 5em; border-radius: 100px;">
                     </label>
                     <input id="file-upload" type="file">
                 </div>
 
                 <form class="login100-form validate-form" method="post" action="{{ path('action-login') }}">
                     <span class="login100-form-title">
-                        Iniciar sesión
+                        Crear cuenta
                     </span>
 
                     <label for="file-upload" class="custom-file-upload" id="imgmobile">
-                        <img id="preview" src="{{ asset('login-src/images/img-01.png') }}" alt="IMG">
+                        <img id="preview" src="{{ asset('login-src/images/img-02.png') }}" alt="IMG">
                     </label>
+
+                    <div class="wrap-input100 validate-input" data-validate = "Debes introducir un email válido: tunombre@ejemplo.es">
+                        <input class="input100" type="text" id="username" name="_username" placeholder="Nombre">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa-solid fa-font" aria-hidden="true"></i>
+                        </span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate = "Debes introducir un email válido: tunombre@ejemplo.es">
+                        <input class="input100" type="text" id="username" name="_username" placeholder="Apellidos">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa-solid fa-bold" aria-hidden="true"></i>
+                        </span>
+                    </div>
 
                     <div class="wrap-input100 validate-input" data-validate = "Debes introducir un email válido: tunombre@ejemplo.es">
                         <input class="input100" type="text" id="username" name="_username" placeholder="Email">
@@ -58,12 +79,31 @@
                             <i class="fa fa-lock" aria-hidden="true"></i>
                         </span>
                     </div>
-    {% if error %}
-        <div style="text-align: center; color: red; font-weight: bold;">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+
+                    <div class="wrap-input100 validate-input" data-validate = "Este campo es obligatorio">
+                        <input class="input100" type="password" id="password" name="_password" placeholder="Repetir contraseña">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-lock" aria-hidden="true"></i>
+                        </span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate = "Debes introducir un email válido: tunombre@ejemplo.es">
+                        <label>Aceptar términos</label>
+                        <input class="input25" type="checkbox" id="username" name="_username" placeholder="Email">
+                        {# <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                        </span> #}
+                    </div>
+                    
+                    {# Error #}
+                    <div style="visibility: hidden; text-align: center; color: red; font-weight: bold;">
+                        Las credenciales no son válidas.
+                    </div>
                     
                     <div class="container-login100-form-btn">
-                        <button type="submit" class="login100-form-btn btn btn-primary">Acceder</button>
+                        <button type="submit" class="login100-form-btn btn btn-primary">Crear</button>
                     </div>
 
                     {# Forgot password | olvidé contraseña #}

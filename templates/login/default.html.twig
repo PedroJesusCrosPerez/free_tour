@@ -1,6 +1,8 @@
 {# templates/security/login.html.twig #}
 {% extends 'views/main.html.twig' %}
 
+{% block title %}Iniciar sesión{% endblock %}
+
 {% block main %}
     {% if error %}
         <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
