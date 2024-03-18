@@ -56,6 +56,15 @@ class ReservationApi extends AbstractController
         return new JsonResponse(['tours' => $tours], JsonResponse::HTTP_CREATED);
     }
 
+    #[Route("/reservationGraphApi", name: "reservationGraphApi", methods: ["GET"])]
+    public function reservationGraph(): Response
+    {
+        $data = $this->reservationRepository->getReservationGraph();
+        
+        // Devolver una respuesta adecuada
+        return new JsonResponse(['data' => $data], JsonResponse::HTTP_CREATED);
+    }
+
     
 
 /*

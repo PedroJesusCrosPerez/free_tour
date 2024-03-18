@@ -5,6 +5,7 @@ namespace App\Controller\Api;
 
 use App\Entity\Item;
 use App\Entity\User;
+use App\Repository\ReservationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -13,6 +14,23 @@ use Symfony\Component\Routing\Annotation\Route;
 
 #[Route("/api/upload", name: "upload-")]
 class UploadApi extends AbstractController {
+
+    #[Route("/mipruebagrafico", name: "mipruebagrafico", methods: ["GET"])]
+    public function reservationGraph(ReservationRepository $reservationRepository): Response
+    {
+        // Definir los datos
+        $data = [
+            ["label" => "2024-02-22", "y" => 3],
+            ["label" => "2024-03-03", "y" => 2],
+            ["label" => "2024-04-12", "y" => 2],
+            ["label" => "2024-03-05", "y" => 2],
+            ["label" => "2024-03-07", "y" => 3],
+            ["label" => "2024-03-09", "y" => 1]
+        ];
+        
+        // Devolver los datos como JSON
+        return new JsonResponse($data, JsonResponse::HTTP_CREATED);
+    }
     
     #[Route("/create-route", name: "create-route", methods: ["GET"])]
     public function uploadCreateRoute(EntityManagerInterface $entityManager): JsonResponse {

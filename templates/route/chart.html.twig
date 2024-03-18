@@ -1,0 +1,73 @@
+{# templates/route/manage-tours.html.twig #}
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block title %}Gráfico{% endblock %}
+
+{% block content_title %}Gráfico de reservas{% endblock %}
+
+
+
+{% block main %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráfico de reservas por día</title>
+    <!-- Incluyendo jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Incluyendo CanvasJS -->
+    <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+</head>
+<body>
+    <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+
+    <script>
+        $(function() {
+            // Datos de las reservas por día
+            $.ajax({
+                type: 'GET',
+                url: "http://localhost:8000/api/upload/mipruebagrafico",
+                contentType: 'application/json',
+                success: function (data) {
+                    console.log(data)
+
+                    // Configuración del gráfico
+                    var options = {
+                        title: {
+                            text: "Reservas por día",
+                            fontColor: "#333" // Color de la fuente del título
+                        },
+                        data: [{
+                            type: "spline", // Cambiando a un gráfico de líneas suavizadas
+                            dataPoints: data,
+                            color: "#2196F3" // Cambiando el color de la línea
+                        }],
+                        axisX: {
+                            title: "Fechas",
+                            titleFontColor: "#333", // Color de la fuente del eje X
+                            labelFontColor: "#333" // Color de las etiquetas del eje X
+                        },
+                        axisY: {
+                            title: "Cantidad de reservas",
+                            titleFontColor: "#333", // Color de la fuente del eje Y
+                            labelFontColor: "#333" // Color de las etiquetas del eje Y
+                        }
+                    };
+
+                    // Creando el gráfico
+                    $("#chartContainer").CanvasJSChart(options);
+                },
+                error: function (error) {
+                    console.error('Error:', error);
+                    console.log('Error:', error.responseText);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+{% endblock %}

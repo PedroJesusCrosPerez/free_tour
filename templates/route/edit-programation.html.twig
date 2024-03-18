@@ -1,0 +1,183 @@
+{# templates/route/create.html.twig #}
+{% extends '@EasyAdmin/page/content.html.twig' %}
+{# {% extends 'views/main.html.twig' %} #}
+
+{% block title %}Editar programación de ruta{% endblock %}
+
+{% block content_title %}{{ route.name }}{% endblock %}
+
+{% block headsrcplugins %}
+    {# DEPENDENCES - jquery #}
+    <script src="{{ asset('jquery/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ asset('jquery/jquery-ui-1.13.2/jquery-ui.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('jquery/jquery-ui-1.13.2/jquery-ui.min.css') }}">
+
+    <script>
+        $(function() {
+            var btnSave = $("<button>");
+            btnSave.html("Guardar");
+            btnSave.addClass("action-saveAndReturn btn btn-primary action-save");
+            btnSave.attr("type", "submit");
+            btnSave.attr("id", "btnSave");
+            $("section.content-header").append(btnSave);
+        });
+    </script>
+
+
+    <script src="{{ asset('js/_upload-data-create-route.js') }}"></script>
+    {# <script src="{{ asset('js/_add-create-route.js') }}"></script> #}
+    <script src="{{ asset('js/_add-edit-route.js') }}"></script>
+    <!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+    <!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>> PLUGINS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+    <!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+    <!-- Date range -->
+    {% include 'plugins/date-range.html.twig' %}
+    <!-- Time picker -->
+    {% include 'plugins/timepicker.html.twig' %}
+    <!-- <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< -->
+    <!-- <<<<<<<<<<<<<<<<<<<<<<<<<<<<<< PLUGINS <<<<<<<<<<<<<<<<<<<<<<<<<<<<<< -->
+    <!-- <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< -->
+
+
+    {# styles #}
+    <link rel="stylesheet" href="{{ asset('css/create-route.css') }}">
+
+
+    <!-- #################################################################### -->
+    <!-- ####################### RECOGIDA DE DATOS ########################## -->
+    <!-- #################################################################### -->
+    <script src="{{ asset('js/_functions-edit-programation-route_tour.js') }}"></script>
+    <script src="{{ asset('js/edit-programation-route.js') }}"></script>
+    <script src="{{ asset('js/edit-route.js') }}"></script>
+
+    <!-- ########################### VALIDATOR ############################## -->
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="{{ asset('js/validator-create-route.js') }}"></script>
+    <script src="{{ asset('js/_validate-create-route.js') }}"></script>
+{% endblock %}
+
+
+{% block main %}
+    <!-- ##################################################################################### -->
+    <!-- ##################################################################################### -->
+    <!-- ################################## FORMULARIO ####################################### -->
+    <!-- ##################################################################################### -->
+    <!-- ##################################################################################### -->
+    <form action="#" method="post" id="create-route">
+        <input type="hidden" name="id" id="id" value="{{ id }}">
+        <button class="btn btn-secondary" id="btnSaveAndTours" type="submit">Guardar y generar tours</button>
+
+
+        <fieldset name="programation">
+            <input name="period" type="text" class="daterange" id="period">
+
+            <section name="programation-configure">
+                <!-- Date range picker -->
+                <label for="period">Período: </label>
+                <input name="period" type="text" class="daterange" id="period">
+                <label id="period-error" class="input-error" for="period">Por favor introduce un rango de fechas dentro del rango de la ruta</label>
+
+                <!-- Time picker -->
+                <label for="time"><i class="fa-regular fa-clock"></i> Hora de inicio: </label>
+                <input type="text" name="timepicker" id="time">
+                
+                <label id="time-error" class="input-error" for="time">Por favor introduce una hora</label>
+
+                <!-- Buttons actions -->
+                <button type="button" id="add">Añadir</button>
+
+                <!-- Select frecuency -->
+                <div style="display:none;">
+                    <label for="frecuency">Patrón: </label>
+                    <label for="frecuency">Todos los días</label>
+                    <input type="radio" name="frecuency" value="everyday">
+                    <label for="frecuency">Fines de semana (S&D)</label>
+                    <input type="radio" name="frecuency" value="weekend">
+                    <label for="frecuency">Personalizado</label>
+                    <input type="radio" name="frecuency" value="personalized">
+                </div>
+
+                <!-- Select pattern -->
+                <label for="daysOfWeek">Selecciona un patrón de días: </label>
+                <div name="container-daysOfWeek">
+                    <div class="dayOfWeek" name="pattern" data-id="1">Lunes</div>
+                    <div class="dayOfWeek" name="pattern" data-id="2">Martes</div>
+                    <div class="dayOfWeek" name="pattern" data-id="3">Miércoles</div>
+                    <div class="dayOfWeek" name="pattern" data-id="4">Jueves</div>
+                    <div class="dayOfWeek" name="pattern" data-id="5">Viernes</div>
+                    <div class="dayOfWeek" name="pattern" data-id="6">Sábado</div>
+                    <div class="dayOfWeek" name="pattern" data-id="7">Domingo</div>
+                </div>
+                <label id="pattern-error" class="input-error" for="pattern">Por favor selecciona dias de la semana</label>
+
+            </section>
+
+            <section name="programation-select-guide">
+                <!-- Select Guides -->
+                <div name="select-guide" id="selectable-guide">
+                    <h2>Selecciona un guía</h2>
+                    <label id="slctguide-error" class="input-error" for="pattern">Por favor selecciona un guía</label>
+                    <ul id="guide-list">
+                            {# <li class="ui-state-default" data-id="{{ guide.id }}">{{ guide.name }}</li> #}
+                            {# {% include 'route/guide-example.html.twig' %} #}
+                        {# {% for guide in guides %}
+                            <li data-id="{{ guide.id }}" class="guide">
+                                <img src="{{ asset('uploads/images/') }}{{ guide.photo }}">
+                                <p>{{ guide.fullname }}</p>
+                            </li>
+                        {% endfor %} #}
+                    </ul>
+                </div>
+                
+                <!-- Submit -->
+                <!--
+                <button type="button" name="create" id="create">Crear</button>
+                <button type="button" name="create_generate" id="create_generate">Crear y generar tours</button>
+                <input type="submit" name="save" value="Generar tours" disabled>
+                <button type="button" name="generate" id="generate" disabled>Generar</button>
+                <button type="button" name="cancel" id="cancel" disabled>Cancelar</button>
+                <button type="button" name="printdata" id="printdata">printdata</button>
+                <button type="button" name="testtour" id="testtour">Testing generate tour</button>
+                <button type="button" name="testryt" id="testryt">Testing create route and generate tour</button>
+                -->
+            </section>
+
+            <section name="programation-table">
+                <!-- Table -->
+                <div class="table-responsive">
+                    <table name="programation" class="table table-striped table-hover table-borderless table-primary align-middle">
+                        <thead>
+                            {# <caption>Programaciones</caption> #}
+                            <tr>
+                                <th>Período</th>
+                                <th>Hora inicio</th>
+                                <th>Patrón</th>
+                                <th>Guía</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-group-divider">
+                                {% for programation in programations %}
+                            {% if programation is not null and programation is not empty %}
+                                    <tr data-id="0">
+                                        <td>{{ programation.date_start }} - {{ programation.date_end }}</td>
+                                        <td>{{ programation.time_start }}</td>
+                                        <td>{{ programation.patternf|join(', ') }}</td>
+                                        <td>{{ programation.guide.name }}</td>
+                                        <td><button type="button" class="btn btn-primary btn-sm" onclick="editProgramation(this)">Editar</button> <button type="button" class="btn btn-danger btn-sm" onclick="deleteProgramation(this)">Eliminar</button></td>
+                                        </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="5">No hay programaciones disponibles</td>
+                                </tr>
+                            {% endif %}
+                                {% endfor %}
+                        </tbody>
+                        <tfoot></tfoot>
+                    </table>
+                </div>
+                
+            </section>
+        </fieldset>
+
+    </form>
+{% endblock %}

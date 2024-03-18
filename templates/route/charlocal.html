@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráfico de reservas por día</title>
+    <!-- Incluyendo jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Incluyendo CanvasJS -->
+    <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+</head>
+<body>
+    <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+
+    <script>
+        $(document).ready(function(){
+            // Datos de las reservas por día
+            var dataPoints = [
+                { label: "2024-02-22", y: 3 },
+                { label: "2024-03-03", y: 2 },
+                { label: "2024-04-12", y: 2 },
+                { label: "2024-03-05", y: 2 },
+                { label: "2024-03-07", y: 3 },
+                { label: "2024-03-09", y: 1 }
+            ];
+
+            // Configuración del gráfico
+            var options = {
+                title: {
+                    text: "Reservas por día"
+                },
+                data: [{
+                    type: "column",
+                    dataPoints: dataPoints
+                }]
+            };
+
+            // Creando el gráfico
+            $("#chartContainer").CanvasJSChart(options);
+        });
+    </script>
+</body>
+</html>

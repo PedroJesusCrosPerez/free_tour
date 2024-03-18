@@ -82,11 +82,18 @@ class RouteCrudController extends AbstractCrudController
     }
 
 
-    public function editRedirect(AdminContext $context){
+    public function editRedirect(AdminContext $context) {
         $entityInstance = $context->getEntity()->getInstance();
         $id= $entityInstance->getId();
         
         return $this->redirectToRoute('edit-route',['id' => $id]);
+    }
+
+    public function editProgramationRedirect(AdminContext $context){
+        $entityInstance = $context->getEntity()->getInstance();
+        $id= $entityInstance->getId();
+        
+        return $this->redirectToRoute('edit-programation',['id' => $id]);
     }
 
     public function configureActions(Actions $actions): Actions
@@ -128,6 +135,12 @@ class RouteCrudController extends AbstractCrudController
                     ->setLabel("Detallar")// Label personalizado
                 ;
             })
+            ->add(Crud::PAGE_INDEX, Action::new('edit_programation')
+                ->setIcon('fa fa-star') // Icono personalizado para la acción
+                ->setLabel('Editar programación') // Etiqueta personalizada para la acción
+                // ->linkToRoute('edit-programation') // Ruta personalizada para la acción
+                ->linkToCrudAction('editProgramationRedirect') //Redirijir Action::EDIT a formulario personalizado en plantilla twig
+            )
         ;
     }
 

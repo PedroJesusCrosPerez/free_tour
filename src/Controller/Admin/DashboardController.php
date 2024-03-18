@@ -12,6 +12,7 @@ use App\Entity\Route as EntityRoute;
 use App\Entity\Tour;
 use App\Entity\User;
 use App\Repository\ItemRepository;
+use App\Repository\ReservationRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 // use App\Entity\Route;
@@ -99,13 +100,19 @@ class DashboardController extends AbstractDashboardController
     {
         $items = $itemRepository->findAll();
         $guides = $userRepository->findByRoles(array('ROLE_GUIDE'));
-    
+        
 
         // return $this->render('route/create.html.twig', [
         //     'items' => $items,
         //     'guides' => $guides,
         // ]);
         return $this->render('route/manage-tours.html.twig');
+    }
+
+    #[Route("/getReservationGraph", name: "adminGraph-reservation", methods: ["GET"])]
+    public function getReservationGraph(Request $request, ReservationRepository $reservationRepository): Response
+    {
+        return $this->render('route/chart.html.twig');
     }
 
     #[Route('/edit-route', name: 'edit-route')]
@@ -123,6 +130,21 @@ class DashboardController extends AbstractDashboardController
         ]);
     }
 
+    #[Route('/edit-programation', name: 'edit-programation')]
+    public function editarProgramationRuta(EntityManagerInterface $entityManager, Request $request, UserRepository $userRepository/*, $id*/): Response
+    {
+        $id = $request->query->get('id');
+        $route = $entityManager->getRepository(EntityRoute::class)->find($id);
+        // dd(json_decode($route->getProgramation()));
+        return $this->render('route/edit-programation.html.twig', [
+            'id' => $id,
+            'route' => $route,
+            'programations' => json_decode($route->getProgramation()),
+            'localities' => $entityManager->getRepository(Locality::class)->findAll(),
+            'guides' => $entityManager->getRepository(User::class)->findByRoles(['ROLE_GUIDE'])
+        ]);
+    }
+
     public function configureMenuItems(): iterable
     {
 
@@ -131,6 +153,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Rutas', 'fas fa-route', Entity\Route::class);
         yield MenuItem::linkToCrud('Planificación', 'fas fa-compass', Tour::class);
         yield MenuItem::linkToUrl('Calendario', 'fa-regular fa-calendar-days', $this->generateUrl('manage-tours'));
+        yield MenuItem::linkToUrl('Gráfico', 'fa-solid fa-chart-line', $this->generateUrl('adminGraph-reservation'));
 
         // Entities
         yield MenuItem::section('Tours');

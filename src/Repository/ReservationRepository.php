@@ -53,6 +53,21 @@ class ReservationRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+    /**
+     * Obtiene datos para representar un gráfico de reservas por día.
+     * @param int $client_id
+     * @return array
+     */
+    public function getReservationGraph(): array
+    {
+        return $this->createQueryBuilder('r')
+            ->select('DATE(r.datetime) as date, COUNT(r.id) as total_reservations')
+            ->groupBy('date')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
     
     
 

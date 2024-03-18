@@ -1,0 +1,30 @@
+{# templates/route/manage-tours.html.twig #}
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block title %}Gráfico{% endblock %}
+
+{% block content_title %}Gráfico de reservas{% endblock %}
+
+{% block headsrcplugins %}
+    {# DEPENDENCES - jquery #}
+    <script src="{{ asset('jquery/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ asset('jquery/jquery-ui-1.13.2/jquery-ui.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('jquery/jquery-ui-1.13.2/jquery-ui.min.css') }}">
+
+    {# DEPENDENCES - canvas chart #}
+<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+    {# {% include 'plugins/canvas_chart.html.twig' %} #}
+    <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+
+
+    {# my scripts #}
+    <script src="{{ asset('js/admin_chart.js') }}"></script>
+
+{% endblock %}
+
+
+{% block main %}
+
+    <canvas id="chartContainer" width="400" height="400"></canvas>
+
+{% endblock %}

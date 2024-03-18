@@ -42,16 +42,18 @@ class ReportController extends AbstractController
         $tour = $this->entityManagerInterface->getRepository(Tour::class)->find($tour_id);
         // dd($tours, $tours[0]);
         $reservations = $tour->getReservations();
+        $maxCapacity = $reservations[0]->getTour()->getRoute()->getCapacity();
 
         return $this->render('role/guide/report.html.twig', [
             'reservations' => $reservations,
             // 'tour' => $tour,
             'tour_id' => $tour_id,
+            'maxCapacity' => $maxCapacity,
         ]);
     }
     
     
-    #[Route('/do/responsive', name: 'do', methods: ['GET'])]
+    #[Route('/do/responsive', name: 'do-responsive', methods: ['GET'])]
     public function doResponsive(): Response
     {
         $tour = $this->entityManagerInterface->getRepository(Tour::class)->find(30);

@@ -64,6 +64,7 @@
                 </select><br> #}
                 <div class="col-12">
                     <div class="row gap-2" name="assistants" id="reservations">
+                    Capacidad máxima: {{ maxCapacity }}
                         {% for reservation in reservations %}
                             <div class="reservation col-lg-3 col-sm-5" data-id="{{ reservation.id }}">
                                 <div class="row">
@@ -73,7 +74,7 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <p>{{ reservation.getNumberTickets }}</p>
-                                        <input type="number" name="assistants[{{ reservation.id }}]" value="{{ reservation.getNumberTickets() }}">
+                                        <input type="number" name="assistants[{{ reservation.id }}]" value="{{ reservation.getNumberTickets() }}" max="{{ reservation.tour.route.capacity }}">
                                     </div>
                                 </div>
                             </div>

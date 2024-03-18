@@ -119,6 +119,9 @@ function printTakeFormData() {
 
 
 function createRoute() {
+    // if (checkInformation() && checkItems() && checkProgramation()) {
+        
+    
     // Url to send the form data to API server
     const url = '/api/route/insert';
 
@@ -143,6 +146,12 @@ function createRoute() {
             console.log('Error:', error.responseText);
         }
     });
+
+
+
+// } else {
+        
+// }
 
 }
 
